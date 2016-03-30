@@ -16,23 +16,27 @@ public class QuestionBankController extends BaseController{
 
 	private static final Logger logger = LoggerFactory.getLogger(QuestionBankController.class);
 
+	//添加题目
 	@RequestMapping("/add.action")
 	public void add(Tquestion tq,HttpServletResponse response){
 		
 		Json json = new Json();
 		try {
 			logger.info("add");
+			//预留保存题目到数据库
 			json.setSuccess(true);
 			json.setMsg("添加成功！");
 			json.setObj(tq);
 
 		} catch (Exception e) {
-			json.setMsg(e.getMessage());
+			json.setMsg(e.getMessage());  //将保存的数据返回页面进行回显
 		}
 
 		super.writeJson(json, response);
 		System.out.println("add");
 	}
+	
+	
 	
 	
 }
