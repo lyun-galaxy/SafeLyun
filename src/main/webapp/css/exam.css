@@ -1,0 +1,43 @@
+.data_list{
+	margin-top: 10px;
+}
+
+.data_list .data_content{
+	margin-top: 15px;
+}
+
+.data_list .data_exam_content{
+	margin-top: 15px;
+	padding-left: 30px;
+	
+	
+}
+
+.data_list .data_info .examTitle{
+	font-size: 30px;
+	font-weight: bold;
+	text-align: center;
+	padding-top: 30px;
+}
+
+.data_list .data_info .examScoreInfo{
+	padding:10px;
+	font-weight: bold;
+	text-align: right;
+}
+
+.examResult{
+	font-size: 20px;
+	padding: 120px;
+}
+
+.data_list .data_info p{
+	text-align: center;
+	font-size: 20px;
+	font-weight: bold;
+	padding-bottom: 10px;
+}
+.data_list .search_content form{
+	text-align:center;
+	margin: 0px;
+}
