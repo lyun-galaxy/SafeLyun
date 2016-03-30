@@ -12,6 +12,6 @@
 hs_err_pid*
 /target/
 
-# é…ç½®æ–‡ä»¶
-.classpath
-.settings/
+# ÅäÖÃÎÄ¼ş
+/.classpath
+/.settings/
