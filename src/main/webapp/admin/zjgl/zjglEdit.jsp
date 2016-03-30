@@ -4,6 +4,7 @@
 	<table>
 		<tr>
 			<input name="id" hidden="true" />
+			<input name="status" hidden="true" />
 			<th>章节名称</th>
 			<td><input name="name" class="easyui-validatebox" data-options="required:true" /></td>
 		</tr>
