@@ -1,0 +1,29 @@
+[{
+    "text":"首页",
+    "children":[
+    {
+        "text":"学生信息",
+        "attributes":{
+            "url":"admin/xsgl/xsgl.jsp"
+        }
+    },
+    {
+        "text":"章节管理",
+        "attributes":{
+            "url":"admin/zjgl/zjgl.jsp"
+        }
+    },
+    {
+        "text":"题库管理",
+        "attributes":{
+            "url":"admin/tkgl/tkgl.jsp"
+        }
+        
+    },{
+        "text":"报表查看",
+         "attributes":{
+            "url":"admin/bbgl/bbgl.jsp"
+        }
+    }
+    ]
+}]
