@@ -2,7 +2,8 @@ package com.paly.controller;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -13,7 +14,7 @@ import com.paly.domain.Tquestion;
 @Controller
 public class QuestionBankController extends BaseController{
 
-	private static final Logger logger = Logger.getLogger(QuestionBankController.class);
+	private static final Logger logger = LoggerFactory.getLogger(QuestionBankController.class);
 
 	@RequestMapping("/add.action")
 	public void add(Tquestion tq,HttpServletResponse response){
