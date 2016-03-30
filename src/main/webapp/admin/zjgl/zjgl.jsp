@@ -2,8 +2,12 @@
 <body>
 	<script type="text/javascript">
 		$(function() {
+			zjInit();
+		});
+
+		function zjInit() {
 			$('#admin_zjgl_zjgl_datagrid').datagrid({
-				url : '${pageContext.request.contextPath}/chapterAction!datagrid.action',
+				url : '${pageContext.request.contextPath}/chapterAction!datagridAudit.action',
 				fit : true,
 				pagination : true,
 				idField : 'id',
@@ -23,7 +27,76 @@
 					title : '章节名称',
 					width : 150,
 					align : 'center',
-					sortable : true
+				}, {
+					field : 'status',
+					title : '状态',
+					width : 150,
+					align : 'center',
+					formatter : function(value, row, index) {
+						if (value == 1) {
+							return '已审核';
+						} else {
+							return '未审核';
+						}
+					},
+				} ] ],
+				toolbar : [ {
+					text : '删除',
+					iconCls : 'icon-remove',
+					handler : function() {
+						zjRemove();
+					}
+				}, '-', {
+					text : '修改',
+					iconCls : 'icon-edit',
+					handler : function() {
+						zjEditFun();
+					}
+				}, '-', {
+					text : '对该章节的小节管理',
+					iconCls : 'icon-edit',
+					handler : function() {
+						zjManager();
+					}
+				} ]
+			});
+
+		}
+
+		function zjUnAudit() {
+			$('#admin_zjgl_zjgl_datagrid').datagrid({
+				url : '${pageContext.request.contextPath}/chapterAction!datagridUnaudit.action',
+				fit : true,
+				pagination : true,
+				idField : 'id',
+				checkOnSelect : false,
+				selectOnCheck : false,
+				fitColumns : true,
+				rownumbers : true,
+				frozenColumns : [ [ {
+					field : 'id',
+					title : '编号',
+					width : 150,
+					align : 'center',
+					//hidden : true,
+					checkbox : true
+				}, {
+					field : 'name',
+					title : '章节名称',
+					width : 150,
+					align : 'center',
+				}, {
+					field : 'status',
+					title : '状态',
+					width : 150,
+					align : 'center',
+					formatter : function(value, row, index) {
+						if (value == 1) {
+							return '已审核';
+						} else {
+							return '未审核';
+						}
+					},
 				} ] ],
 				toolbar : [ {
 					text : '添加',
@@ -44,26 +117,75 @@
 						zjEditFun();
 					}
 				}, '-', {
-					text : '对该章节的小节管理',
+					text : '通过审核',
 					iconCls : 'icon-edit',
 					handler : function() {
-						zjManager();
+						zjPass();
+					}
+				}, '-', {
+					text : '返回',
+					iconCls : 'icon-back',
+					handler : function() {
+						zjInit();
 					}
 				} ]
 			});
-		});
+
+		}
 		
-		function zjManager(){
+		function zjPass(){
 			var rows = $('#admin_zjgl_zjgl_datagrid').datagrid('getChecked');
-			if(rows.length == 1) {
-				document.cookie='zjid='+rows[0].id;
-				var url='${pageContext.request.contextPath}/admin/xjgl/xjgl.jsp';
-				addTabs({title:'小节管理',href:url,closable:true});
-				
-			}else{
+			var ids = [];
+			if (rows.length > 0) {
+				$.messager.confirm('确认', '您是否要授权当前选中的选项？', function(r) {
+					if (r) {
+						for ( var i = 0; i < rows.length; i++) {
+							ids.push(rows[i].id);
+						}
+						$.ajax({
+							url : '${pageContext.request.contextPath}/chapterAction!audit.action',
+							data : {
+								ids : ids.join(',')
+							},
+							dataType : 'json',
+							success : function(d) {
+								var v = $('#admin_zjgl_zjgl_datagrid');
+								v.datagrid('reload');
+								v.datagrid('unselectAll');
+								v.datagrid('clearChecked');
+								$.messager.show({
+									title : '提示',
+									msg : d.msg
+								});
+							}
+						});
+
+					}
+				});
+
+			} else {
+				$.messager.show({
+					title : '提示',
+					msg : '请勾选要授权的选项！'
+				});
+			}
+		}
+
+		function zjManager() {
+			var rows = $('#admin_zjgl_zjgl_datagrid').datagrid('getChecked');
+			if (rows.length == 1) {
+				document.cookie = 'zjid=' + rows[0].id;
+				var url = '${pageContext.request.contextPath}/admin/xjgl/xjgl.jsp';
+				addTabs({
+					title : '小节管理',
+					href : url,
+					closable : true
+				});
+
+			} else {
 				$.messager.alert('提示', '请勾选一个要管理的章节！');
 			}
-		
+
 		}
 
 		function zjEditFun() {
@@ -100,9 +222,9 @@
 							});
 						}
 					} ],
-				 	onClose : function() {
+					onClose : function() {
 						$(this).dailog('destroy');
-					}, 
+					},
 					onLoad : function() {
 						$('#admin_zjgl_zjglEdit_editForm').form('load', rows[0]);
 					}
@@ -175,8 +297,10 @@
 	<div id="admin_zjgl_zjgl_layout" class="easyui-layout" data-options="fit:true,border:false">
 		<div data-options="region:'north',title:'查询条件',border:false" style="height: 100px;">
 			<form id="admin_zjgl_zjgl_searchForm">
-				检索用户名(可模糊查询):<input name="name" /> </a> <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="zjSearchFun()">查询</a> <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-back',plain:true" onclick="zjClearFun()">清空</a>
+				检索章节名称(可模糊查询):<input name="name" /> </a> <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="zjSearchFun()">查询</a> <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-back'" onclick="zjClearFun()">清空</a>
 			</form>
+			<br>
+			<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="zjUnAudit()">查看未审核</a>
 		</div>
 		<div data-options="region:'center',border:false">
 			<table id="admin_zjgl_zjgl_datagrid" data-options="border:false"></table>

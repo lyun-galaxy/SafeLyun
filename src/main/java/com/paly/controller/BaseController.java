@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.alibaba.fastjson.JSON;
 
 public class BaseController {
+	
+	//将json返回页面
 	public void writeJson(Object object,HttpServletResponse response) {	
 		try {
 			String json = JSON.toJSONStringWithDateFormat(object, "yyyy-MM-dd HH:mm:ss");
