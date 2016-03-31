@@ -10,6 +10,11 @@
     <result column="menuName" property="menuName" jdbcType="VARCHAR" />
     <result column="menuUrl" property="menuUrl" jdbcType="VARCHAR" />
   </resultMap>
+  <resultMap type="com.paly.domain.Menu" id="MenuResultMap" extends="BaseResultMap">
+  	<collection property="roles" ofType="Role" select="com.paly.mapper.RoleMapper.getRolesByMenuId" column="menuId">
+  	</collection>  	  	
+  </resultMap>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     <!--
       WARNING - @mbggenerated
@@ -54,5 +59,11 @@
     -->
     select menuId, menuName, menuUrl
     from menu
+  </select>
+
+  <!-- 获取某角色拥有的菜单列表 -->	
+  <select id="getMenusByRoleId" resultMap="BaseResultMap" parameterType="int">
+  	select m.* from menu m, role_menu rm
+  		where m.menuId=rm.menu_menuId and rm.role_roleId=#{roleId} 	
   </select>
 </mapper>

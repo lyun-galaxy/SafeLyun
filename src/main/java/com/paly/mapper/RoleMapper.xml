@@ -9,12 +9,6 @@
     <id column="roleId" property="roleId" jdbcType="INTEGER" />
     <result column="roleName" property="roleName" jdbcType="VARCHAR" />
   </resultMap>
-  <!-- 与User多对多 -->
-  <resultMap type="User" id="UserResultMap">
-    <id column="userId" property="userId" jdbcType="INTEGER" />
-    <result column="userName" property="userName" jdbcType="VARCHAR" />
-    <result column="userPassword" property="userPassword" jdbcType="VARCHAR" />
-  </resultMap>
   <resultMap type="Role" id="RoleResultMap" extends="BaseResultMap">
   	<collection property="users" ofType="User" select="com.paly.mapper.UserMapper.getUsersByRoleId" column="roleId">
   	</collection>  	
@@ -63,9 +57,22 @@
     from role
   </select>
 	
-	<!-- 查询某用户拥有的角色列表 -->
+  <!-- 获取某用户拥有的角色列表 -->
   <select id="getRolesByUserId" resultMap="BaseResultMap" parameterType="int">
   	select r.* from role r, user_role ur
   		where r.roleId=ur.role_roleId and ur.user_userId=#{userId}
   </select>
+  
+  <!-- 设置角色拥有哪个菜单 -->
+  <insert id="setRoleHasMenu">
+  	insert into role_menu (role_roleId, menu_menuId) 
+  		values (#{roleId,jdbcType=INTEGER},#{menuId,jdbcType=INTEGER})
+  </insert>
+  
+  <!-- 获取菜单属于哪些角色的角色列表 -->
+  <select id="getRolesByMenuId" resultMap="BaseResultMap" parameterType="int">
+  	select r.* from role r, role_menu rm
+  		where r.roleId=rm.role_roleId and rm.menu_menuId=#{menuId}
+  </select>
+   
 </mapper>

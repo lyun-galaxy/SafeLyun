@@ -20,15 +20,15 @@ public class Role implements Serializable {
     private String roleName;
     
     private List<User> users;
+    
+    private List<Menu> menus;
 
     public Role() {
 		super();
 	}
 
-	public Role(String roleName, List<User> users) {
-		super();
+	public Role(String roleName) {
 		this.roleName = roleName;
-		this.users = users;
 	}
 
 
@@ -87,5 +87,13 @@ public class Role implements Serializable {
 
 	public void setUsers(List<User> users) {
 		this.users = users;
+	}
+
+	public List<Menu> getMenus() {
+		return menus;
+	}
+
+	public void setMenus(List<Menu> menus) {
+		this.menus = menus;
 	}
 }

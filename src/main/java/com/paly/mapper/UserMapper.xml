@@ -10,11 +10,6 @@
     <result column="userName" property="userName" jdbcType="VARCHAR" />
     <result column="userPassword" property="userPassword" jdbcType="VARCHAR" />
   </resultMap>
-  <!-- 与Role多对多 -->
-  <resultMap type="com.paly.domain.Role" id="RoleResultMap">
-  	<id column="roleId" property="roleId" jdbcType="INTEGER" />
-    <result column="roleName" property="roleName" jdbcType="VARCHAR" />  
-  </resultMap>
   <resultMap type="User" id="UserRoleResultMap" extends="BaseResultMap">
     <!-- property: 指的是集合属性的值, ofType：指的是集合中元素的类型 -->
   	<collection property="roles" ofType="com.paly.domain.Role" select="com.paly.mapper.RoleMapper.getRolesByUserId" column="userId">  		
@@ -39,11 +34,7 @@
     values (#{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR}
       )
   </insert>
-    <!-- 设置用户的角色 -->
-  <insert id="setUserHasRole">
-  	insert into user_role (user_userId, role_roleId) 
-  		values (#{userId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER})
-  </insert>
+
   <update id="updateByPrimaryKey" parameterType="com.paly.domain.User" >
     <!--
       WARNING - @mbggenerated
@@ -68,7 +59,13 @@
     from user
   </select>
 
-  <!-- 查询角色下的所有用户列表 -->
+  <!-- 设置用户拥有的角色 -->
+  <insert id="setUserHasRole">
+  	insert into user_role (user_userId, role_roleId) 
+  		values (#{userId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER})
+  </insert>
+  
+  <!-- 获取角色下的所有用户列表 -->
   <select id="getUsersByRoleId" resultMap="BaseResultMap" parameterType="int">
   	select u.* from user u, user_role ur
   		where u.userId=ur.role_roleId and ur.role_roleId=#{roleId}

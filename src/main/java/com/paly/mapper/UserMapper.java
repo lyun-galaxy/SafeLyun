@@ -14,14 +14,14 @@ import com.paly.domain.User;
 public interface UserMapper extends BaseMapper<User> {
     
     /**
-     * 设置用户的角色
+     * 设置用户拥有哪个角色
      * @param userId 用户Id
-     * @param roleId 角色Id
+     * @param roleId 将要拥有的角色Id
      */
     void setUserHasRole(@Param("userId")int userId, @Param("roleId")int roleId);
     
     /**
-     * 查询角色下的所有用户列表
+     * 获取角色下的所有用户列表
      * @param roleId 角色Id
      * @return 返回角色下的所有用户列表
      */

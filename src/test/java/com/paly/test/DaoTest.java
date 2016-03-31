@@ -1,6 +1,5 @@
 package com.paly.test;
 
-import java.security.MessageDigest;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -8,9 +7,10 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.paly.domain.Menu;
 import com.paly.domain.Role;
 import com.paly.domain.User;
-import com.paly.mapper.BaseMapper;
+import com.paly.mapper.MenuMapper;
 import com.paly.mapper.RoleMapper;
 import com.paly.mapper.UserMapper;
 
@@ -51,15 +51,25 @@ public class DaoTest {
 	public void testRole() throws Exception {
 		SqlSession sqlSession = MyBatisDAOUtil.getSqlSessionFactory().openSession();
 		RoleMapper roleMapper = sqlSession.getMapper(RoleMapper.class);
-		Role r1 = new Role("超级管理员", null);
+		// c		
+		/*Role r1 = new Role("超级管理员", null);
 		Role r2 = new Role("管理员", null);
 		roleMapper.insert(r1);
 		roleMapper.insert(r2);
-		sqlSession.commit();
+		sqlSession.commit();*/
+		
+		// ru
+		Role r = roleMapper.selectByPrimaryKey(1);
+		String roleName = r.getRoleName();
+		log.debug("roleName:" + roleName);
+		r.setRoleName(roleName + "123");
+		roleMapper.updateByPrimaryKey(r);
+		log.debug("roleName after update:" + r.getRoleName());
 	}
 	
+	// 设置用户拥有的角色
 	@Test
-	public void testUserAndRole() throws Exception {
+	public void testSetUserAndRole() throws Exception {
 		SqlSession sqlSession = MyBatisDAOUtil.getSqlSessionFactory().openSession();
 		UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
 		RoleMapper roleMapper = sqlSession.getMapper(RoleMapper.class);
@@ -69,8 +79,9 @@ public class DaoTest {
 		sqlSession.commit();
 	}
 	
+	// 用户拥有角色
 	@Test
-	public void testQueryUserHasRole() throws Exception {
+	public void testQueryUserHasRoles() throws Exception {
 		SqlSession sqlSession = MyBatisDAOUtil.getSqlSessionFactory().openSession();
 		UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
 		RoleMapper roleMapper = sqlSession.getMapper(RoleMapper.class);
@@ -82,8 +93,9 @@ public class DaoTest {
 		}
 	}
 	
+	// 角色属于用户
 	@Test
-	public void testQueryRoleHasUser() throws Exception {
+	public void testQueryRoleToUsers() throws Exception {
 		SqlSession sqlSession = MyBatisDAOUtil.getSqlSessionFactory().openSession();
 		UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
 		RoleMapper roleMapper = sqlSession.getMapper(RoleMapper.class);
@@ -93,5 +105,55 @@ public class DaoTest {
 		for (User u : users) {
 			System.out.println(u.getUserName());			
 		}
+	}
+	
+	@Test
+	public void testMenu() throws Exception {
+		SqlSession sqlSession = MyBatisDAOUtil.getSqlSessionFactory().openSession();
+		MenuMapper menuMapper = sqlSession.getMapper(MenuMapper.class);
+		for (int i = 0; i < 3; i++) {
+			Menu m = new Menu("菜单"+i, "http://" + i);
+			menuMapper.insert(m);
+		}
+		sqlSession.commit();
+	}
+	
+	// 设置角色拥有的菜单
+	@Test
+	public void testSetRoleAndMenu() throws Exception {
+		SqlSession sqlSession = MyBatisDAOUtil.getSqlSessionFactory().openSession();
+		RoleMapper roleMapper = sqlSession.getMapper(RoleMapper.class);		
+		MenuMapper menuMapper = sqlSession.getMapper(MenuMapper.class);
+		Role r = roleMapper.selectByPrimaryKey(2);
+		Menu m = menuMapper.selectByPrimaryKey(3);
+		roleMapper.setRoleHasMenu(r.getRoleId(), m.getMenuId());
+		sqlSession.commit();
+	}
+	
+	// 角色拥有菜单
+	@Test
+	public void testQueryRoleHasMenus() throws Exception {
+		SqlSession sqlSession = MyBatisDAOUtil.getSqlSessionFactory().openSession();
+		MenuMapper menuMapper = sqlSession.getMapper(MenuMapper.class);
+		Role role = sqlSession.getMapper(RoleMapper.class).selectByPrimaryKey(1);
+		List<Menu> menus = menuMapper.getMenusByRoleId(role.getRoleId());
+		log.debug("menus:" + menus);
+		for (Menu menu : menus) {
+			log.debug("menu url:" + menu.getMenuUrl());
+		}
+	}
+	
+	// 菜单属于角色
+	@Test
+	public void testQueryMenuToRole() throws Exception {
+		SqlSession sqlSession = MyBatisDAOUtil.getSqlSessionFactory().openSession();
+		RoleMapper roleMapper = sqlSession.getMapper(RoleMapper.class);
+		Menu menu = sqlSession.getMapper(MenuMapper.class).selectByPrimaryKey(1);
+		List<Role> roles = roleMapper.getRolesByMenuId(menu.getMenuId());
+		log.debug("roles:" + roles);
+		for (Role role : roles) {
+			log.debug("role name:" + role.getRoleName());
+		}
+		
 	}
 }
