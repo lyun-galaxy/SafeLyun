@@ -5,6 +5,11 @@
 
 <body>
 	<script type="text/javascript">
+		$(function() {
+			setSwitch();
+ 
+		});
+
 		function xsImport() {
 
 			$('#admin_xsgl_xsgl_rollingDialog').dialog('open');
@@ -26,8 +31,43 @@
 					});
 				},
 				error : function(data, status, e) {
-					alert("服务中断或连接超时导致通信失败！");
-					alert(e);
+					$.messager.show({
+						title : '提示',
+						msg : '服务中断或连接超时导致通信失败！' + e,
+					});
+				}
+			});
+		}
+
+		function setSwitch() {
+
+			$.ajax({
+				url : '${pageContext.request.contextPath}/switchAction!getFlag.action',
+				dataType : 'json',
+				success : function(d) {
+					if (d.flag == 0) {
+						$('#xsSwitch').switchbutton({
+							checked : false
+						});
+					} else {
+						$('#xsSwitch').switchbutton({
+							checked : true
+						});
+					}
+
+				}
+			});
+		}
+
+		function xsChange() {
+			$.ajax({
+				url : '${pageContext.request.contextPath}/switchAction!changeFlag.action',
+				dataType : 'json',
+				success : function(d) {
+					$.messager.show({
+						title : '提示',
+						msg : d.msg,
+					});
 				}
 			});
 		}
@@ -37,6 +77,10 @@
 	<form id="admin_xsgl_xsgl_importForm" method="post">
 		Excel文件：<input type="file" id="uploadfile" name="file" style="width:300px" /><br /> <a id="btn" href="#" class="easyui-linkbutton" onclick="xsImport()" data-options="iconCls:'icon-add'">导入</a>
 	</form>
+	<br>
+	<br>
+	<br> 考试开关：
+	<input id="xsSwitch" class="easyui-switchbutton" data-options="onText:'NO',offText:'OFF',onChange:function(){xsChange();}">
 
 	<div id="admin_xsgl_xsgl_rollingDialog" class="easyui-dialog" data-options="closed:true,modal:true,title:'提示'" style="width: 300px;height: 70px;" align="center">
 		<img alt="上传中。。。" src="jslib/imgs/rolling.gif"><br> <a>上传中,请等候...</a>
