@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration 
+PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+ "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+
+<!--
+http://blog.csdn.net/isea533/article/details/42102297
+ http://mbg.cndocs.tk/configreference/xmlconfig.html
+	
+ -->
+<generatorConfiguration >
+	<classPathEntry location="/home/linyu/.m2/repository/mysql/mysql-connector-java/5.1.38/mysql-connector-java-5.1.38.jar" />
+    <context id="MysqlTables" targetRuntime="MyBatis3Simple" defaultModelType="conditional">
+    <property name="beginningDelimiter" value="`"/>
+	<property name="endingDelimiter" value="`"/>
+	<property name="autoDelimitKeywords" value="true"/><!-- 当表名或者字段名为SQL关键字的时候，可以设置该属性为true，MBG会自动给表名或字段名添加**分隔符** -->
+
+	<!-- 屏蔽注释信息 -->
+	<commentGenerator>
+		<property name="suppressAllComments" value="false"/>
+		<property name="suppressDate" value="true"/>
+	</commentGenerator>
+
+	<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+					connectionURL="jdbc:mysql://localhost:3306/safelyun?autoReconnect=true"
+					userId="root"
+					password="root">
+	</jdbcConnection>
+
+    <javaModelGenerator targetPackage="com.paly.domain" targetProject="SafeLyun">
+    </javaModelGenerator>
+
+    <sqlMapGenerator targetPackage="com.paly.mapper" targetProject="SafeLyun">
+    </sqlMapGenerator>
+
+    <javaClientGenerator type="XMLMAPPER" targetPackage="com.paly.mapper" targetProject="SafeLyun">
+    </javaClientGenerator>
+
+	<!-- 生成全部的表 -->
+	<table tableName="%" >
+		<property name="useActualColumnNames" value="true" />
+		<!-- 对schema和表名中的SQL通配符 ('_' and '%') 进行转义 -->
+		<property name="escapeWildcards" value="true"/>		
+	</table>
+ 	<!-- <table tableName="user" >
+      <property name="useActualColumnNames" value="true" />
+      <generatedKey column="ID" sqlStatement="MYSQL" identity="true" />      
+    </table>
+    <table tableName="article" >
+	  <property name="useActualColumnNames" value="true" />	让其生成的名称与数据库中一样
+      <generatedKey column="ID" sqlStatement="MYSQL" identity="true" />
+	  <columnOverride column="userid" javaType="User" property="user"/>	将数据库的列名属性userid改成实体类User且属性名为user      
+    </table> -->
+
+  </context>
+</generatorConfiguration>
