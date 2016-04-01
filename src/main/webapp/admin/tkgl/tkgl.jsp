@@ -9,7 +9,7 @@
 
 		function tkInit() {
 			$('#admin_tkgl_tkgl_datagrid').datagrid({
-				url : '${pageContext.request.contextPath}/questionAction!datagridAudit.action',
+				url : '${pageContext.request.contextPath}/questionbank/auditdatagrid.action',
 				fit : true,
 				pagination : true,
 				idField : 'id',
@@ -113,7 +113,7 @@
 		function tkUnAudit() {
 			$('#admin_tkgl_tkgl_datagrid').datagrid('unselectAll');
 			$('#admin_tkgl_tkgl_datagrid').datagrid({
-				url : '${pageContext.request.contextPath}/questionAction!datagridUnaudit.action',
+				url : '${pageContext.request.contextPath}/questionbank/unauditdatagrid.action',//查询未经认证数据
 				fit : true,
 				pagination : true,
 				idField : 'id',
@@ -248,7 +248,7 @@
 							ids.push(rows[i].id);
 						}
 						$.ajax({
-							url : '${pageContext.request.contextPath}/questionAction!audit.action',
+							url : '${pageContext.request.contextPath}/questionbank/audit.action',
 							data : {
 								ids : ids.join(',')
 							},
@@ -291,7 +291,7 @@
 						text : '修改',
 						handler : function() {
 							$('#admin_tkgl_tkglEdit_editForm').form('submit', {
-								url : '${pageContext.request.contextPath}/questionAction!edit.action',
+								url : '${pageContext.request.contextPath}/questionbank/edit.action',
 								success : function(data) {
 									var obj = jQuery.parseJSON(data);
 									if (obj.success) {
@@ -333,7 +333,7 @@
 							ids.push(rows[i].id);
 						}
 						$.ajax({
-							url : '${pageContext.request.contextPath}/questionAction!remove.action',
+							url : '${pageContext.request.contextPath}/questionbank/remove.action',
 							data : {
 								ids : ids.join(',')
 							},
@@ -398,15 +398,15 @@
 			      $(this).hide();
 			  });
 			 */
-			$('#admin_tkgl_tkgl_rollingDialog').dialog('open');
-
+			$('#admin_tkgl_tkgl_rollingDialog').dialog('open'); 
+			
 			$.ajaxFileUpload({
-				url : '${pageContext.request.contextPath}/questionAction!importFile.action',//用于文件上传的服务器端请求地址
+				url : '${pageContext.request.contextPath}/questionbank/importfile.action',//用于文件上传的服务器端请求地址
 				secureuri : true,//是否启用安全提交，一般设置为false
 				fileElementId : 'uploadfile',//文件上传控件的id
 				dataType : 'text',//服务器返回的数据类型
 				success : function(data) {
-					$('#admin_tkgl_tkgl_rollingDialog').dialog('close');
+					$('#admin_tkgl_tkgl_rollingDialog').dialog('close'); 
 					var obj = jQuery.parseJSON(data);
 					if (obj.success) {
 						$('#admin_tkgl_tkgl_datagrid').datagrid('load');
@@ -418,14 +418,11 @@
 					});
 				},
 				error : function(data, status, e) {
-					$.messager.show({
-						title : '提示',
-						msg : '服务中断或连接超时导致通信失败！' + e,
-					});
+					alert("服务中断或连接超时导致通信失败！");
+					alert(e);
 				}
 			});
 		}
-
 		
 	</script>
 
@@ -443,14 +440,14 @@
 
 	</div>
 
-	<div id="admin_tkgl_tkgl_importDialog" class="easyui-dialog" data-options="closed:true,modal:true,title:'添加题目',buttons:[{
+    <div id="admin_tkgl_tkgl_importDialog" class="easyui-dialog" data-options="closed:true,modal:true,title:'添加题目',buttons:[{
 					text : '添加',
 					iconCls : 'icon-add',
 					handler : function() {
-						impInfo();
+						impInfo();	
 					}}]" style="width: 350px;height: 150px;">
 		<form id="admin_tkgl_tkgl_importForm" method="post">
-			Excel文件：<input type="file" id="uploadfile" name="file" style="width:300px">
+				Excel文件：<input type="file" id="uploadfile" name="file" style="width:300px" >
 		</form>
 
 	</div>
@@ -464,7 +461,7 @@
 					iconCls : 'icon-add',
 					handler : function() {
 						$('#admin_tkgl_tkgl_addForm').form('submit',{
-						/*	url : '${pageContext.request.contextPath}/add.action',*/
+							url : '${pageContext.request.contextPath}/questionbank/add.action',
 							success : function(data) {
 								var obj = jQuery.parseJSON(data);
 								if (obj.success) {
