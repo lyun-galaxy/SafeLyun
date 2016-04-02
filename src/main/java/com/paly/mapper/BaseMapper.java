@@ -1,7 +1,7 @@
 package com.paly.mapper;
 
 import java.io.Serializable;
-import java.util.List;	
+import java.util.List;
 
 /**
  * 通用mapper接口,包含基本的CRUD
@@ -12,15 +12,24 @@ import java.util.List;
 public interface BaseMapper<T extends Serializable> {
 	
 	/**
-	 * 添加一条记录
+	 * 添加一条记录<br>
+	 * <b>注意:</b><br>
+	 * 如果T为{@link com.paly.domain.Examswitch}则会抛出
+	 * org.apache.ibatis.binding.BindingException异常
 	 * @param record 
 	 * @return 返回插入的条数
+	 * @throws org.apache.ibatis.binding.BindingException	 
 	 */
 	int insert(T record);
 	/**
-	 * 根据id删除一条记录
+	 * 根据id删除一条记录<br>
+	 * <b>注意:</b><br>
+	 * 如果T为{@link com.paly.domain.Examswitch}则会抛出
+	 * org.apache.ibatis.binding.BindingException异常
+	 * 
 	 * @param id 记录的id
 	 * @return 返回删除的条数
+	 * @throws org.apache.ibatis.binding.BindingException
 	 */
 	int deleteByPrimaryKey(Integer id);
 	/**
@@ -36,7 +45,11 @@ public interface BaseMapper<T extends Serializable> {
 	 */
 	T selectByPrimaryKey(Integer id);
 	/**
-	 * 查询所有记录
+	 * 查询所有记录<br>
+	 * <b>注意:</b><br>
+	 * 如果T为{@link com.paly.domain.Examswitch}则会抛出
+	 * org.apache.ibatis.binding.BindingException异常
+	 * @throws org.apache.ibatis.binding.BindingException	 
 	 * @return 返回所有记录列表
 	 */
 	List<T> selectAll();

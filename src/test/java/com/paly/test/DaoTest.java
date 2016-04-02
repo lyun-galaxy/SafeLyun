@@ -1,15 +1,22 @@
 package com.paly.test;
 
+import static org.junit.Assert.*;
+
 import java.util.List;
 
+import javax.crypto.ExemptionMechanism;
+
+import org.apache.ibatis.binding.BindingException;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.paly.domain.Examswitch;
 import com.paly.domain.Menu;
 import com.paly.domain.Role;
 import com.paly.domain.User;
+import com.paly.mapper.ExamswitchMapper;
 import com.paly.mapper.MenuMapper;
 import com.paly.mapper.RoleMapper;
 import com.paly.mapper.UserMapper;
@@ -155,5 +162,28 @@ public class DaoTest {
 			log.debug("role name:" + role.getRoleName());
 		}
 		
+	}
+	
+	@Test
+	public void testExamswitch() {
+		SqlSession sqlSession = MyBatisDAOUtil.getSqlSessionFactory().openSession();
+		ExamswitchMapper examswitchMapper = sqlSession.getMapper(ExamswitchMapper.class);		
+		// ru
+		/*Examswitch examswitch = examswitchMapper.selectByPrimaryKey(1);
+		log.debug("examswitch status:" + examswitch.getSwitchOnOrOff());
+		examswitch.setSwitchOnOrOff(true);
+		examswitchMapper.updateByPrimaryKey(examswitch);
+		sqlSession.commit();
+		log.debug("examswitch status after update:" + examswitch.getSwitchOnOrOff());*/
+		
+		// d
+		/*try {
+			int delId = examswitchMapper.deleteByPrimaryKey(1);
+			log.debug("delete id:" + delId);			
+		} catch (BindingException e) {
+			log.error(e.getMessage());						
+		}*/
+		
+		Examswitch examswitch = examswitchMapper.selectByPrimaryKey(2);
 	}
 }
