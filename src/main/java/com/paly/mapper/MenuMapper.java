@@ -11,5 +11,5 @@ public interface MenuMapper extends BaseMapper<Menu> {
 	 * @param roleId 角色id
 	 * @return 返回查询某角色拥有的菜单列表
 	 */
-	List<Menu> getMenusByRoleId(int roleId);
+	List<Menu> getByRoleId(int roleId);
 }

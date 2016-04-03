@@ -24,6 +24,9 @@ public class Menu implements Serializable {
      */
     private String menuUrl;    
     
+    /**
+     * 属于多个角色
+     */
     private List<Role> roles;
 
     

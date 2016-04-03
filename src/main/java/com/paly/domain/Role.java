@@ -19,8 +19,14 @@ public class Role implements Serializable {
      */
     private String roleName;
     
+    /**
+     * 属于多个用户
+     */    
     private List<User> users;
     
+    /**
+     * 拥有多个菜单
+     */
     private List<Menu> menus;
 
     public Role() {

@@ -17,7 +17,7 @@ public interface RoleMapper extends BaseMapper<Role> {
      * @param userId 用户id
      * @return 返回用户拥有的角色列表
      */
-    List<Role> getRolesByUserId(int userId);
+    List<Role> getByUserId(int userId);
     
     /**
      * 设置角色拥有哪个菜单
@@ -31,5 +31,5 @@ public interface RoleMapper extends BaseMapper<Role> {
      * @param menuId 菜单id
      * @return	返回菜单属于哪些角色的角色列表
      */
-    List<Role> getRolesByMenuId(int menuId);
+    List<Role> getByMenuId(int menuId);
 }

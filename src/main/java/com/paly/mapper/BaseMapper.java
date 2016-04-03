@@ -44,6 +44,7 @@ public interface BaseMapper<T extends Serializable> {
 	 * @return 返回查询的记录
 	 */
 	T selectByPrimaryKey(Integer id);
+	
 	/**
 	 * 查询所有记录<br>
 	 * <b>注意:</b><br>

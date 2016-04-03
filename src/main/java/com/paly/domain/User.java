@@ -24,7 +24,12 @@ public class User implements Serializable {
      */
     private String userPassword;
     
+    /**
+     * 拥有多个角色
+     */
     private List<Role> roles;
+    
+    
     
     public User(){}  
 

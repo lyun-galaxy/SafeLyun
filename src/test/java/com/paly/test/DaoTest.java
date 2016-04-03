@@ -12,13 +12,17 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.paly.domain.Department;
 import com.paly.domain.Examswitch;
 import com.paly.domain.Menu;
 import com.paly.domain.Role;
+import com.paly.domain.Specialty;
 import com.paly.domain.User;
+import com.paly.mapper.DepartmentMapper;
 import com.paly.mapper.ExamswitchMapper;
 import com.paly.mapper.MenuMapper;
 import com.paly.mapper.RoleMapper;
+import com.paly.mapper.SpecialtyMapper;
 import com.paly.mapper.UserMapper;
 
 public class DaoTest {
@@ -93,7 +97,7 @@ public class DaoTest {
 		UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
 		RoleMapper roleMapper = sqlSession.getMapper(RoleMapper.class);
 		User u = userMapper.selectByPrimaryKey(2);
-		List<Role> roles = roleMapper.getRolesByUserId(u.getUserId());
+		List<Role> roles = roleMapper.getByUserId(u.getUserId());
 		log.debug("roles:" + roles);
 		for (Role role : roles) {
 			System.out.println(role.getRoleName());			
@@ -107,7 +111,7 @@ public class DaoTest {
 		UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
 		RoleMapper roleMapper = sqlSession.getMapper(RoleMapper.class);
 		Role r = roleMapper.selectByPrimaryKey(1);
-		List<User> users = userMapper.getUsersByRoleId(r.getRoleId());
+		List<User> users = userMapper.getByRoleId(r.getRoleId());
 		log.debug("users:" + users);
 		for (User u : users) {
 			System.out.println(u.getUserName());			
@@ -143,7 +147,7 @@ public class DaoTest {
 		SqlSession sqlSession = MyBatisDAOUtil.getSqlSessionFactory().openSession();
 		MenuMapper menuMapper = sqlSession.getMapper(MenuMapper.class);
 		Role role = sqlSession.getMapper(RoleMapper.class).selectByPrimaryKey(1);
-		List<Menu> menus = menuMapper.getMenusByRoleId(role.getRoleId());
+		List<Menu> menus = menuMapper.getByRoleId(role.getRoleId());
 		log.debug("menus:" + menus);
 		for (Menu menu : menus) {
 			log.debug("menu url:" + menu.getMenuUrl());
@@ -156,7 +160,7 @@ public class DaoTest {
 		SqlSession sqlSession = MyBatisDAOUtil.getSqlSessionFactory().openSession();
 		RoleMapper roleMapper = sqlSession.getMapper(RoleMapper.class);
 		Menu menu = sqlSession.getMapper(MenuMapper.class).selectByPrimaryKey(1);
-		List<Role> roles = roleMapper.getRolesByMenuId(menu.getMenuId());
+		List<Role> roles = roleMapper.getByMenuId(menu.getMenuId());
 		log.debug("roles:" + roles);
 		for (Role role : roles) {
 			log.debug("role name:" + role.getRoleName());
@@ -186,4 +190,78 @@ public class DaoTest {
 		
 		Examswitch examswitch = examswitchMapper.selectByPrimaryKey(2);
 	}
+		
+	@Test
+	public void testDepartment() throws Exception {
+		SqlSession sqlSession = MyBatisDAOUtil.getSqlSessionFactory().openSession();
+		DepartmentMapper dm = sqlSession.getMapper(DepartmentMapper.class);
+		// c
+		/*Department department = new Department("信息工程学院");
+		Department department1 = new Department("外语学院");
+		dm.insert(department);
+		dm.insert(department1);
+		sqlSession.commit();*/
+		
+		// ru
+		Department d = dm.selectByPrimaryKey(1);
+		log.debug("department name:" + d.getDepartmentName());
+		log.debug("department has specialties count:" + d.getSpecialties().size());
+		d.setDepartmentName("数学与计算机科学学院");
+		// d.setDepartmentId(3);	// 无法更新主键值
+		dm.updateByPrimaryKey(d);
+		sqlSession.commit();
+		log.debug("department name after update:" + d.getDepartmentName());
+				
+		// d 删除主表
+		/*int delId = dm.deleteByPrimaryKey(1);
+		log.debug("delete id:" + delId);
+		sqlSession.commit();*/
+				
+	}
+	
+	@Test
+	public void testSpecialty() throws Exception {
+		SqlSession sqlSession = MyBatisDAOUtil.getSqlSessionFactory().openSession();
+		SpecialtyMapper sm = sqlSession.getMapper(SpecialtyMapper.class);
+		DepartmentMapper dm = sqlSession.getMapper(DepartmentMapper.class);
+			
+		// c
+		/*Specialty s1 = new Specialty("日语");
+		Specialty s2 = new Specialty("英语");
+		Department department = dm.selectByName("外语学院");
+		s1.setDepartment(department);
+		s2.setDepartment(department);		
+		sm.insert(s1);
+		sm.insert(s2);*/
+		
+		// ru
+		/*Specialty s = sm.selectByPrimaryKey(1);
+		log.debug("specialty name:" + s.getSpecialtyName());
+		log.debug("specialty belong to department:" + s.getDepartment().getDepartmentName());
+		Department department = dm.selectByPrimaryKey(2);
+		s.setDepartment(department);
+		sm.updateByPrimaryKey(s);*/
+		
+		// d 删除从表
+		int delId = sm.deleteByPrimaryKey(2);
+		log.debug("delete id:" + delId);
+		
+		sqlSession.commit();
+	}
+	
+	@Test
+	public void testSpecialtyAndDepartment() throws Exception {
+		SqlSession sqlSession = MyBatisDAOUtil.getSqlSessionFactory().openSession();
+		SpecialtyMapper sm = sqlSession.getMapper(SpecialtyMapper.class);
+		DepartmentMapper dm = sqlSession.getMapper(DepartmentMapper.class);
+		// ru
+		Specialty s = sm.selectByName("软件工程");
+		int specialtyId = s.getSpecialtyId();
+		Department d = dm.getBySpecialtyId(specialtyId);
+		log.debug("department name:" + d.getDepartmentName());
+		
+		sqlSession.commit();
+	}
+	
+	
 }

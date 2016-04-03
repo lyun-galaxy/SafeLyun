@@ -25,5 +25,12 @@ public interface UserMapper extends BaseMapper<User> {
      * @param roleId 角色Id
      * @return 返回角色下的所有用户列表
      */
-    List<User> getUsersByRoleId(int roleId);
+    List<User> getByRoleId(int roleId);
+    
+    /**
+     * 根据学生id获取与其关联的用户
+     * @param studentId 学生id
+     * @return 返回与指定学生关联的用户
+     */
+    User getByStudentId(int studentId);
 }
