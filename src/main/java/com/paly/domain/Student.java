@@ -43,6 +43,10 @@ public class Student implements Serializable {
      */
     private Classes classes;
 
+    /**
+     * 与成绩一对一
+     */
+    private Score score;
     
     public Student() {
 		super();
@@ -192,6 +196,16 @@ public class Student implements Serializable {
 
 	public void setClasses(Classes classes) {
 		this.classes = classes;
+	}
+
+
+	public Score getScore() {
+		return score;
+	}
+
+
+	public void setScore(Score score) {
+		this.score = score;
 	}
 
     

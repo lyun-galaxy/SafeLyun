@@ -16,12 +16,14 @@ import com.paly.domain.Department;
 import com.paly.domain.Examswitch;
 import com.paly.domain.Menu;
 import com.paly.domain.Role;
+import com.paly.domain.Score;
 import com.paly.domain.Specialty;
 import com.paly.domain.User;
 import com.paly.mapper.DepartmentMapper;
 import com.paly.mapper.ExamswitchMapper;
 import com.paly.mapper.MenuMapper;
 import com.paly.mapper.RoleMapper;
+import com.paly.mapper.ScoreMapper;
 import com.paly.mapper.SpecialtyMapper;
 import com.paly.mapper.UserMapper;
 
@@ -263,5 +265,13 @@ public class DaoTest {
 		sqlSession.commit();
 	}
 	
+	@Test
+	public void testScore() throws Exception {
+		SqlSession sqlSession = MyBatisDAOUtil.getSqlSessionFactory().openSession();
+		ScoreMapper scoreMapper = sqlSession.getMapper(ScoreMapper.class);
+		Score s = new Score(98.5f, 0);
+		scoreMapper.insert(s);	// 没有学生就没有成绩
+		sqlSession.commit();
+	}
 	
 }

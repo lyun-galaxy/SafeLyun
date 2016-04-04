@@ -10,7 +10,9 @@
     <association property="user" javaType="User" select="com.paly.mapper.UserMapper.getByStudentId" column="studentId">
   	</association>
   	<association property="classes" javaType="Classes" select="com.paly.domain.Classes.getByStudentId" column="studentId">
-  	</association>    	
+  	</association>   
+  	<association property="score" javaType="Score" select="com.paly.domain.Score.getByStudentId" column="studentId">
+  	</association> 	
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from student
@@ -50,5 +52,11 @@
   <select id="getByClassesId" resultMap="BaseResultMap" parameterType="int">
   	select s.* from student s
   		left join classes c on c.classesId=#{classesId}
+  </select>
+  
+  <!-- 根据成绩id获取其所属的学生 -->
+  <select id="getByScoreId" resultMap="BaseResultMap" parameterType="int">
+  	select sc.* from student stu
+  		left join score sc on sc.scoreId=#{scoreId}
   </select>
 </mapper>
