@@ -15,7 +15,7 @@
 			$('#admin_xsgl_xsgl_rollingDialog').dialog('open');
 
 			$.ajaxFileUpload({
-				url : '${pageContext.request.contextPath}/userAction!importFile.action',//用于文件上传的服务器端请求地址
+				url : '${pageContext.request.contextPath}/adminuser/importfile.action',//用于文件上传的服务器端请求地址
 				secureuri : true,//是否启用安全提交，一般设置为false
 				fileElementId : 'uploadfile',//文件上传控件的id
 				dataType : 'text',//服务器返回的数据类型

@@ -7,7 +7,7 @@
 
 		function zjInit() {
 			$('#admin_zjgl_zjgl_datagrid').datagrid({
-				url : '${pageContext.request.contextPath}/chapterAction!datagridAudit.action',
+				url : '${pageContext.request.contextPath}/chapter/datagridAudit.action',
 				fit : true,
 				pagination : true,
 				idField : 'id',
@@ -65,7 +65,7 @@
 
 		function zjUnAudit() {
 			$('#admin_zjgl_zjgl_datagrid').datagrid({
-				url : '${pageContext.request.contextPath}/chapterAction!datagridUnaudit.action',
+				url : '${pageContext.request.contextPath}/chapter/datagridUnaudit.action',
 				fit : true,
 				pagination : true,
 				idField : 'id',
@@ -143,7 +143,7 @@
 							ids.push(rows[i].id);
 						}
 						$.ajax({
-							url : '${pageContext.request.contextPath}/chapterAction!audit.action',
+							url : '${pageContext.request.contextPath}/chapter/audit.action',
 							data : {
 								ids : ids.join(',')
 							},
@@ -202,7 +202,7 @@
 						text : '修改',
 						handler : function() {
 							$('#admin_zjgl_zjglEdit_editForm').form('submit', {
-								url : '${pageContext.request.contextPath}/chapterAction!edit.action',
+								url : '${pageContext.request.contextPath}/chapter/edit.action',
 								success : function(data) {
 									var obj = jQuery.parseJSON(data);
 									if (obj.success) {
@@ -246,7 +246,7 @@
 							ids.push(rows[i].id);
 						}
 						$.ajax({
-							url : '${pageContext.request.contextPath}/chapterAction!remove.action',
+							url : '${pageContext.request.contextPath}/chapter/remove.action',
 							data : {
 								ids : ids.join(',')
 							},
@@ -313,7 +313,7 @@
 					iconCls : 'icon-add',
 					handler : function() {
 						$('#admin_zjgl_zjgl_addForm').form('submit',{
-							url : '${pageContext.request.contextPath}/chapterAction!add.action',
+							url : '${pageContext.request.contextPath}/chapter/add.action',
 							success : function(data) {
 								var obj = jQuery.parseJSON(data);
 								if (obj.success) {
