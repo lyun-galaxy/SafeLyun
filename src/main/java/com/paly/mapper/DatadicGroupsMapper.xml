@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.paly.mapper.DatadicGroupsMapper" >
+  <resultMap id="BaseResultMap" type="com.paly.domain.DatadicGroups" >
+    <id column="group_code" property="groupCode" jdbcType="VARCHAR" />
+    <result column="group_name" property="groupName" jdbcType="VARCHAR" />
+    <collection property="items" ofType="DatadicItems" select="com.paly.mapper.DatadicItemsMapper.getByGroupCode" column="group_code"/>
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from datadic_groups
+    where group_code = #{groupCode,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.paly.domain.DatadicGroups" >
+    insert into datadic_groups (group_code, group_name)
+    values (#{groupCode,jdbcType=VARCHAR}, #{groupName,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.paly.domain.DatadicGroups" >
+    update datadic_groups
+    set group_name = #{groupName,jdbcType=VARCHAR}
+    where group_code = #{groupCode,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select group_code, group_name
+    from datadic_groups
+    where group_code = #{groupCode,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select group_code, group_name
+    from datadic_groups
+  </select>
+  
+  <!-- 根据数据字典项编码查找与其关联的分组信息 -->
+  <select id="getByItemCode" resultMap="BaseResultMap" parameterType="int">
+  	select g.* from datadic_groups g
+  		left join datadic_items i on i.item_code=#{itemCode}
+  </select>
+  
+  <!-- 批量添加数据字典分组下的字典项 -->
+  <insert id="batchAddItemsOfGroup" parameterType="com.paly.domain.DatadicGroups">  	 
+  	insert into datadic_items (item_code, item_name, datadic_groups_group_code)
+  	values
+  	<foreach collection="items" item="item" index="index" separator=",">  		  		
+	  	 (#{item.itemCode,jdbcType=VARCHAR}, #{item.itemName,jdbcType=VARCHAR}, #{groupCode,jdbcType=VARCHAR})
+  	</foreach>
+  </insert>
+</mapper>

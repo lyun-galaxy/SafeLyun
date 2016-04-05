@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.paly.mapper.DatadicItemsMapper" >
+  <resultMap id="BaseResultMap" type="com.paly.domain.DatadicItems" >
+    <id column="item_code" property="itemCode" jdbcType="VARCHAR" />
+    <result column="item_name" property="itemName" jdbcType="VARCHAR" />
+    <association property="datadicGroup" javaType="DatadicGroups" select="com.paly.mapper.DatadicGroupsMapper.getByItemCode" column="item_code"/>
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from datadic_items
+    where item_code = #{itemCode,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.paly.domain.DatadicItems" >
+    insert into datadic_items (item_code, item_name, datadic_groups_group_code
+      )
+    values (#{itemCode,jdbcType=VARCHAR}, #{itemName,jdbcType=VARCHAR}, #{datadicGroup.group_code,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.paly.domain.DatadicItems" >
+    update datadic_items
+    set item_name = #{itemName,jdbcType=VARCHAR},
+      datadic_groups_group_code = #{datadicGroup.group_code,jdbcType=VARCHAR}
+    where item_code = #{itemCode,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select item_code, item_name, datadic_groups_group_code
+    from datadic_items
+    where item_code = #{itemCode,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select item_code, item_name, datadic_groups_group_code
+    from datadic_items
+  </select>
+  
+  <!-- 根据数据字典分组编码获取其关联的数据字典项列表 -->
+  <select id="getByGroupCode" resultMap="BaseResultMap" parameterType="int">
+  	select i.* from datadic_items i
+  		left join datadic_groups g on g.group_code=#{groupCode}
+  </select>
+</mapper>

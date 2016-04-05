@@ -311,6 +311,37 @@ CREATE TABLE IF NOT EXISTS `safelyun`.`role_menu` (
 ENGINE = InnoDB;
 
 
+-- -----------------------------------------------------
+-- Table `safelyun`.`datadic_groups`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `safelyun`.`datadic_groups` ;
+
+CREATE TABLE IF NOT EXISTS `safelyun`.`datadic_groups` (
+  `group_code` VARCHAR(3) NOT NULL,
+  `group_name` VARCHAR(45) NULL,
+  PRIMARY KEY (`group_code`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `safelyun`.`datadic_items`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `safelyun`.`datadic_items` ;
+
+CREATE TABLE IF NOT EXISTS `safelyun`.`datadic_items` (
+  `item_code` VARCHAR(3) NOT NULL,
+  `item_name` VARCHAR(45) NULL,
+  `datadic_groups_group_code` VARCHAR(3) NOT NULL,
+  PRIMARY KEY (`item_code`),
+  INDEX `fk_datadic_items_datadic_groups1_idx` (`datadic_groups_group_code` ASC),
+  CONSTRAINT `fk_datadic_items_datadic_groups1`
+    FOREIGN KEY (`datadic_groups_group_code`)
+    REFERENCES `safelyun`.`datadic_groups` (`group_code`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

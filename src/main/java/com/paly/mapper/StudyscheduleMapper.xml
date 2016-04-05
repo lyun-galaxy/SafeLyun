@@ -4,8 +4,7 @@
   <resultMap id="BaseResultMap" type="com.paly.domain.Studyschedule" >
     <id column="studyscheduleId" property="studyscheduleId" jdbcType="INTEGER" />
     <result column="studyscheduleHasNum" property="studyscheduleHasNum" jdbcType="INTEGER" />
-    <association property="subsection" javaType="Subsection" select="com.paly.domain.Subsection.getByStudyscheduleId" column="studyscheduleId">
-    </association>    
+    <association property="subsection" javaType="Subsection" select="com.paly.domain.Subsection.getByStudyscheduleId" column="studyscheduleId" />   
     <association property="student" javaType="Student" select="com.paly.mapper.StudentMapper.getByStudyscheduleId" column="studyscheduleId" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
@@ -21,9 +20,9 @@
   <update id="updateByPrimaryKey" parameterType="com.paly.domain.Studyschedule" >
     update studyschedule
     set studyscheduleHasNum = #{studyscheduleHasNum,jdbcType=INTEGER},
-      subsection_subsectionId = #{subsection,jdbcType=INTEGER},
+      subsection_subsectionId = #{subsection.subsectionId,jdbcType=INTEGER},
       student_studentId = #{student.studentId,jdbcType=INTEGER}
-    where studyscheduleId = #{studyschedule.studyscheduleId,jdbcType=INTEGER}
+    where studyscheduleId = #{studyscheduleId,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select studyscheduleId, studyscheduleHasNum, subsection_subsectionId, student_studentId

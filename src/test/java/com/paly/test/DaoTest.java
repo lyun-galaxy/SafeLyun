@@ -2,6 +2,7 @@ package com.paly.test;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.crypto.ExemptionMechanism;
@@ -12,6 +13,8 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.paly.domain.DatadicGroups;
+import com.paly.domain.DatadicItems;
 import com.paly.domain.Department;
 import com.paly.domain.Examswitch;
 import com.paly.domain.Menu;
@@ -19,6 +22,7 @@ import com.paly.domain.Role;
 import com.paly.domain.Score;
 import com.paly.domain.Specialty;
 import com.paly.domain.User;
+import com.paly.mapper.DatadicGroupsMapper;
 import com.paly.mapper.DepartmentMapper;
 import com.paly.mapper.ExamswitchMapper;
 import com.paly.mapper.MenuMapper;
@@ -274,4 +278,21 @@ public class DaoTest {
 		sqlSession.commit();
 	}
 	
+	@Test
+	public void testDatadicGroup() throws Exception {
+		SqlSession sqlSession = MyBatisDAOUtil.getSqlSessionFactory().openSession();
+		DatadicGroupsMapper dgm = sqlSession.getMapper(DatadicGroupsMapper.class);
+		List<DatadicItems> items = new ArrayList<DatadicItems>();
+		for (int i = 0; i < 3; i++) {
+			DatadicItems e = new DatadicItems();
+			e.setItemCode("00"+i);
+			e.setItemName("机电工程学院"+i);
+			items.add(e);			
+		}
+		// 外键约束，DatadicGroups必须从数据库中取，而不能自己创建
+		DatadicGroups itemsOfGroup = new DatadicGroups("001", "院系", items);	// 
+		dgm.batchAddItemsOfGroup(itemsOfGroup);
+		
+		sqlSession.commit();
+	}
 }
