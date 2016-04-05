@@ -17,4 +17,5 @@ public interface StudentMapper extends BaseMapper<Student> {
 	 * @return 返回指定班级下的所有学生列表
 	 */
 	List<Student> getByClassesId(int classesId);
+	
 }

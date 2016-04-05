@@ -44,10 +44,16 @@ http://blog.csdn.net/isea533/article/details/42102297
 	</table> -->
 	
  	<!-- 生成指定表-->
-    <table tableName="score" >
-      <!-- 让其生成的名称与数据库中一样 -->
+    <!-- <table tableName="score" >
+      让其生成的名称与数据库中一样
 	  <property name="useActualColumnNames" value="true" />	   
-      <!--  将数据库的列名属性student_studentId改成实体类Student且属性名为student      --> 
+       将数据库的列名属性student_studentId改成实体类Student且属性名为student      
+	  <columnOverride column="student_studentId" javaType="Student" property="student"/>	
+    </table>  -->
+    <table tableName="studyschedule" >
+      <!-- 让其生成的名称与数据库中一样 -->
+	  <property name="useActualColumnNames" value="true" />	        
+	  <columnOverride column="subsection_subsectionId" javaType="Subsection" property="subsection"/>	
 	  <columnOverride column="student_studentId" javaType="Student" property="student"/>	
     </table> 
 

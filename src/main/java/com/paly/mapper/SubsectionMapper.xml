@@ -48,4 +48,10 @@
   	select sub.* from subsection sub
   		left join section sec on sec.sectionId=#{sectionId}
   </select>
+  
+  <!-- 根据学习进度id获取其关联的子章节 -->
+  <select id="getByStudyscheduleId" resultMap="BaseResultMap" parameterType="int">
+  	select sub.* from subsection sub
+  		left join studyschedule stu on stu.studyscheduleId=#{studyscheduleId}
+  </select>
 </mapper>

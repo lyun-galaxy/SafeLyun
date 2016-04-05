@@ -36,9 +36,10 @@ public class Subsection implements Serializable{
     private Boolean subsectionChecked;
 
     /**
-     * 与章节多对一
+     * 子章节所属的章节
      */
     private Section section;
+    
 
     public Subsection() {
 		super();
