@@ -27,8 +27,7 @@
 		<!-- 连接池最小空闲 -->
 		<property name="minIdle" value="1" />
 		<!-- 连接池最大使用连接数量 -->
-		<property name="maxActive" value="20" />
-		<property name="maxIdle" value="20"/>
+		<property name="maxActive" value="20" />		
 		<!-- 获取连接最大等待时间 -->
 		<property name="maxWait" value="60000" />
 		<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
