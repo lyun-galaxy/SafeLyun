@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.paly.mapper.StudentMapper" >
+  <resultMap id="BaseResultMap" type="com.paly.domain.Student" >
+    <id column="studentId" property="studentId" jdbcType="INTEGER" />
+    <result column="studentNumber" property="studentNumber" jdbcType="VARCHAR" />
+    <result column="studentName" property="studentName" jdbcType="VARCHAR" />
+    <result column="studentSex" property="studentSex" jdbcType="VARCHAR" />
+    <result column="studentEmail" property="studentEmail" jdbcType="VARCHAR" />  
+    <association property="user" javaType="User" select="com.paly.mapper.UserMapper.getByStudentId" column="studentId">
+  	</association>
+  	<association property="classes" javaType="Classes" select="com.paly.domain.Classes.getByStudentId" column="studentId">
+  	</association>   
+  	<association property="score" javaType="Score" select="com.paly.domain.Score.getByStudentId" column="studentId">
+  	</association> 	
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from student
+    where studentId = #{studentId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.paly.domain.Student" >
+    insert into student (studentId, studentNumber, studentName, 
+      studentSex, studentEmail, user_userId, 
+      classes_classesId)
+    values (#{studentId,jdbcType=INTEGER}, #{studentNumber,jdbcType=VARCHAR}, #{studentName,jdbcType=VARCHAR}, 
+      #{studentSex,jdbcType=VARCHAR}, #{studentEmail,jdbcType=VARCHAR}, #{user.userId,jdbcType=INTEGER}, 
+      #{classes.classesId,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.paly.domain.Student" >
+    update student
+    set studentNumber = #{studentNumber,jdbcType=VARCHAR},
+      studentName = #{studentName,jdbcType=VARCHAR},
+      studentSex = #{studentSex,jdbcType=VARCHAR},
+      studentEmail = #{studentEmail,jdbcType=VARCHAR},
+      user_userId = #{user.userId,jdbcType=INTEGER},
+      classes_classesId = #{classes.classesId,jdbcType=INTEGER}
+    where studentId = #{studentId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select studentId, studentNumber, studentName, studentSex, studentEmail, user_userId, 
+    classes_classesId
+    from student
+    where studentId = #{studentId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select studentId, studentNumber, studentName, studentSex, studentEmail, user_userId, 
+    classes_classesId
+    from student
+  </select>
+  
+  <!-- 根据班级id获取其下的学生列表 -->
+  <select id="getByClassesId" resultMap="BaseResultMap" parameterType="int">
+  	select s.* from student s
+  		left join classes c on c.classesId=#{classesId}
+  </select>
+  
+  <!-- 根据成绩id获取其所属的学生 -->
+  <select id="getByScoreId" resultMap="BaseResultMap" parameterType="int">
+  	select sc.* from student stu
+  		left join score sc on sc.scoreId=#{scoreId}
+  </select>
+</mapper>

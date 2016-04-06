@@ -72,6 +72,7 @@ public class AdminQuestionServiceImpl implements AdminQuestionService {
 		//查询题目
 		public Datagrid datagrid(Question question) {
 			// TODO Auto-generated method stub
+			
 			return null;
 		}
 

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.paly.mapper.ScoreMapper">
+  <resultMap id="BaseResultMap" type="com.paly.domain.Score">
+    <id column="scoreId" jdbcType="INTEGER" property="scoreId" />
+    <result column="scoreMark" jdbcType="REAL" property="scoreMark" />
+    <result column="scoreMakeupNum" jdbcType="INTEGER" property="scoreMakeupNum" />
+    
+    <association property="student" javaType="Student" select="com.paly.domain.Student.getByScoreId" column="scoreId">
+    </association>
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from score
+    where scoreId = #{scoreId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.paly.domain.Score">
+    insert into score (scoreId, scoreMark, scoreMakeupNum, 
+      student_studentId)
+    values (#{scoreId,jdbcType=INTEGER}, #{scoreMark,jdbcType=REAL}, #{scoreMakeupNum,jdbcType=INTEGER}, 
+      #{student.studentId,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.paly.domain.Score">
+    update score
+    set scoreMark = #{scoreMark,jdbcType=REAL},
+      scoreMakeupNum = #{scoreMakeupNum,jdbcType=INTEGER},
+      student_studentId = #{student.studentId,jdbcType=INTEGER}
+    where scoreId = #{scoreId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select scoreId, scoreMark, scoreMakeupNum, student_studentId
+    from score
+    where scoreId = #{scoreId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select scoreId, scoreMark, scoreMakeupNum, student_studentId
+    from score
+  </select>
+  
+  <!-- 根据学生id获取其对应的成绩信息 -->
+  <select id="getByStudentId" resultMap="BaseResultMap" parameterType="int">
+  	select sc.* from score sc
+  		left join student stu on stu.studentId=#{studentId}
+  </select>
+</mapper>

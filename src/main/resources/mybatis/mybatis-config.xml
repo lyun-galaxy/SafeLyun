@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 <configuration>
 
 	<!-- 加载属性文件 -->
-	<!-- <properties resource="mybatis/db.properties"/> -->
+	<properties resource="mybatis/db.properties"/>
 
 	<!-- 全局配置参数，需要时再设置 -->
 	<settings>
@@ -36,7 +36,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 			<dataSource type="POOLED">
 				<property name="driver" value="${driver}" />
 				<property name="url" value="${url}" />
-				<property name="username" value="${username}" />
+				<property name="username" value="${name}" />
 				<property name="password" value="${password}" />
 			</dataSource>
 		</environment>

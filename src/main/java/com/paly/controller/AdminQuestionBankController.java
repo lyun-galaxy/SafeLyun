@@ -53,6 +53,7 @@ public class AdminQuestionBankController extends AdminBaseController{
 		try {
 			logger.info("add");
 			//预留保存题目到数据库
+			adminQuestionService.save(question);
 			json.setSuccess(true);
 			json.setMsg("添加成功！");
 			json.setObj(question);

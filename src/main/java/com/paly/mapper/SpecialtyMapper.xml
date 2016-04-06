@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.paly.mapper.SpecialtyMapper" >
+  <resultMap id="BaseResultMap" type="com.paly.domain.Specialty" >
+    <id column="specialtyId" property="specialtyId" jdbcType="INTEGER" />
+    <result column="specialtyName" property="specialtyName" jdbcType="VARCHAR" />
+    <association property="department" javaType="Department" select="com.paly.mapper.DepartmentMapper.getBySpecialtyId" column="specialtyId"></association>
+    <collection property="classes" ofType="Classes" select="com.paly.mapper.ClassesMapper.getBySpecialtyId" column="specialtyId">
+    </collection>
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from specialty
+    where specialtyId = #{specialtyId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.paly.domain.Specialty" >   
+    insert into specialty (specialtyId, specialtyName, department_departmentId
+      )
+    values (#{specialtyId,jdbcType=INTEGER}, #{specialtyName,jdbcType=VARCHAR}, #{department.departmentId,jdbcType=INTEGER}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.paly.domain.Specialty" >   
+    update specialty
+    set specialtyName = #{specialtyName,jdbcType=VARCHAR},
+      department_departmentId = #{department.departmentId,jdbcType=INTEGER}
+    where specialtyId = #{specialtyId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select specialtyId, specialtyName, department_departmentId
+    from specialty
+    where specialtyId = #{specialtyId,jdbcType=INTEGER}
+  </select>
+   <select id="selectByName" resultMap="BaseResultMap" parameterType="string" >
+    select specialtyId, specialtyName, department_departmentId
+    from specialty
+    where specialtyName = #{specialtyName,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select specialtyId, specialtyName, department_departmentId
+    from specialty
+  </select>
+  
+  <!-- 根据院系id获取其下的所有专业列表 -->
+  <select id="getByDepartmentId" resultMap="BaseResultMap" parameterType="int">
+  	select s.* from specialty s 
+  		left join department d on d.departmentId=#{departmentId}
+  </select>
+  
+  <!-- 根据班级id获取其所属的专业 -->
+  <select id="getByClassesId" resultMap="BaseResultMap" parameterType="int">
+  	select s.* from  specialty s 
+  		left join classes c on c.classesId=#{classesId}
+  </select>
+</mapper>

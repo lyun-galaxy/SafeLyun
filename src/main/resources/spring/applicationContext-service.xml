@@ -16,5 +16,4 @@
 <!-- <bean id="itemsService" class="cn.itcast.ssm.service.impl.ItemsServiceImpl"/> -->
 <!-- 自动扫描与装配bean -->
 	<context:component-scan base-package="com.paly"/>
-	
 </beans>

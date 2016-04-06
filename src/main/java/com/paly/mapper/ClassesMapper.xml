@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.paly.mapper.ClassesMapper" >
+  <resultMap id="BaseResultMap" type="com.paly.domain.Classes" >
+    <id column="classesId" property="classesId" jdbcType="INTEGER" />
+    <result column="classesName" property="classesName" jdbcType="VARCHAR" />
+    <association property="specialty" javaType="Specialty" select="com.paly.mapper.SpecialtyMapper.getByClassesId" column="classesId">
+    </association>
+    <collection property="students" ofType="com.paly.domain.Student" select="com.paly.mapper.StudentMapper.getByClassesId" column="classesId">
+    </collection>
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from classes
+    where classesId = #{classesId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.paly.domain.Classes" >
+    insert into classes (classesId, classesName, specialty_specialtyId
+      )
+    values (#{classesId,jdbcType=INTEGER}, #{classesName,jdbcType=VARCHAR}, #{specialty.specialtyId,jdbcType=INTEGER}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.paly.domain.Classes" >
+    update classes
+    set classesName = #{classesName,jdbcType=VARCHAR},
+      specialty_specialtyId = #{specialty.specialtyId,jdbcType=INTEGER}
+    where classesId = #{classesId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select classesId, classesName, specialty_specialtyId
+    from classes
+    where classesId = #{classesId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select classesId, classesName, specialty_specialtyId
+    from classes
+  </select>
+  
+  <!-- 根据学生id获取其所属的班级 -->
+  <select id="getByStudentId" resultMap="BaseResultMap" parameterType="int">
+  	select c.* from classes c, student s
+  		where c.classesId=s.studentId and s.studentId=#{studentId}
+  </select>
+  
+  <!-- 根据专业id获取其下的班级列表 -->
+  <select id="getBySpecialtyId" resultMap="BaseResultMap" parameterType="int">
+  	select c.* from classes c 
+  		left join specialty s on s.specialtyId=#{specialtyId}
+  		
+  </select>
+</mapper>
