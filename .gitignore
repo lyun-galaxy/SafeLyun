@@ -12,10 +12,7 @@
 hs_err_pid*
 /target/
 
-<<<<<<< HEAD
-# ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½
 =======
-# ÅäÖÃÎÄ¼ş
->>>>>>> branch 'master' of https://github.com/lyun-galaxy/SafeLyun.git
-/.classpath
-/.settings/
+# é…ç½®æ–‡ä»¶
+/.project
+/.springBeans

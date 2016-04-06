@@ -59,4 +59,10 @@
   	select sc.* from student stu
   		left join score sc on sc.scoreId=#{scoreId}
   </select>
+  
+  <!-- 根据学习进度id获取其关联的学生信息 -->
+  <select id="getByStudyscheduleId" resultMap="BaseResultMap" parameterType="int">
+  	select stud.* from student stud
+  		left join studyschedule study on study.studyscheduleId=#{studyscheduleId}
+  </select>
 </mapper>
