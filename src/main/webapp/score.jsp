@@ -79,6 +79,11 @@
 			<button class="b  ">补考</button>
 	</div>
 	</div>
+	<br>
+	<hr>
+		<footer>
+		<p>&copy; 龙岩学院保卫处</p>
+		</footer>	
 	</div>
 	
 </body>

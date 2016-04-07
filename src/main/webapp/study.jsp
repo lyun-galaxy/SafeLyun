@@ -3,7 +3,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+
+    
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 <link
 	href="${pageContext.request.contextPath}/bootstrap-3.3.5-dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -12,6 +16,7 @@
 	rel="stylesheet">
 <link rel="stylesheet" href="css/style.css" media="screen"
 	type="text/css" />
+	<link rel="stylesheet"  href="css/offcanvas.css" rel="stylesheet">
 <script
 	src="${pageContext.request.contextPath}/bootstrap-3.3.5-dist/js/jquery.min.js"></script>
 <script
@@ -180,6 +185,7 @@
 			<!--/.col-xs-12.col-sm-9-->
 
 			<div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
+				
 				<ul id="accordion" class="accordion">
 					<li class="open">
 						<div class="link">
@@ -221,22 +227,32 @@
 
 						</ul></li>
 				</ul>
+				
 			</div>
 			<!--/.sidebar-offcanvas-->
 		</div>
 		<!--/row-->
 
-		<hr>
 
+		<hr>
 		<footer>
-		<p>&copy; Company 2014</p>
+		<p>&copy; 龙岩学院保卫处</p>
 		</footer>
 
 	</div>
 	<!--/.container-->
 </body>
 <script src="js/jquery.pin.js"></script>
+<script src="js/offcanvas.js"></script>
+<script src="js/ie10-viewport-bug-workaround.js"></script>
+
 <script type="text/javascript">
-	$("#sidebar").pin({padding: {top: 45, bottom: 10},minWidth: 940});
+	$("#accordion").pin({
+		padding : {
+			top : 45,
+			bottom : 10
+		},
+		minWidth : 940
+	});
 </script>
 </html>
