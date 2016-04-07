@@ -8,16 +8,16 @@
 				valueField : 'gradeId',
 				textField : 'gradeName',
 				editable : false,
-				url : '${pageContext.request.contextPath}/reportAction!getGradeJson.action'
+				url : '${pageContext.request.contextPath}/report/getGradeJson.action'
 			});
 
 			var depart03 = $('#getClass_depart').combobox({
 				valueField : 'departId',
 				textField : 'departName',
 				editable : false,
-				url : '${pageContext.request.contextPath}/reportAction!getDepartJson.action',
+				url : '${pageContext.request.contextPath}/report/getDepartJson.action',
 				onSelect : function(params) {
-					$.get('${pageContext.request.contextPath}/reportAction!getProJson.action', {
+					$.get('${pageContext.request.contextPath}/report/getProJson.action', {
 						parentid : params.departId
 					}, function(data) {
 						pro03.combobox("clear").combobox('loadData', data);
@@ -31,7 +31,7 @@
 				textField : 'proName',
 				editable : false,
 				onSelect : function(params) {
-					$.get('${pageContext.request.contextPath}/reportAction!getClassJson.action', {
+					$.get('${pageContext.request.contextPath}/report/getClassJson.action', {
 						parentid : params.proId
 					}, function(data) {
 						class03.combobox("clear").combobox('loadData', data);
@@ -57,7 +57,7 @@
 			} else {
 
 				$('#admin_bbgl_bbgl_getClassForm').form('submit', {
-					url : '${pageContext.request.contextPath}/reportAction!allDepartDatagrid.action',
+					url : '${pageContext.request.contextPath}/report/allDepartDatagrid.action',
 					success : function(datas) {
 						var obj = jQuery.parseJSON(datas);
 						$('#admin_bbgl_bbgl_Datagrid').datagrid({
@@ -116,7 +116,7 @@
 				});
 			} else {
 				$('#admin_bbgl_bbgl_getClassForm').form('submit', {
-					url : '${pageContext.request.contextPath}/reportAction!proDatagrid.action',
+					url : '${pageContext.request.contextPath}/report/proDatagrid.action',
 					success : function(datas) {
 						var obj = jQuery.parseJSON(datas);
 						$('#admin_bbgl_bbgl_Datagrid').datagrid({
@@ -191,7 +191,7 @@
 				});
 			} else {
 				$('#admin_bbgl_bbgl_getClassForm').form('submit', {
-					url : '${pageContext.request.contextPath}/reportAction!classGatagrid.action',
+					url : '${pageContext.request.contextPath}/report/classGatagrid.action',
 					success : function(datas) {
 						var obj = jQuery.parseJSON(datas);
 						$('#admin_bbgl_bbgl_Datagrid').datagrid({

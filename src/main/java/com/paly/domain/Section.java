@@ -1,6 +1,7 @@
 package com.paly.domain;
 
 import java.io.Serializable;
+
 import java.util.List;
 
 /**

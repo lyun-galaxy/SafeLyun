@@ -1,7 +1,6 @@
 package com.paly.mapper;
 
 import com.paly.domain.Section;
-
 /**
  * 章节Dao接口
  * @author linyu
