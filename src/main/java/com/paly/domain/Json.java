@@ -6,6 +6,25 @@ public class Json implements java.io.Serializable {
 	private String msg = "";
 	private Object obj = null;
 
+	public Json() {
+	}
+
+	/**
+	 * 构造函数
+	 * 
+	 * @param success
+	 *            请求是否成功
+	 * @param msg
+	 *            请求提示信息
+	 * @param obj
+	 *            请求结果数据
+	 */
+	public Json(boolean success, String msg, Object obj) {
+		this.success = success;
+		this.msg = msg;
+		this.obj = obj;
+	}
+
 	public boolean isSuccess() {
 		return success;
 	}
