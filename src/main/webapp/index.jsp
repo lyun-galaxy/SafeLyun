@@ -28,7 +28,7 @@
 	<div data-options="region:'south'" style="height:30px;">
 		<div align="center">
 			
-		<p>&copy; 龙岩学院保卫处</p>
+		<p>&copy; 龙岩学院保卫处 & GALAXY团队</p>
 		</div>
 	</div>
 	<div data-options="region:'east',title:'日历'" style="width:180px;">

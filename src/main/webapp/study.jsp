@@ -236,7 +236,7 @@
 
 		<hr>
 		<footer>
-		<p>&copy; 龙岩学院保卫处</p>
+		<p>&copy; 龙岩学院保卫处 & GALAXY团队</p>
 		</footer>
 
 	</div>
