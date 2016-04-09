@@ -14,7 +14,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.paly.vo.Json;
-
+/**
+ * 
+ * @author Royal
+ *
+ */
 @Controller
 public class AdminUserController extends AdminBaseController{
 	private static final Logger logger = LoggerFactory.getLogger(AdminQuestionBankController.class);

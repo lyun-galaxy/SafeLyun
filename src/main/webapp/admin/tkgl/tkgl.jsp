@@ -86,7 +86,7 @@
 					width : 50,
 					align : 'center',
 					formatter : function(value, row, index) {
-						if (value == 1) {
+						if (value == true) {
 							return '已审核';
 						} else {
 							return '未审核';
@@ -190,7 +190,7 @@
 					width : 50,
 					align : 'center',
 					formatter : function(value, row, index) {
-						if (value == 1) {
+						if (value == true) {
 							return '已审核';
 						} else {
 							return '未审核';
@@ -465,12 +465,13 @@
 							success : function(data) {
 								var obj = jQuery.parseJSON(data);
 								if (obj.success) {
-									/*$('#admin_tkgl_tkgl_datagrid').datagrid('load');*/
+									$('#admin_tkgl_tkgl_datagrid').datagrid('load');
 									/*$('#admin_tkgl_tkgl_datagrid').datagrid('appendRow',obj.obj);*/
-									$('#admin_tkgl_tkgl_datagrid').datagrid('insertRow',{
+								    /*$('#admin_tkgl_tkgl_datagrid').datagrid('insertRow',{
 										index: 0,
 										row:obj.obj
-									});
+									});*/
+								
 									$('#admin_tkgl_tkgl_addDialog').dialog('close');
 								}
 								$.messager.show({
