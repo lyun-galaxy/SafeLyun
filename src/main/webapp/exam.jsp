@@ -166,7 +166,13 @@
 		
 		<button class="btn btn-primary" type="submit">交卷</button>
 		</form>
+		<br>
+		<hr>
+		<footer>
+		<p>&copy; 龙岩学院保卫处 & GALAXY团队</p>
+		</footer>
 	</div>
+	
 </div>
 	
 
