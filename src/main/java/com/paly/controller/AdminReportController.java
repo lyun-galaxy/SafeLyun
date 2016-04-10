@@ -19,7 +19,11 @@ import com.paly.pageModel.Grade;
 import com.paly.pageModel.Pro;
 import com.paly.pageModel.Report;
 import com.paly.pageModel.Score;
-
+/**
+ * 
+ * @author Royal
+ *
+ */
 @Controller
 public class AdminReportController extends AdminBaseController{
 	

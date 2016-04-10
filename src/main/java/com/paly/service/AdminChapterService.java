@@ -1,5 +1,19 @@
 package com.paly.service;
 
-public interface AdminChapterService {
+import com.paly.domain.Section;
+import com.paly.pageModel.Chapter;
+import com.paly.pageModel.Datagrid;
 
+
+
+public interface AdminChapterService extends BaseService<Section>{
+	public void save(Chapter chapter);
+
+	public Datagrid datagrid(Section section);
+
+	public int remove(String ids);
+
+	public Section edit(Section section);
+
+	public String getSectionIdByCookieName(String name);
 }

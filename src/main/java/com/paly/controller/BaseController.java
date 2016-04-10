@@ -14,7 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSON;
-
+/**
+ * 
+ * @author Royal
+ *
+ */
 public class BaseController {
 	
 	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(BaseController.class);

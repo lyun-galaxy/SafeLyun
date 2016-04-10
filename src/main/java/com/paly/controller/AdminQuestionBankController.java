@@ -1,6 +1,7 @@
 package com.paly.controller;
 import java.io.File;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -17,14 +18,18 @@ import com.paly.pageModel.Datagrid;
 import com.paly.pageModel.Question;
 import com.paly.service.AdminQuestionService;
 import com.paly.vo.Json;
-
+/**
+ * 
+ * @author Royal
+ *
+ */
 
 @Controller
 public class AdminQuestionBankController extends AdminBaseController{
 
 	private static final Logger logger = LoggerFactory.getLogger(AdminQuestionBankController.class);
 
-	@Autowired
+	@Resource
 	AdminQuestionService adminQuestionService;
 	
 	//数据库数据显示
@@ -38,12 +43,14 @@ public class AdminQuestionBankController extends AdminBaseController{
 	
 	//数据库数据显示
 		@RequestMapping("/questionbank/unauditdatagrid.action")
-		public void unAuditDatagrid(HttpServletResponse response) {
+		public void unAuditDatagrid(Question question,HttpServletResponse response) {
 			logger.info("datagrid");
-			Datagrid dg = new Datagrid();  //获取数据库题目数据
+			Datagrid dg = adminQuestionService.datagrid(question);  //获取数据库题目数据
 			super.writeJson(dg,response);
 			System.out.println("更新未经过验证题目");
 		}
+	
+
 	
 	//添加题目
 	@RequestMapping("/questionbank/add.action")
@@ -53,7 +60,7 @@ public class AdminQuestionBankController extends AdminBaseController{
 		try {
 			logger.info("add");
 			//预留保存题目到数据库
-			adminQuestionService.save(question);
+			question = adminQuestionService.save(question);
 			json.setSuccess(true);
 			json.setMsg("添加成功！");
 			json.setObj(question);
@@ -68,11 +75,11 @@ public class AdminQuestionBankController extends AdminBaseController{
 	
 	//删除题目
 	@RequestMapping("/questionbank/remove.action")
-	public void remove(Question question,HttpServletResponse response) {
+	public void remove(String ids,HttpServletResponse response) {
 		Json json = new Json();
 		try {
-			//int n = questionService.remove(model.getIds());
-			int n = 1;
+		
+			int n = adminQuestionService.remove(ids);
 			json.setSuccess(true);
 			json.setMsg("成功删除" + n + "条记录!");
 
@@ -88,10 +95,10 @@ public class AdminQuestionBankController extends AdminBaseController{
 	public void edit(Question question,HttpServletResponse response){
 		Json json = new Json();
 		try {
-			//Question u = questionService.edit(model);调用service修改题库
+			Question u = adminQuestionService.edit(question);
 			json.setSuccess(true);
 			json.setMsg("修改成功！");
-			json.setObj(question);
+			json.setObj(u);
 		} catch (Exception e) {
 			json.setMsg(e.getMessage());
 		}
@@ -99,11 +106,13 @@ public class AdminQuestionBankController extends AdminBaseController{
 		System.out.println("edit");
 	}
 	
+	//验证题目
 	@RequestMapping("/questionbank/audit.action")
 	public void audit(Question question,HttpServletResponse response){
 		System.out.println("id:"+question.getIds());
 	}
 	
+	//批量导入
 	@RequestMapping("/questionbank/importfile.action")
 	public void importfile(MultipartFile file,HttpServletResponse response,HttpServletRequest request){
 	
@@ -116,10 +125,13 @@ public class AdminQuestionBankController extends AdminBaseController{
 		try {
 			String path = super.saveUploadFile(request, f, "EMPFILE", "xls");
 			logger.info(path);
+			adminQuestionService.getQuestion(path);
 			json.setSuccess(true);
 			json.setMsg("导入成功！");
+			
 		} catch (Exception e) {
 			json.setMsg(e.getMessage());
+			System.out.println(e.getMessage());
 		}
 		
 	    super.writeJson(json,response);
