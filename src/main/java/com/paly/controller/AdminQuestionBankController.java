@@ -109,7 +109,16 @@ public class AdminQuestionBankController extends AdminBaseController{
 	//验证题目
 	@RequestMapping("/questionbank/audit.action")
 	public void audit(Question question,HttpServletResponse response){
-		System.out.println("id:"+question.getIds());
+		
+		Json json = new Json();
+		try {
+			adminQuestionService.audit(question.getIds());
+			json.setSuccess(true);
+			json.setMsg("修改成功！");
+		} catch (Exception e) {
+			json.setMsg(e.getMessage());
+		}
+		super.writeJson(json,response);
 	}
 	
 	//批量导入

@@ -119,6 +119,7 @@ public class AdminQuestionServiceImpl extends BaseServiceImpl<Itempool> implemen
 				q.setB(itempools.get(i).getB());
 				q.setC(itempools.get(i).getC());
 				q.setD(itempools.get(i).getD());
+				q.setStatus(itempools.get(i).getItempoolChecked());
 			    q.setTitle(itempools.get(i).getItempoolQuestion());
 				q.setAnswer(itempools.get(i).getItempoolCorrect());
 				questions.add(q); 
@@ -171,9 +172,11 @@ public class AdminQuestionServiceImpl extends BaseServiceImpl<Itempool> implemen
 			String[] nids = ids.split(",");
 			int n = 0;
 			for (String string : nids) {
-				int id = Integer.valueOf(string);		
-				
-				
+				int id = Integer.valueOf(string);	
+				Itempool itempool = super.getById(id);
+				itempool.setItempoolId(id);
+				itempool.setItempoolChecked(true);
+				super.update(itempool);	
 			}
 		}
 

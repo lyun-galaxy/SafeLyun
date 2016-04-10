@@ -67,4 +67,16 @@ public class AdminChapterServiceImpl extends BaseServiceImpl<Section> implements
 		return null;
 	}
 
+	@Override
+	public void audit(String ids) {
+		// TODO Auto-generated method stub
+		String[] nids = ids.split(",");
+		for (int i = 0; i < nids.length; i++) {
+			int id = Integer.valueOf(nids[i]);
+			Section section = sectionMapper.selectByPrimaryKey(id);
+			section.setSectionChecked(true);
+			sectionMapper.updateByPrimaryKey(section);
+		}
+	}
+
 }

@@ -296,11 +296,11 @@
 									var obj = jQuery.parseJSON(data);
 									if (obj.success) {
 										d.dialog('destroy');
-										//$('#admin_tkgl_tkgl_datagrid').datagrid('load');
-										$('#admin_tkgl_tkgl_datagrid').datagrid('updateRow', {
+										$('#admin_tkgl_tkgl_datagrid').datagrid('load');
+										/*$('#admin_tkgl_tkgl_datagrid').datagrid('updateRow', {
 											index : $('#admin_tkgl_tkgl_datagrid').datagrid('getRowIndex', rows[0]),
 											row : obj.obj
-										});
+										});*/
 									}
 
 									$.messager.show({

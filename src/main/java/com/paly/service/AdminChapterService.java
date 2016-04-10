@@ -16,4 +16,6 @@ public interface AdminChapterService extends BaseService<Section>{
 	public Section edit(Section section);
 
 	public String getSectionIdByCookieName(String name);
+	
+	public void audit(String ids);
 }
