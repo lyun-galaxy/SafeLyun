@@ -4,14 +4,14 @@
 	<script type="text/javascript" src="jslib/print.js"></script>
 	<script type="text/javascript">
 		$(function() {
-			$('#getClass_grade').combobox({
+			$('#admin_bbgl_bbgl_grade').combobox({
 				valueField : 'gradeId',
 				textField : 'gradeName',
 				editable : false,
 				url : '${pageContext.request.contextPath}/report/getGradeJson.action'
 			});
 
-			var depart03 = $('#getClass_depart').combobox({
+			var depart03 = $('#admin_bbgl_bbgl_depart').combobox({
 				valueField : 'departId',
 				textField : 'departName',
 				editable : false,
@@ -26,7 +26,7 @@
 				}
 			});
 
-			var pro03 = $('#getClass_pro').combobox({
+			var pro03 = $('#admin_bbgl_bbgl_pro').combobox({
 				valueField : 'proId',
 				textField : 'proName',
 				editable : false,
@@ -40,7 +40,7 @@
 
 			});
 
-			var class03 = $('#getClass_class').combobox({
+			var class03 = $('#admin_bbgl_bbgl_class').combobox({
 				valueField : 'classId',
 				textField : 'className',
 				editable : false
@@ -48,13 +48,13 @@
 
 		});
 
-		function searchGrade() {
-			if ($('#getClass_grade').combobox('getValue') == '') {
+		function admin_bbgl_bbgl_searchGrade() {
+			if ($('#admin_bbgl_bbgl_grade').combobox('getValue') == '') {
 				$.messager.show({
 					title : '提示',
 					msg : '年级不能为空！',
 				});
-			} else if ($('#getClass_depart').combobox('getValue') == '') {
+			} else if ($('#admin_bbgl_bbgl_depart').combobox('getValue') == '') {
 				$.messager.show({
 					title : '提示',
 					msg : '院系不能为空！',
@@ -97,7 +97,7 @@
 								text : '打印',
 								iconCls : 'icon-print',
 								handler : function() {
-									var str = $('#getClass_grade').combobox('getValue') + '级各院系安全教育考试报表';
+									var str = $('#admin_bbgl_bbgl_grade').combobox('getValue') + '级各院系安全教育考试报表';
 									CreateFormPage(str, $('#admin_bbgl_bbgl_Datagrid'));
 								}
 							} ]
@@ -108,18 +108,18 @@
 			}
 		}
 
-		function searchDepart() {
-			if ($('#getClass_grade').combobox('getValue') == '') {
+		function admin_bbgl_bbgl_searchDepart() {
+			if ($('#admin_bbgl_bbgl_grade').combobox('getValue') == '') {
 				$.messager.show({
 					title : '提示',
 					msg : '年级不能为空！',
 				});
-			} else if ($('#getClass_depart').combobox('getValue') == '') {
+			} else if ($('#admin_bbgl_bbgl_depart').combobox('getValue') == '') {
 				$.messager.show({
 					title : '提示',
 					msg : '院系不能为空！',
 				});
-			} else if ($('#getClass_pro').combobox('getValue') == '') {
+			} else if ($('#admin_bbgl_bbgl_pro').combobox('getValue') == '') {
 				$.messager.show({
 					title : '提示',
 					msg : '请选择一个专业！',
@@ -166,7 +166,7 @@
 								text : '打印',
 								iconCls : 'icon-print',
 								handler : function() {
-									var str = $('#getClass_grade').combobox('getValue') + '级' + $('#getClass_depart').combobox('getValue') + '安全教育考试报表';
+									var str = $('#admin_bbgl_bbgl_grade').combobox('getValue') + '级' + $('#admin_bbgl_bbgl_depart').combobox('getValue') + '安全教育考试报表';
 									CreateFormPage(str, $('#admin_bbgl_bbgl_Datagrid'));
 								}
 							} ]
@@ -178,23 +178,23 @@
 
 		}
 
-		function searchClass() {
-			if ($('#getClass_grade').combobox('getValue') == '') {
+		function admin_bbgl_bbgl_searchClass() {
+			if ($('#admin_bbgl_bbgl_grade').combobox('getValue') == '') {
 				$.messager.show({
 					title : '提示',
 					msg : '请选择一个年级！',
 				});
-			} else if ($('#getClass_depart').combobox('getValue') == '') {
+			} else if ($('#admin_bbgl_bbgl_depart').combobox('getValue') == '') {
 				$.messager.show({
 					title : '提示',
 					msg : '请选择一个院系！',
 				});
-			} else if ($('#getClass_pro').combobox('getValue') == '') {
+			} else if ($('#admin_bbgl_bbgl_pro').combobox('getValue') == '') {
 				$.messager.show({
 					title : '提示',
 					msg : '请选择一个专业！',
 				});
-			} else if ($('#getClass_class').combobox('getValue') == '') {
+			} else if ($('#admin_bbgl_bbgl_class').combobox('getValue') == '') {
 				$.messager.show({
 					title : '提示',
 					msg : '请选择一个班级！',
@@ -238,7 +238,7 @@
 								text : '打印',
 								iconCls : 'icon-print',
 								handler : function() {
-									var str = $('#getClass_grade').combobox('getValue') + '级' + $('#getClass_class').combobox('getValue') + '安全教育考试报表';
+									var str = $('#admin_bbgl_bbgl_grade').combobox('getValue') + '级' + $('#admin_bbgl_bbgl_class').combobox('getValue') + '安全教育考试报表';
 									CreateFormPage(str, $('#admin_bbgl_bbgl_Datagrid'));
 								}
 							} ]
@@ -248,75 +248,6 @@
 			}
 		}
 
-		function searchAll() {
-			var url = '${pageContext.request.contextPath}/report/allStudentScore.action';
-			searchStudent(url);
-		}
-
-		function searchNoPass() {
-			var url = '${pageContext.request.contextPath}/report/allNoPass.action';
-			searchStudent(url);
-		}
-		function searchStudent(url) {
-			if ($('#getClass_grade').combobox('getValue') == '') {
-				$.messager.show({
-					title : '提示',
-					msg : '请选择一个年级！',
-				});
-			} else {
-				document.cookie = 'gradeId=' + $('#getClass_grade').combobox('getValue');
-				$('#admin_bbgl_bbgl_Datagrid').datagrid({
-					url : url,
-					fit : true,
-					pagination : true,
-					rownumbers : true,
-					fitColumns : true,
-					columns : [ [ {
-						field : 'no',
-						title : '学号',
-						width : 200,
-						align : 'center',
-					}, {
-						field : 'name',
-						title : '姓名',
-						width : 200,
-						align : 'center',
-					}, {
-						field : 'departName',
-						title : '院系',
-						width : 200,
-						align : 'center',
-					}, {
-						field : 'proName',
-						title : '专业',
-						width : 200,
-						align : 'center',
-					}, {
-						field : 'score',
-						title : '成绩',
-						width : 150,
-						align : 'center',
-						formatter : function(value, row, index) {
-							if (value < 60) {
-								return '<span style="color:red;">未通过(' + value + ')</span>';
-							} else {
-								return value;
-							}
-						},
-					} ] ],
-					toolbar : [ {
-						text : '打印',
-						iconCls : 'icon-print',
-						handler : function() {
-							var str = $('#getClass_grade').combobox('getValue') + '级' + $('#getClass_class').combobox('getValue') + '安全教育考试报表';
-							CreateFormPage(str, $('#admin_bbgl_bbgl_Datagrid'));
-						}
-					} ]
-				});
-
-			}
-
-		}
 	</script>
 
 	<div id="admin_bbgl_bbgl_layout" class="easyui-layout"
@@ -324,19 +255,13 @@
 		<div data-options="region:'north',title:'查询条件',border:false"
 			style="height: 120px">
 			<form id="admin_bbgl_bbgl_getClassForm" method="post">
-				年级：<input id="getClass_grade" name="gradeId" style="width: 10%">
-				院系：<input id="getClass_depart" name="departId"> 专业：<input
-					id="getClass_pro" name="proId" style="width: 12%"> 班级：<input
-					id="getClass_class" name="classId" style="width: 12%"> <br>
-				<a id="" href="#" class="easyui-linkbutton" onclick="searchGrade()">查询院系报表</a>
-				<a id="" href="#" class="easyui-linkbutton" onclick="searchDepart()">查询专业报表</a>
-				<a id="" href="#" class="easyui-linkbutton" onclick="searchClass()">查询班级报表</a>
-				<div>
-					<a id="" href="#" class="easyui-linkbutton" onclick="searchAll()">查看所有学生成绩</a>
-					<a id="" href="#" class="easyui-linkbutton"
-						onclick="searchNoPass()">查看所有未通过考试的学生</a>
-				</div>
-
+				年级：<input id="admin_bbgl_bbgl_grade" name="gradeId" style="width: 10%">
+				院系：<input id="admin_bbgl_bbgl_depart" name="departId"> 专业：<input
+					id="admin_bbgl_bbgl_pro" name="proId" style="width: 12%"> 班级：<input
+					id="admin_bbgl_bbgl_class" name="classId" style="width: 12%"> <br>
+				<a id="" href="#" class="easyui-linkbutton" onclick="admin_bbgl_bbgl_searchGrade()">查询院系报表</a>
+				<a id="" href="#" class="easyui-linkbutton" onclick="admin_bbgl_bbgl_searchDepart()">查询专业报表</a>
+				<a id="" href="#" class="easyui-linkbutton" onclick="admin_bbgl_bbgl_searchClass()">查询班级报表</a>
 			</form>
 
 		</div>
