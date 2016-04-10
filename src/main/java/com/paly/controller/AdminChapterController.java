@@ -1,6 +1,7 @@
 package com.paly.controller;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
@@ -85,6 +86,20 @@ public class AdminChapterController extends AdminBaseController{
 			json.setSuccess(true);
 			json.setMsg("修改成功！");
 			json.setObj(chapter2);
+		} catch (Exception e) {
+			json.setMsg(e.getMessage());
+		}
+		super.writeJson(json,response);
+	}
+	
+	@RequestMapping()
+	public void audit(String ids,HttpServletResponse response){
+		Json json = new Json();
+		try {		
+			adminChapterService.audit(ids);
+			System.out.println("====="+ids);
+			json.setSuccess(true);
+			json.setMsg("修改成功！");		
 		} catch (Exception e) {
 			json.setMsg(e.getMessage());
 		}

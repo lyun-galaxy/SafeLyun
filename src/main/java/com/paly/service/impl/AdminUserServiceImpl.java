@@ -19,7 +19,6 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.stereotype.Service;
 
 import com.paly.domain.Student;
-import com.paly.domain.User;
 import com.paly.mapper.BaseMapper;
 import com.paly.mapper.StudentMapper;
 import com.paly.mapper.UserMapper;
@@ -59,10 +58,16 @@ public class AdminUserServiceImpl extends BaseServiceImpl<Student> implements Ad
 //				student.setStudentNumber(msgList.get(i).get(0).toString());
 //				student.setStudentName(msgList.get(i).get(1).toString());
 //				student.setUser(userMapper.selectByPrimaryKey(1));
-				//获取学号
-				//解析学号
-				//存储外键
 //				super.save(student);
+				//获取学号
+			    String studentNumber = msgList.get(i).get(0).toString();
+			    //通过数据字典解析学号，获取年级，专业，院系，班级
+			    String grade = studentNumber.substring(0, 3);
+			    String college = studentNumber.substring(4, 5);
+			    String special_class = studentNumber.substring(6, 7);
+			     
+				//先存储外键
+				//存储数据
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block

@@ -140,7 +140,7 @@
 				$.messager.confirm('确认', '您是否要授权当前选中的选项？', function(r) {
 					if (r) {
 						for ( var i = 0; i < rows.length; i++) {
-							ids.push(rows[i].id);
+							ids.push(rows[i].sectionId);
 						}
 						$.ajax({
 							url : '${pageContext.request.contextPath}/chapter/audit.action',
