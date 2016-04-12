@@ -5,7 +5,7 @@
     <id column="sectionId" property="sectionId" jdbcType="INTEGER" />
     <result column="sectionName" property="sectionName" jdbcType="VARCHAR" />
     <result column="sectionChecked" property="sectionChecked" jdbcType="BIT" />
-    <collection property="subsections" ofType="Subsection" select="com.paly.domain.Subsection.getBySectionId" column="sectionId">
+    <collection property="subsections" ofType="Subsection" select="com.paly.mapper.SubsectionMapper.getBySectionId" column="sectionId">
     </collection>
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
@@ -37,6 +37,6 @@
   <!-- 根据子章节id获取其所属的章节信息 -->
   <select id="getBySubsectionId" resultMap="BaseResultMap" parameterType="int">
   	select sec.* from section sec
-  		left join subsection sub on sub.subsectionId=#{subsectionId}
+  		join subsection sub on sec.sectionId=sub.section_sectionId and sub.subsectionId=#{subsectionId}
   </select>
 </mapper>

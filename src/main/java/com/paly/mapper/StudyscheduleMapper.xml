@@ -36,8 +36,8 @@
   
   <!-- 根据学生id获取其学习进度信息 -->
   <select id="getByStudentId" resultMap="BaseResultMap" parameterType="int">
-  	select study.* from studyschedule
-  		left join student stud on stud.studentId=#{studentId}
+  	select study.* from studyschedule study
+  		join student stud on study.student_studentId=stud.studentId and stud.studentId=#{studentId}
   </select>
   
   <!-- 根据子章节id获取其学习进度信息 -->

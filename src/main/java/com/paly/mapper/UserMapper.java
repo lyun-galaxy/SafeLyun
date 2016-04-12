@@ -21,6 +21,13 @@ public interface UserMapper extends BaseMapper<User> {
     void setUserHasRole(@Param("userId")int userId, @Param("roleId")int roleId);
     
     /**
+     * 设置用户管理的班级
+     * @param userId 用户id
+     * @param classesId 将要管理的班级id
+     */
+    void setUserHasClasses(@Param("userId")int userId, @Param("classesId")int classesId);
+    
+    /**
      * 获取角色下的所有用户列表
      * @param roleId 角色Id
      * @return 返回角色下的所有用户列表
@@ -33,4 +40,6 @@ public interface UserMapper extends BaseMapper<User> {
      * @return 返回与指定学生关联的用户
      */
     User getByStudentId(int studentId);
+    
+    
 }

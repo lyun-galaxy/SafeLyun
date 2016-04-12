@@ -27,8 +27,9 @@ DROP TABLE IF EXISTS `safelyun`.`role` ;
 
 CREATE TABLE IF NOT EXISTS `safelyun`.`role` (
   `roleId` INT NOT NULL AUTO_INCREMENT,
-  `roleName` VARCHAR(25) NULL,
-  PRIMARY KEY (`roleId`))
+  `roleName` VARCHAR(25) NOT NULL,
+  PRIMARY KEY (`roleId`),
+  UNIQUE INDEX `roleName_UNIQUE` (`roleName` ASC))
 ENGINE = InnoDB;
 
 
@@ -53,8 +54,9 @@ DROP TABLE IF EXISTS `safelyun`.`department` ;
 
 CREATE TABLE IF NOT EXISTS `safelyun`.`department` (
   `departmentId` INT NOT NULL AUTO_INCREMENT,
-  `departmentName` VARCHAR(45) NULL,
-  PRIMARY KEY (`departmentId`))
+  `departmentName` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`departmentId`),
+  UNIQUE INDEX `departmentName_UNIQUE` (`departmentName` ASC))
 ENGINE = InnoDB;
 
 
@@ -65,10 +67,11 @@ DROP TABLE IF EXISTS `safelyun`.`specialty` ;
 
 CREATE TABLE IF NOT EXISTS `safelyun`.`specialty` (
   `specialtyId` INT NOT NULL AUTO_INCREMENT,
-  `specialtyName` VARCHAR(45) NULL,
+  `specialtyName` VARCHAR(45) NOT NULL,
   `department_departmentId` INT NOT NULL,
   PRIMARY KEY (`specialtyId`),
   INDEX `fk_specialty_department1_idx` (`department_departmentId` ASC),
+  UNIQUE INDEX `specialtyName_UNIQUE` (`specialtyName` ASC),
   CONSTRAINT `fk_specialty_department1`
     FOREIGN KEY (`department_departmentId`)
     REFERENCES `safelyun`.`department` (`departmentId`)
@@ -84,10 +87,11 @@ DROP TABLE IF EXISTS `safelyun`.`classes` ;
 
 CREATE TABLE IF NOT EXISTS `safelyun`.`classes` (
   `classesId` INT NOT NULL AUTO_INCREMENT,
-  `classesName` VARCHAR(15) NULL,
+  `classesName` VARCHAR(15) NOT NULL,
   `specialty_specialtyId` INT NOT NULL,
   PRIMARY KEY (`classesId`),
   INDEX `fk_classes_specialty1_idx` (`specialty_specialtyId` ASC),
+  UNIQUE INDEX `classesName_UNIQUE` (`classesName` ASC),
   CONSTRAINT `fk_classes_specialty1`
     FOREIGN KEY (`specialty_specialtyId`)
     REFERENCES `safelyun`.`specialty` (`specialtyId`)
@@ -103,8 +107,9 @@ DROP TABLE IF EXISTS `safelyun`.`student` ;
 
 CREATE TABLE IF NOT EXISTS `safelyun`.`student` (
   `studentId` INT NOT NULL AUTO_INCREMENT,
-  `studentNumber` VARCHAR(10) NULL,
-  `studentName` VARCHAR(15) NULL,
+  `studentNumber` VARCHAR(10) NOT NULL,
+  `studentName` VARCHAR(15) NOT NULL,
+  `grade` VARCHAR(4) NOT NULL,
   `studentSex` VARCHAR(2) NULL,
   `studentEmail` VARCHAR(25) NULL DEFAULT '',
   `user_userId` INT NOT NULL,
@@ -239,10 +244,10 @@ DROP TABLE IF EXISTS `safelyun`.`itempool` ;
 CREATE TABLE IF NOT EXISTS `safelyun`.`itempool` (
   `itempoolId` INT NOT NULL AUTO_INCREMENT,
   `itempoolQuestion` VARCHAR(250) NULL,
-  `A` VARCHAR(1) NULL,
-  `B` VARCHAR(1) NULL,
-  `C` VARCHAR(1) NULL,
-  `D` VARCHAR(1) NULL,
+  `A` VARCHAR(100) NULL,
+  `B` VARCHAR(100) NULL,
+  `C` VARCHAR(100) NULL,
+  `D` VARCHAR(100) NULL,
   `itempoolCorrect` VARCHAR(1) NULL,
   `itempoolChecked` BIT NULL,
   PRIMARY KEY (`itempoolId`))
@@ -337,6 +342,41 @@ CREATE TABLE IF NOT EXISTS `safelyun`.`datadic_items` (
   CONSTRAINT `fk_datadic_items_datadic_groups1`
     FOREIGN KEY (`datadic_groups_group_code`)
     REFERENCES `safelyun`.`datadic_groups` (`group_code`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `safelyun`.`grade`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `safelyun`.`grade` ;
+
+CREATE TABLE IF NOT EXISTS `safelyun`.`grade` (
+)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `safelyun`.`user_classes`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `safelyun`.`user_classes` ;
+
+CREATE TABLE IF NOT EXISTS `safelyun`.`user_classes` (
+  `user_classes_id` INT NOT NULL,
+  `user_userId` INT NOT NULL,
+  `classes_classesId` INT NOT NULL,
+  PRIMARY KEY (`user_classes_id`),
+  INDEX `fk_user_has_classes_classes1_idx` (`classes_classesId` ASC),
+  INDEX `fk_user_has_classes_user1_idx` (`user_userId` ASC),
+  CONSTRAINT `fk_user_has_classes_user1`
+    FOREIGN KEY (`user_userId`)
+    REFERENCES `safelyun`.`user` (`userId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_user_has_classes_classes1`
+    FOREIGN KEY (`classes_classesId`)
+    REFERENCES `safelyun`.`classes` (`classesId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

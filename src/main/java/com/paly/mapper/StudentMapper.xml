@@ -5,6 +5,7 @@
     <id column="studentId" property="studentId" jdbcType="INTEGER" />
     <result column="studentNumber" property="studentNumber" jdbcType="VARCHAR" />
     <result column="studentName" property="studentName" jdbcType="VARCHAR" />
+    <result column="grade" property="grade" jdbcType="VARCHAR" />
     <result column="studentSex" property="studentSex" jdbcType="VARCHAR" />
     <result column="studentEmail" property="studentEmail" jdbcType="VARCHAR" />  
     <association property="user" javaType="User" select="com.paly.mapper.UserMapper.getByStudentId" column="studentId">
@@ -19,10 +20,10 @@
     where studentId = #{studentId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.paly.domain.Student" >
-    insert into student (studentId, studentNumber, studentName, 
+    insert into student (studentId, studentNumber, studentName, grade
       studentSex, studentEmail, user_userId, 
       classes_classesId)
-    values (#{studentId,jdbcType=INTEGER}, #{studentNumber,jdbcType=VARCHAR}, #{studentName,jdbcType=VARCHAR}, 
+    values (#{studentId,jdbcType=INTEGER}, #{studentNumber,jdbcType=VARCHAR}, #{studentName,jdbcType=VARCHAR}, #{grade,jdbcType=VARCHAR}, 
       #{studentSex,jdbcType=VARCHAR}, #{studentEmail,jdbcType=VARCHAR}, #{user.userId,jdbcType=INTEGER}, 
       #{classes.classesId,jdbcType=INTEGER})
   </insert>
@@ -30,6 +31,7 @@
     update student
     set studentNumber = #{studentNumber,jdbcType=VARCHAR},
       studentName = #{studentName,jdbcType=VARCHAR},
+      grade = #{grade,jdbcType=VARCHAR}, 
       studentSex = #{studentSex,jdbcType=VARCHAR},
       studentEmail = #{studentEmail,jdbcType=VARCHAR},
       user_userId = #{user.userId,jdbcType=INTEGER},
@@ -37,13 +39,13 @@
     where studentId = #{studentId,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select studentId, studentNumber, studentName, studentSex, studentEmail, user_userId, 
+    select studentId, studentNumber, studentName, grade, studentSex, studentEmail, user_userId, 
     classes_classesId
     from student
     where studentId = #{studentId,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select studentId, studentNumber, studentName, studentSex, studentEmail, user_userId, 
+    select studentId, studentNumber, studentName, grade, studentSex, studentEmail, user_userId, 
     classes_classesId
     from student
   </select>
@@ -51,18 +53,18 @@
   <!-- 根据班级id获取其下的学生列表 -->
   <select id="getByClassesId" resultMap="BaseResultMap" parameterType="int">
   	select s.* from student s
-  		left join classes c on c.classesId=#{classesId}
+  		join classes c on s.classes_classesId=c.classesId and c.classesId=#{classesId}
   </select>
   
   <!-- 根据成绩id获取其所属的学生 -->
   <select id="getByScoreId" resultMap="BaseResultMap" parameterType="int">
   	select sc.* from student stu
-  		left join score sc on sc.scoreId=#{scoreId}
+  		join score sc on stu.studentId=sc.student_studentId and sc.scoreId=#{scoreId}
   </select>
   
   <!-- 根据学习进度id获取其关联的学生信息 -->
   <select id="getByStudyscheduleId" resultMap="BaseResultMap" parameterType="int">
   	select stud.* from student stud
-  		left join studyschedule study on study.studyscheduleId=#{studyscheduleId}
+  		join studyschedule study on stud.studentId=study.student_studentId and study.studyscheduleId=#{studyscheduleId}
   </select>
 </mapper>
