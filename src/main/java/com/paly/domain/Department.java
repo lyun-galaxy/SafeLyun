@@ -29,6 +29,10 @@ public class Department implements Serializable {
 		super();
 	}
 
+    /**
+     * 传入院系名称参数实例化院系实体
+     * @param departmentName 院系名称，不能为null
+     */
 	public Department(String departmentName) {
 		super();
 		this.departmentName = departmentName;

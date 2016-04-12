@@ -2,6 +2,7 @@ package com.paly.test;
 
 import static org.junit.Assert.*;
 
+import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.paly.domain.Classes;
 import com.paly.domain.DatadicGroups;
 import com.paly.domain.DatadicItems;
 import com.paly.domain.Department;
@@ -21,7 +23,9 @@ import com.paly.domain.Menu;
 import com.paly.domain.Role;
 import com.paly.domain.Score;
 import com.paly.domain.Specialty;
+import com.paly.domain.Student;
 import com.paly.domain.User;
+import com.paly.mapper.ClassesMapper;
 import com.paly.mapper.DatadicGroupsMapper;
 import com.paly.mapper.DepartmentMapper;
 import com.paly.mapper.ExamswitchMapper;
@@ -29,6 +33,7 @@ import com.paly.mapper.MenuMapper;
 import com.paly.mapper.RoleMapper;
 import com.paly.mapper.ScoreMapper;
 import com.paly.mapper.SpecialtyMapper;
+import com.paly.mapper.StudentMapper;
 import com.paly.mapper.UserMapper;
 
 public class DaoTest {
@@ -43,11 +48,11 @@ public class DaoTest {
 		/*MessageDigest md = MessageDigest.getInstance("MD5");
 		for (int i = 0; i < 5; i++) {
 			byte[] pass = md.digest((i+"pass").getBytes());
-			User u = new User(i+"", pass.toString(), null);
-			baseMapper.insert(u);
+			User u = new User("user"+i, pass.toString());
+			userMapper.insert(u);
 		}
-		sqlSession.commit();
-		*/
+		sqlSession.commit();*/
+		
 		
 		// ru
 		/*User u = userMapper.selectByPrimaryKey(2);
@@ -58,9 +63,9 @@ public class DaoTest {
 		log.debug("user name after update:" + u.getUserName() + "\t updateId:" + upId);*/
 		
 		// d
-		int delId = userMapper.deleteByPrimaryKey(4);
+		/*int delId = userMapper.deleteByPrimaryKey(4);
 		sqlSession.commit();
-		log.debug("delete id:" + delId);
+		log.debug("delete id:" + delId);*/
 		
 	}
 	
@@ -177,14 +182,20 @@ public class DaoTest {
 	@Test
 	public void testExamswitch() {
 		SqlSession sqlSession = MyBatisDAOUtil.getSqlSessionFactory().openSession();
-		ExamswitchMapper examswitchMapper = sqlSession.getMapper(ExamswitchMapper.class);		
-		// ru
-		/*Examswitch examswitch = examswitchMapper.selectByPrimaryKey(1);
-		log.debug("examswitch status:" + examswitch.getSwitchOnOrOff());
+		ExamswitchMapper examswitchMapper = sqlSession.getMapper(ExamswitchMapper.class);
+		// c
+		/*Examswitch examswitch = new Examswitch();
 		examswitch.setSwitchOnOrOff(true);
+		examswitchMapper.insert(examswitch);
+		sqlSession.commit();
+		*/
+		// ru
+		Examswitch examswitch = examswitchMapper.selectByPrimaryKey(1);
+		log.debug("examswitch status:" + examswitch.getSwitchOnOrOff());
+		examswitch.setSwitchOnOrOff(false); // 0
 		examswitchMapper.updateByPrimaryKey(examswitch);
 		sqlSession.commit();
-		log.debug("examswitch status after update:" + examswitch.getSwitchOnOrOff());*/
+		log.debug("examswitch status after update:" + examswitch.getSwitchOnOrOff());
 		
 		// d
 		/*try {
@@ -194,29 +205,43 @@ public class DaoTest {
 			log.error(e.getMessage());						
 		}*/
 		
-		Examswitch examswitch = examswitchMapper.selectByPrimaryKey(2);
+		// Examswitch examswitch = examswitchMapper.selectByPrimaryKey(2);
 	}
 		
 	@Test
 	public void testDepartment() throws Exception {
 		SqlSession sqlSession = MyBatisDAOUtil.getSqlSessionFactory().openSession();
 		DepartmentMapper dm = sqlSession.getMapper(DepartmentMapper.class);
-		// c
-		/*Department department = new Department("信息工程学院");
-		Department department1 = new Department("外语学院");
-		dm.insert(department);
-		dm.insert(department1);
+		// c		
+		
+		/*Department department3 = new Department("化学与材料学院");		
+		Department department4 = new Department("资源工程学院");		
+		Department department5 = new Department("奇迈学院");		
+		Department department6 = new Department("艺术与设计学院");		
+		Department department7 = new Department("继续教育学院");		
+		Department department8 = new Department("外国语学院");		
+		Department department9 = new Department("教育科学学院");		
+				
+		List<Department> departments = new ArrayList<Department>();
+		departments.add(department3);
+		departments.add(department4);
+		departments.add(department5);
+		departments.add(department6);
+		departments.add(department7);
+		departments.add(department8);
+		departments.add(department9);
+		dm.batchAdd(departments);
 		sqlSession.commit();*/
 		
 		// ru
-		Department d = dm.selectByPrimaryKey(1);
+		/*Department d = dm.selectByPrimaryKey(1);
 		log.debug("department name:" + d.getDepartmentName());
 		log.debug("department has specialties count:" + d.getSpecialties().size());
 		d.setDepartmentName("数学与计算机科学学院");
 		// d.setDepartmentId(3);	// 无法更新主键值
 		dm.updateByPrimaryKey(d);
 		sqlSession.commit();
-		log.debug("department name after update:" + d.getDepartmentName());
+		log.debug("department name after update:" + d.getDepartmentName());*/
 				
 		// d 删除主表
 		/*int delId = dm.deleteByPrimaryKey(1);
@@ -232,13 +257,27 @@ public class DaoTest {
 		DepartmentMapper dm = sqlSession.getMapper(DepartmentMapper.class);
 			
 		// c
-		/*Specialty s1 = new Specialty("日语");
-		Specialty s2 = new Specialty("英语");
-		Department department = dm.selectByName("外语学院");
-		s1.setDepartment(department);
-		s2.setDepartment(department);		
+		/*Department department1 = dm.selectByName("文学与传媒学院");
+		Specialty s1 = new Specialty("汉语言文学教育专业");
+		Specialty s2 = new Specialty("汉语言文学专业");
+		Specialty s3 = new Specialty("汉语国际教育专业");
+		s1.setDepartment(department1);
+		s2.setDepartment(department1);		
+		s3.setDepartment(department1);		
 		sm.insert(s1);
-		sm.insert(s2);*/
+		sm.insert(s2);
+		sm.insert(s3);
+		
+		Department department2 = dm.selectByName("信息工程学院");
+		Specialty s4 = new Specialty("数学与应用数学");
+		Specialty s5 = new Specialty("计算机科学与技术");
+		Specialty s6 = new Specialty("软件工程");
+		s4.setDepartment(department2);		
+		s5.setDepartment(department2);		
+		s6.setDepartment(department2);		
+		sm.insert(s4);
+		sm.insert(s5);
+		sm.insert(s6);*/
 		
 		// ru
 		/*Specialty s = sm.selectByPrimaryKey(1);
@@ -249,33 +288,84 @@ public class DaoTest {
 		sm.updateByPrimaryKey(s);*/
 		
 		// d 删除从表
-		int delId = sm.deleteByPrimaryKey(2);
-		log.debug("delete id:" + delId);
+		/*int delId = sm.deleteByPrimaryKey(2);
+		log.debug("delete id:" + delId);*/
 		
 		sqlSession.commit();
 	}
 	
 	@Test
-	public void testSpecialtyAndDepartment() throws Exception {
+	public void testDepartmentAndSpecialty() throws Exception {
 		SqlSession sqlSession = MyBatisDAOUtil.getSqlSessionFactory().openSession();
 		SpecialtyMapper sm = sqlSession.getMapper(SpecialtyMapper.class);
 		DepartmentMapper dm = sqlSession.getMapper(DepartmentMapper.class);
 		// ru
-		Specialty s = sm.selectByName("软件工程");
-		int specialtyId = s.getSpecialtyId();
-		Department d = dm.getBySpecialtyId(specialtyId);
-		log.debug("department name:" + d.getDepartmentName());
+		/*Specialty s = sm.selectByName("软件工程");		
+		Department d = s.getDepartment();
+		log.debug("department name:" + d.getDepartmentName());*/
+		
+		Department dept = dm.selectByName("信息工程学院");
+		log.debug("department name:" + dept.getDepartmentName());
+		sqlSession.commit();
+	}
+	
+	@Test
+	public void testClasses() throws Exception {
+		SqlSession sqlSession = MyBatisDAOUtil.getSqlSessionFactory().openSession();
+		ClassesMapper cm = sqlSession.getMapper(ClassesMapper.class);
+		SpecialtyMapper sm = sqlSession.getMapper(SpecialtyMapper.class);
+		Specialty specialty = sm.selectByName("软件工程");
+		Specialty specialty1 = sm.selectByName("计算机科学与技术");
+		Classes c1 = new Classes("软件工程1班", specialty);
+		Classes c2 = new Classes("软件工程2班", specialty);
+		Classes c3 = new Classes("计科1班", specialty1);
+		Classes c4 = new Classes("计科2班", specialty1);
+		cm.insert(c1);
+		cm.insert(c2);		
+		cm.insert(c3);		
+		cm.insert(c4);		
+		
+		sqlSession.commit();
+	}
+
+	@Test
+	public void testUserAndClasses() throws Exception {
+		SqlSession sqlSession = MyBatisDAOUtil.getSqlSessionFactory().openSession();
+		UserMapper um = sqlSession.getMapper(UserMapper.class);
+		ClassesMapper cm = sqlSession.getMapper(ClassesMapper.class);
+		// c
+		/*Classes c1 = cm.selectByName("计科1班");
+		Classes c2 = cm.selectByName("计科2班");
+		User user = um.selectByPrimaryKey(1);
+		um.setUserHasClasses(user.getUserId(), c1.getClassesId());
+		um.setUserHasClasses(user.getUserId(), c2.getClassesId());*/
+		
+		// r
+		
 		
 		sqlSession.commit();
 	}
 	
 	@Test
-	public void testScore() throws Exception {
+	public void testStudent() throws Exception {
 		SqlSession sqlSession = MyBatisDAOUtil.getSqlSessionFactory().openSession();
+		StudentMapper sm = sqlSession.getMapper(StudentMapper.class);
+		UserMapper um = sqlSession.getMapper(UserMapper.class);
+		ClassesMapper cm = sqlSession.getMapper(ClassesMapper.class);
+		/*for (int i = 0; i < 5; i++) {
+			byte[] pass = md.digest((i+"pass").getBytes());
+			Student s = new Student("student"+i, pass.toString());
+			userMapper.insert(u);
+		}*/
+		
+	}
+	@Test
+	public void testScore() throws Exception {
+		/*SqlSession sqlSession = MyBatisDAOUtil.getSqlSessionFactory().openSession();
 		ScoreMapper scoreMapper = sqlSession.getMapper(ScoreMapper.class);
 		Score s = new Score(98.5f, 0);
 		scoreMapper.insert(s);	// 没有学生就没有成绩
-		sqlSession.commit();
+		sqlSession.commit();*/
 	}
 	
 	@Test

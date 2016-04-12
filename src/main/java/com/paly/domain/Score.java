@@ -24,19 +24,28 @@ public class Score implements Serializable {
 	private Integer scoreMakeupNum;
 
 	/**
-	 * 与学生一对一
+	 * 与学生关联，属于学生
 	 */
 	private Student student;
 	
 	public Score() {
 		super();
 	}
-
-	public Score(Float scoreMark, Integer scoreMakeupNum) {
+	
+	/**
+	 * 带参数实例化成绩
+	 * @param scoreMark 分数
+	 * @param scoreMakeupNum 补考次数
+	 * @param student 所属的学生，不为空
+	 */
+	public Score(Float scoreMark, Integer scoreMakeupNum, Student student) {
 		super();
 		this.scoreMark = scoreMark;
 		this.scoreMakeupNum = scoreMakeupNum;
+		this.student = student;
 	}
+
+
 
 	public Integer getScoreId() {
 		return scoreId;

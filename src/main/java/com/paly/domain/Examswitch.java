@@ -3,7 +3,8 @@ package com.paly.domain;
 import java.io.Serializable;
 
 /**
- * 考试开关
+ * 考试开关尸体类，用于控制考试是否开启。<br>
+ * 具体看属性：{@link Examswitch#switchOnOrOff} 说明
  * @author linyu
  *
  */
@@ -12,12 +13,13 @@ public class Examswitch implements Serializable {
 	private static final long serialVersionUID = 5340756347843962311L;
 
 	/**
-	 * 考试开关主键,固定值1
+	 * 考试开关主键，不用设置，默认为1
 	 */
     private Integer examswitchId;
 
     /**
-     * 是否开启考试,默认为false关闭状态
+     * 是否开启考试<br>
+     * 若为false关闭状态,数据库值为0，反之为1
      */
     private Boolean switchOnOrOff;
 

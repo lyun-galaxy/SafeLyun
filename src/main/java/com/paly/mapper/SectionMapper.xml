@@ -43,6 +43,18 @@
   <!-- 根据子章节id获取其所属的章节信息 -->
   <select id="getBySubsectionId" resultMap="BaseResultMap" parameterType="int">
   	select sec.* from section sec
-  		left join subsection sub on sub.subsectionId=#{subsectionId}
+  		join subsection sub on sec.sectionId=sub.section_sectionId and sub.subsectionId=#{subsectionId}
+  </select>
+  
+  <!-- 查询经过审核的大章节 -->
+  <select id="queryIsChecked" resultMap="BaseResultMap">
+  	select sec.* from section sec
+  		where sec.sectionChecked=1;
+  </select>
+  
+  <!-- 查询未经过审核的大章节 -->
+  <select id="queryIsNotChecked" resultMap="BaseResultMap">
+  	select sec.* from section sec
+  		where sec.sectionChecked=0;
   </select>
 </mapper>
