@@ -25,11 +25,14 @@ public class User implements Serializable {
     private String userPassword;
     
     /**
-     * 拥有多个角色
+     * 用户的角色，一个拥有多个角色
      */
     private List<Role> roles;
     
-    
+    /**
+     * 用户角色为辅导员的，可以管理多个班级
+     */
+    private List<Classes> classes;       
     
     public User(){}  
 
@@ -38,7 +41,6 @@ public class User implements Serializable {
 		this.userName = userName;
 		this.userPassword = userPassword;
 	}
-
 
 
 	/**
@@ -119,5 +121,13 @@ public class User implements Serializable {
 
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
+	}
+
+	public List<Classes> getClasses() {
+		return classes;
+	}
+
+	public void setClasses(List<Classes> classes) {
+		this.classes = classes;
 	}
 }

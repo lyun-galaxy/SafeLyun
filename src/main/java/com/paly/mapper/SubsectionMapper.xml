@@ -46,12 +46,12 @@
   <!-- 根据章节Id获取其下的子章节列表 -->  
   <select id="getBySectionId" resultMap="BaseResultMap" parameterType="int">
   	select sub.* from subsection sub
-  		left join section sec on sec.sectionId=#{sectionId}
+  		join section sec on sub.section_sectionId=sec.sectionId and sec.sectionId=#{sectionId}
   </select>
   
   <!-- 根据学习进度id获取其关联的子章节 -->
   <select id="getByStudyscheduleId" resultMap="BaseResultMap" parameterType="int">
   	select sub.* from subsection sub
-  		left join studyschedule stu on stu.studyscheduleId=#{studyscheduleId}
+  		join studyschedule study on sub.subsectionId=study.subsection_subsectionId and study.studyscheduleId=#{studyscheduleId}
   </select>
 </mapper>

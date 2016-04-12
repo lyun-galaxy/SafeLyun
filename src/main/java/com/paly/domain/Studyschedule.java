@@ -19,18 +19,33 @@ public class Studyschedule implements Serializable {
     private Integer studyscheduleHasNum;
 
     /**
-     * 与其关联的子章节
+     * 与其关联的子章节，属于子章节
      */
     private Subsection subsection;
 
     /**
-     * 与其关联的学生
+     * 与其关联的学生，属于学生
      */
-    private Student student;
+    private Student student;        
     
     public Studyschedule() {
 		super();
+	}    
+    
+    /**
+     * 带参实例化学习进度实体
+     * @param studyscheduleHasNum 已学习子章节个数
+     * @param subsection 所属的子章节，不为空
+     * @param student 所属的学生，不为空
+     */
+	public Studyschedule(Integer studyscheduleHasNum, Subsection subsection, Student student) {
+		super();
+		this.studyscheduleHasNum = studyscheduleHasNum;
+		this.subsection = subsection;
+		this.student = student;
 	}
+
+
 
 	public Integer getStudyscheduleId() {
         return studyscheduleId;

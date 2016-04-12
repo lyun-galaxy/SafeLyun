@@ -2,21 +2,32 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.paly.mapper.ExamswitchMapper" >
   <resultMap id="BaseResultMap" type="com.paly.domain.Examswitch" >
-
     <id column="examswitchId" property="examswitchId" jdbcType="INTEGER" />
     <result column="switchOnOrOff" property="switchOnOrOff" jdbcType="BIT" />
   </resultMap>
+  <!-- 该语句只允许执行一次 -->
+  <insert id="insert" parameterType="com.paly.domain.Examswitch">
+  	insert into examswitch(examswitchId, switchOnOrOff) values(#{examswitchId,jdbcType=INTEGER}, #{switchOnOrOff,jdbcType=BIT})
+  </insert>
+  <!-- 若数据库有超过一条记录则必须删除至只有一条 -->
+  <delete id="deleteByPrimaryKey" parameterType="int" >
+    delete from examswitch
+	    where examswitchId = #{examswitchId,jdbcType=INTEGER}
+  </delete>
   
-  <update id="updateByPrimaryKey" parameterType="com.paly.domain.Examswitch" >
-    update examswitch
-    set switchOnOrOff = #{switchOnOrOff,jdbcType=BIT}
-    where examswitchId = #{examswitchId,jdbcType=INTEGER}
+  <update id="updateByPrimaryKey" parameterType="com.paly.domain.Examswitch">
+  	update examswitch
+  		set switchOnOrOff=#{switchOnOrOff,jdbcType=BIT}
+  		where examswitchId = #{examswitchId,jdbcType=INTEGER}
   </update>
-  
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select examswitchId, switchOnOrOff
     from examswitch
     where examswitchId = #{examswitchId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select * from examswitch
   </select>
   
 </mapper>
