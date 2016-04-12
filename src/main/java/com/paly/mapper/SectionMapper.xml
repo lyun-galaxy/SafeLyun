@@ -5,7 +5,13 @@
     <id column="sectionId" property="sectionId" jdbcType="INTEGER" />
     <result column="sectionName" property="sectionName" jdbcType="VARCHAR" />
     <result column="sectionChecked" property="sectionChecked" jdbcType="BIT" />
-    <collection property="subsections" ofType="Subsection" select="com.paly.mapper.SubsectionMapper.getBySectionId" column="sectionId">
+   
+  </resultMap>
+  <resultMap id="SectionResultMap" type="com.paly.domain.Section" >
+    <id column="sectionId" property="sectionId" jdbcType="INTEGER" />
+    <result column="sectionName" property="sectionName" jdbcType="VARCHAR" />
+    <result column="sectionChecked" property="sectionChecked" jdbcType="BIT" />
+    <collection property="subsections" ofType="Subsection" select="com.paly.domain.Subsection.getBySectionId" column="sectionId">
     </collection>
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >

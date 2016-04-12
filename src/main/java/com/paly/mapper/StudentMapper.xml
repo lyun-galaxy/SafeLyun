@@ -9,7 +9,7 @@
     <result column="studentSex" property="studentSex" jdbcType="VARCHAR" />
     <result column="studentEmail" property="studentEmail" jdbcType="VARCHAR" />  
     <association property="user" javaType="User" select="com.paly.mapper.UserMapper.getByStudentId" column="studentId">
-  	</association>
+	</association>
   	<association property="classes" javaType="Classes" select="com.paly.domain.Classes.getByStudentId" column="studentId">
   	</association>   
   	<association property="score" javaType="Score" select="com.paly.domain.Score.getByStudentId" column="studentId">
