@@ -79,6 +79,7 @@ public class AdminQuestionServiceImpl extends BaseServiceImpl<Itempool> implemen
 				itempool.setD(d);
 				itempool.setItempoolCorrect(anser);
 				itempoolMapper.insert(itempool);
+			
 			}
 			
 		} catch (FileNotFoundException e) {

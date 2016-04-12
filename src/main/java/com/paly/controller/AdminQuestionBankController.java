@@ -45,7 +45,7 @@ public class AdminQuestionBankController extends AdminBaseController{
 		@RequestMapping("/questionbank/unauditdatagrid.action")
 		public void unAuditDatagrid(Question question,HttpServletResponse response) {
 			logger.info("datagrid");
-			Datagrid dg = adminQuestionService.datagrid(question);  //获取数据库题目数据
+			Datagrid dg = adminQuestionService.datagrid(question);  
 			super.writeJson(dg,response);
 			System.out.println("更新未经过验证题目");
 		}
