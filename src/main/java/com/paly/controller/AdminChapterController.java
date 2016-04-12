@@ -1,5 +1,7 @@
 package com.paly.controller;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
@@ -7,13 +9,22 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.paly.domain.Section;
 import com.paly.pageModel.Chapter;
 import com.paly.pageModel.Datagrid;
 import com.paly.pageModel.Json;
-
+import com.paly.service.AdminChapterService;
+/**
+ * 
+ * @author ron
+ *
+ */
 @Controller
 public class AdminChapterController extends AdminBaseController{
 
+	@Resource
+	AdminChapterService adminChapterService;
+	
 	private static final Logger logger = LoggerFactory.getLogger(AdminQuestionBankController.class);
 	
 	@RequestMapping("/chapter/add.action")
@@ -21,12 +32,11 @@ public class AdminChapterController extends AdminBaseController{
 
 		Json json = new Json();
 		try {
-			logger.info("add");
-
-			//Chapter u = chapterService.save(model);
+			logger.info("add");   
+			adminChapterService.save(chapter);
 			json.setSuccess(true);
 			json.setMsg("添加成功！");
-			json.setObj(chapter);
+			
 
 		} catch (Exception e) {
 			json.setMsg(e.getMessage());
@@ -37,9 +47,9 @@ public class AdminChapterController extends AdminBaseController{
 	}
 
 	@RequestMapping("/chapter/datagridUnaudit.action")
-	public void datagridUnaudit(HttpServletResponse response) {
+	public void datagridUnaudit(Section section,HttpServletResponse response) {
 		logger.info("datagrid");
- 		Datagrid dg = new Datagrid();
+ 		Datagrid dg = adminChapterService.datagrid(section);
 		super.writeJson(dg,response);
 	}
 	
@@ -51,11 +61,11 @@ public class AdminChapterController extends AdminBaseController{
 	}
 
 	@RequestMapping("/chapter/remove.action")
-	public void remove(HttpServletResponse response) {
+	public void remove(String ids,HttpServletResponse response) {
 		Json json = new Json();
 		try {
 			//int n = chapterService.remove(model.getIds());
-			int n = 1;
+			int n = adminChapterService.remove(ids);		
 			json.setSuccess(true);
 			json.setMsg("成功删除" + n + "条记录!");
 
@@ -67,14 +77,29 @@ public class AdminChapterController extends AdminBaseController{
 	}
 
 	@RequestMapping("/chapter/edit.action")
-	public void edit(Chapter chapter,HttpServletResponse response) {
+	public void edit(Section section,HttpServletResponse response) {
 
 		Json json = new Json();
 		try {
-			//Chapter u = chapterService.edit(model);
+			adminChapterService.edit(section);
+			Chapter chapter2 = new Chapter();
 			json.setSuccess(true);
 			json.setMsg("修改成功！");
-			json.setObj(chapter);
+			json.setObj(chapter2);
+		} catch (Exception e) {
+			json.setMsg(e.getMessage());
+		}
+		super.writeJson(json,response);
+	}
+	
+	@RequestMapping()
+	public void audit(String ids,HttpServletResponse response){
+		Json json = new Json();
+		try {		
+			adminChapterService.audit(ids);
+			System.out.println("====="+ids);
+			json.setSuccess(true);
+			json.setMsg("修改成功！");		
 		} catch (Exception e) {
 			json.setMsg(e.getMessage());
 		}

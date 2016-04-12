@@ -18,7 +18,7 @@ public class Question extends BaseModel {
 	private String d;
 	private String answer;
 	private Date createDateTime;
-
+    private Boolean status;
 	private File file;
 
 	public Question() {
@@ -107,6 +107,14 @@ public class Question extends BaseModel {
 
 	public void setFile(File file) {
 		this.file = file;
+	}
+
+	public Boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(Boolean status) {
+		this.status = status;
 	}
 
 }

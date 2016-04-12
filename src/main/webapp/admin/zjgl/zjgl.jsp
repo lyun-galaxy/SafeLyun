@@ -10,25 +10,25 @@
 				url : '${pageContext.request.contextPath}/chapter/datagridAudit.action',
 				fit : true,
 				pagination : true,
-				idField : 'id',
+				idField : 'sectionId',
 				checkOnSelect : false,
 				selectOnCheck : false,
 				fitColumns : true,
 				rownumbers : true,
 				frozenColumns : [ [ {
-					field : 'id',
+					field : 'sectionId',
 					title : '编号',
 					width : 150,
 					align : 'center',
 					//hidden : true,
 					checkbox : true
 				}, {
-					field : 'name',
+					field : 'sectionName',
 					title : '章节名称',
 					width : 150,
 					align : 'center',
 				}, {
-					field : 'status',
+					field : 'sectionChecked',
 					title : '状态',
 					width : 150,
 					align : 'center',
@@ -68,25 +68,25 @@
 				url : '${pageContext.request.contextPath}/chapter/datagridUnaudit.action',
 				fit : true,
 				pagination : true,
-				idField : 'id',
+				idField : 'sectionId',
 				checkOnSelect : false,
 				selectOnCheck : false,
 				fitColumns : true,
 				rownumbers : true,
 				frozenColumns : [ [ {
-					field : 'id',
+					field : 'sectionId',
 					title : '编号',
 					width : 150,
 					align : 'center',
 					//hidden : true,
 					checkbox : true
 				}, {
-					field : 'name',
+					field : 'sectionName',
 					title : '章节名称',
 					width : 150,
 					align : 'center',
 				}, {
-					field : 'status',
+					field : 'sectionChecked',
 					title : '状态',
 					width : 150,
 					align : 'center',
@@ -140,7 +140,7 @@
 				$.messager.confirm('确认', '您是否要授权当前选中的选项？', function(r) {
 					if (r) {
 						for ( var i = 0; i < rows.length; i++) {
-							ids.push(rows[i].id);
+							ids.push(rows[i].sectionId);
 						}
 						$.ajax({
 							url : '${pageContext.request.contextPath}/chapter/audit.action',
@@ -207,11 +207,11 @@
 									var obj = jQuery.parseJSON(data);
 									if (obj.success) {
 										d.dialog('destroy');
-										//$('#admin_zjgl_zjgl_datagrid').datagrid('load');
-										$('#admin_zjgl_zjgl_datagrid').datagrid('updateRow', {
+										$('#admin_zjgl_zjgl_datagrid').datagrid('load');
+										/*$('#admin_zjgl_zjgl_datagrid').datagrid('updateRow', {
 											index : $('#admin_zjgl_zjgl_datagrid').datagrid('getRowIndex', rows[0]),
 											row : obj.obj
-										});
+										});*/
 									}
 
 									$.messager.show({
@@ -243,7 +243,7 @@
 				$.messager.confirm('确认', '您是否要删除当前选中的选项？', function(r) {
 					if (r) {
 						for ( var i = 0; i < rows.length; i++) {
-							ids.push(rows[i].id);
+							ids.push(rows[i].sectionId);
 						}
 						$.ajax({
 							url : '${pageContext.request.contextPath}/chapter/remove.action',
@@ -317,12 +317,12 @@
 							success : function(data) {
 								var obj = jQuery.parseJSON(data);
 								if (obj.success) {
-									/*$('#admin_zjgl_zjgl_datagrid').datagrid('load');*/
+									$('#admin_zjgl_zjgl_datagrid').datagrid('load');
 									/*$('#admin_zjgl_zjgl_datagrid').datagrid('appendRow',obj.obj);*/
-									$('#admin_zjgl_zjgl_datagrid').datagrid('insertRow',{
+									/*$('#admin_zjgl_zjgl_datagrid').datagrid('insertRow',{
 										index: 0,
 										row:obj.obj
-									});
+									});*/
 									$('#admin_zjgl_zjgl_addDialog').dialog('close');
 								}
 								$.messager.show({

@@ -20,8 +20,17 @@
 </head>
 
 <body class="easyui-layout">
-	<div data-options="region:'north'" style="height:100px;"></div>
-	<div data-options="region:'south'" style="height:30px;"></div>
+	<div data-options="region:'north'" style="height:100px;">
+		<div align="center">
+		<img alt="" src="images/admin_title.png" >
+		</div>
+	</div>
+	<div data-options="region:'south'" style="height:30px;">
+		<div align="center">
+			
+		<p>&copy; 龙岩学院保卫处 & GALAXY团队</p>
+		</div>
+	</div>
 	<div data-options="region:'east',title:'日历'" style="width:180px;">
 		<jsp:include page="admin/index/east.jsp"></jsp:include>
 	</div>

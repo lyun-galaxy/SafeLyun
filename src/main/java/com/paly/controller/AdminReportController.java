@@ -1,7 +1,9 @@
 package com.paly.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -17,7 +19,11 @@ import com.paly.pageModel.Grade;
 import com.paly.pageModel.Pro;
 import com.paly.pageModel.Report;
 import com.paly.pageModel.Score;
-
+/**
+ * 
+ * @author Royal
+ *
+ */
 @Controller
 public class AdminReportController extends AdminBaseController{
 	
@@ -181,4 +187,38 @@ public class AdminReportController extends AdminBaseController{
 		d.setTotal((long) list.size());
 		super.writeJson(d,response);
 	}
+    
+    @RequestMapping("/report/allStudentScore.action")
+    public void allStudentScore(Report report,HttpServletResponse response){
+    	Map<String, Object> map=new HashMap<String,Object>();
+    	map.put("no", "2013034500");
+    	map.put("name", "kuker");
+    	map.put("departName", "信息工程学院");
+    	map.put("proName", "软件工程");
+    	map.put("score", 66);
+    	
+    	List list=new ArrayList();
+    	list.add(map);
+    	Datagrid d = new Datagrid();
+		d.setRows(list);
+		d.setTotal((long) list.size());
+		super.writeJson(d,response);
+    }
+    
+    @RequestMapping("/report/allNoPass.action")
+    public void allNoPass(Report report,HttpServletResponse response){
+    	Map<String, Object> map=new HashMap<String,Object>();
+    	map.put("no", "2013034500");
+    	map.put("name", "haha");
+    	map.put("departName", "信息工程学院");
+    	map.put("proName", "软件工程");
+    	map.put("score", 50);
+    	
+    	List list=new ArrayList();
+    	list.add(map);
+    	Datagrid d = new Datagrid();
+		d.setRows(list);
+		d.setTotal((long) list.size());
+		super.writeJson(d,response);
+    }
 }

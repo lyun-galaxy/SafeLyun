@@ -3,10 +3,10 @@
 <form id="admin_zjgl_zjglEdit_editForm" method="post">
 	<table>
 		<tr>
-			<input name="id" hidden="true" />
-			<input name="status" hidden="true" />
+			<input name="sectionId" hidden="true" />
+			<input name="sectionChecked" hidden="true" />
 			<th>章节名称</th>
-			<td><input name="name" class="easyui-validatebox" data-options="required:true" /></td>
+			<td><input name="sectionName" class="easyui-validatebox" data-options="required:true" /></td>
 		</tr>
 	</table>
 </form>

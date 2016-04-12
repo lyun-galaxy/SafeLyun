@@ -41,7 +41,7 @@
           <img class="first-slide" src="images/1.jpg" alt="First slide">
           <div class="container">
             <div class="carousel-caption">
-              <h1>平安龙院</h1>
+              <h1><img alt="" src="images/title.png" ></h1>
               <p>该系统专门为学生提供在线学习，在线考试等功能。</p>
               <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>
             </div>
@@ -51,7 +51,7 @@
           <img class="second-slide" src="images/2.jpg" alt="Second slide">
           <div class="container">
             <div class="carousel-caption">
-              <h1>平安龙院</h1>
+              <h1><img alt="" src="images/title.png" ></h1>
               <p>该系统专门为学生提供在线学习，在线考试等功能。</p>
               <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
             </div>
@@ -61,7 +61,7 @@
           <img class="third-slide" src="images/3.jpg" alt="Third slide">
           <div class="container">
             <div class="carousel-caption">
-              <h1>平安龙院</h1>
+              <h1><img alt="" src="images/title.png" ></h1>
               <p>该系统专门为学生提供在线学习，在线考试等功能。</p>
               <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
             </div>
@@ -131,6 +131,10 @@
 				</div>
 			</div>
 		</div>
+		<hr>
+		<footer>
+		<p>&copy; 龙岩学院保卫处 & GALAXY团队</p>
+		</footer>
 	</div>
 	
 </body>
