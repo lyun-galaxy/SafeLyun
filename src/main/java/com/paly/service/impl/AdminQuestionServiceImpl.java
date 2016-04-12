@@ -147,13 +147,20 @@ public class AdminQuestionServiceImpl extends BaseServiceImpl<Itempool> implemen
 		//更改题目
 		public Question edit(Question question) {
 			// TODO Auto-generated method stub
-			Itempool itempool = new Itempool();
-			itempool.setItempoolId(Integer.valueOf(question.getId()));
+//			Itempool itempool = new Itempool();
+//			itempool.setItempoolId(Integer.valueOf(question.getId()));
+//			itempool.setItempoolQuestion(question.getTitle());
+//			itempool.setA(question.getA());
+//			itempool.setB(question.getB());
+//			itempool.setC(question.getC());
+//			itempool.setD(question.getD());
+//			itempool.setItempoolCorrect(question.getAnswer());
+			Itempool itempool = itempoolMapper.selectByPrimaryKey(Integer.valueOf(question.getId()));
 			itempool.setItempoolQuestion(question.getTitle());
 			itempool.setA(question.getA());
 			itempool.setB(question.getB());
-			itempool.setC(question.getB());
-			itempool.setD(question.getB());
+			itempool.setC(question.getC());
+			itempool.setD(question.getD());
 			itempool.setItempoolCorrect(question.getAnswer());
             super.update(itempool);
 			return question;
