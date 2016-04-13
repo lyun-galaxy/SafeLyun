@@ -54,4 +54,16 @@
   	select sub.* from subsection sub
   		join studyschedule study on sub.subsectionId=study.subsection_subsectionId and study.studyscheduleId=#{studyscheduleId}
   </select>
+  
+  <!-- 查询经过审核的子章节 -->
+  <select id="queryIsChecked" resultMap="BaseResultMap">
+  	select sub.* from subsection sub
+  		where sub.subsectionChecked=1;
+  </select>
+  
+  <!-- 查询未经过审核的子章节 -->
+  <select id="queryIsNotChecked" resultMap="BaseResultMap">
+  	select sub.* from subsection sub
+  		where sub.subsectionChecked=0;
+  </select>
 </mapper>

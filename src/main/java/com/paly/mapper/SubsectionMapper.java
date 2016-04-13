@@ -24,4 +24,15 @@ public interface SubsectionMapper extends BaseMapper<Subsection> {
 	 */
 	Subsection getByStudyscheduleId(int studyscheduleId);
 	
+	/**
+	 * 查询经过审核的子章节
+	 * @return 返回已审核的子章节列表
+	 */
+	List<Subsection> queryIsChecked();
+
+	/**
+	 * 查询未经过审核的子章节
+	 * @return 返回未审核的子章节列表
+	 */
+	List<Subsection> queryIsNotChecked();
 }
