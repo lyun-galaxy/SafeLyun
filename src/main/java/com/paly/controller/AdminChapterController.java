@@ -1,7 +1,6 @@
 package com.paly.controller;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
@@ -47,17 +46,19 @@ public class AdminChapterController extends AdminBaseController{
 	}
 
 	@RequestMapping("/chapter/datagridUnaudit.action")
-	public void datagridUnaudit(Section section,HttpServletResponse response) {
+	public void datagridUnaudit(Chapter chapter,HttpServletResponse response) {
 		logger.info("datagrid");
- 		Datagrid dg = adminChapterService.datagrid(section);
+ 		Datagrid dg = adminChapterService.datagrid(chapter);
 		super.writeJson(dg,response);
+		System.out.println(chapter.getRows()+"|"+chapter.getPage()+"=========");
 	}
 	
 	@RequestMapping("/chapter/datagridAudit.action")
-	public void datagridAudit(HttpServletResponse response) {
+	public void datagridAudit(Chapter chapter,HttpServletResponse response) {
 		logger.info("datagrid");
- 		Datagrid dg = new Datagrid();
+ 		Datagrid dg = adminChapterService.datagrid(chapter);
 		super.writeJson(dg,response);
+		System.out.println(chapter.getRows()+"|"+chapter.getPage()+"=========");
 	}
 
 	@RequestMapping("/chapter/remove.action")

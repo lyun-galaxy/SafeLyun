@@ -1,6 +1,6 @@
 package com.paly.service.impl;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -35,7 +35,7 @@ public class AdminChapterServiceImpl extends BaseServiceImpl<Section> implements
 	}
 
 	@Override
-	public Datagrid datagrid(Section section) {
+	public Datagrid datagrid(Chapter chapter) {
 		// TODO Auto-generated method stub
 		List<Section> sections = sectionMapper.selectAll();
 		Datagrid datagrid = new Datagrid();
