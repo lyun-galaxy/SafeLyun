@@ -47,13 +47,13 @@
   <!-- 获取所有经过审核的题目 -->
   <select id="getIsChecked" resultMap="BaseResultMap">
   	select i.* from itempool i
-  		where i.itempoolChecked=1;
+  		where i.itempoolChecked=1
   </select>
   
   <!-- 获取所有未经过审核的题目 -->
   <select id="getIsNotChecked" resultMap="BaseResultMap">
   	select i.* from itempool i
-  		where i.itempoolChecked=0;
+  		where i.itempoolChecked=0
   </select>
   
   <!-- 模糊查找题目 -->
