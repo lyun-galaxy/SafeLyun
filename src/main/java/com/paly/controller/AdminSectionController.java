@@ -54,7 +54,7 @@ public class AdminSectionController extends AdminBaseController{
 	public void datagridAudit(Section section,HttpServletRequest request,HttpServletResponse response) {
 		logger.info("datagridAudit");
 		
-		Datagrid datagrid = adminSectionService.datagridUnaudit(section,COOKIENAME,request);
+		Datagrid datagrid = adminSectionService.datagridAudit(section,COOKIENAME,request);
  		super.writeJson(datagrid,response);
 	}
     
@@ -87,6 +87,7 @@ public class AdminSectionController extends AdminBaseController{
 		try {
 			//model.setChapterId(chapterService.getChapterIdByCookieName(COOKIENAME));
 			//Section u = sectionService.edit(model);
+			adminSectionService.edit(section);
 			json.setSuccess(true);
 			json.setMsg("修改成功！");
 			json.setObj(section);

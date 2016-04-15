@@ -3,6 +3,7 @@ package com.paly.service.impl;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -39,14 +40,7 @@ public class AdminSectionServiceImpl implements AdminSectionService{
 		// TODO Auto-generated method stub
 		Subsection subsection = new Subsection();
 		subsection.setSubsectionName(section.getName());
-		try {
-			String d = "2016/4/14 00:";
-			subsection.setSubsectionTime(new SimpleDateFormat("yyyy/MM/dd HH:mm").parse((d+String.valueOf(section.getMinutes()))));
-			System.out.println(subsection.getSubsectionTime());
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	    subsection.setSubsectionTime(section.getMinutes());
 		String myid = null;
 		Cookie[] cookies = request.getCookies(); 
 		for (Cookie cookie : cookies) {
@@ -57,6 +51,7 @@ public class AdminSectionServiceImpl implements AdminSectionService{
 		}
 		subsection.setSubsectionContent(section.getContext());
 		subsection.setSection(sectionMapper.selectByPrimaryKey(Integer.valueOf(myid)));
+		subsection.setSubsectionChecked(false);
 		subsectionMapper.insert(subsection);
 		
 	}
@@ -75,6 +70,12 @@ public class AdminSectionServiceImpl implements AdminSectionService{
 	@Override
 	public Section edit(Section section) {
 		// TODO Auto-generated method stub
+		Subsection subsection = subsectionMapper.selectByPrimaryKey(Integer.valueOf(section.getId()));
+		subsection.setSubsectionName(section.getName());
+		subsection.setSubsectionContent(section.getContext());
+		subsection.setSubsectionTime(section.getMinutes());
+		subsection.setSubsectionChecked(section.getStatus());
+		subsectionMapper.updateByPrimaryKey(subsection);
 		return null;
 	}
 
@@ -90,15 +91,15 @@ public class AdminSectionServiceImpl implements AdminSectionService{
 		}
 		logger.info("====="+myid);
 		PageHelper.startPage(section.getPage(), section.getRows());
-		List<Subsection> subSections = subsectionMapper.getBySectionId(Integer.valueOf(myid));
+		List<Subsection> subSections = subsectionMapper.queryIsCheckedBySecId(Integer.valueOf(myid));
 		PageInfo<Subsection> page = new PageInfo<Subsection>(subSections);
 		List<Section> sections = new ArrayList<Section>();
 		Section mysection = null;
 		for (int i = 0; i < subSections.size(); i++) {
 			mysection = new Section();
 			mysection.setId(String.valueOf(subSections.get(i).getSubsectionId()));
-			mysection.setName(subSections.get(i).getSubsectionName());
-			mysection.setMinutes(1);
+			mysection.setName(subSections.get(i).getSubsectionName());	
+			mysection.setMinutes(subSections.get(i).getSubsectionTime());
 			mysection.setContext(subSections.get(i).getSubsectionContent());
 			sections.add(mysection);
 		}
@@ -121,7 +122,7 @@ public class AdminSectionServiceImpl implements AdminSectionService{
 		}
 		logger.info("====="+myid);
 		PageHelper.startPage(section.getPage(), section.getRows());
-		List<Subsection> subSections = subsectionMapper.getBySectionId(Integer.valueOf(myid));
+		List<Subsection> subSections = subsectionMapper.queryIsNotCheckedBySecId(Integer.valueOf(myid));
 		PageInfo<Subsection> page = new PageInfo<Subsection>(subSections);
 		List<Section> sections = new ArrayList<Section>();
 		Section mysection = null;
@@ -129,8 +130,9 @@ public class AdminSectionServiceImpl implements AdminSectionService{
 			mysection = new Section();
 			mysection.setId(String.valueOf(subSections.get(i).getSubsectionId()));
 			mysection.setName(subSections.get(i).getSubsectionName());
-			mysection.setMinutes(1);
+			mysection.setMinutes(subSections.get(i).getSubsectionTime());
 			mysection.setContext(subSections.get(i).getSubsectionContent());
+	     	mysection.setStatus(subSections.get(i).getSubsectionChecked());
 			sections.add(mysection);
 		}
 		Datagrid datagrid = new Datagrid();

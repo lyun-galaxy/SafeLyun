@@ -9,6 +9,15 @@ public class Section extends BaseModel {
 	private String name;
 	private String context;
     private int minutes;
+    private boolean status;
+	public boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+
 	public Section() {
 		super();
 	}
