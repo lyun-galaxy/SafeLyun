@@ -257,7 +257,7 @@ CREATE TABLE IF NOT EXISTS `safelyun`.`subsection` (
   `subsectionId` INT(11) NOT NULL AUTO_INCREMENT,
   `subsectionName` VARCHAR(45) NULL DEFAULT NULL,
   `subsectionContent` TEXT NULL DEFAULT NULL,
-  `subsectionTime` TIME NULL DEFAULT NULL,
+  `subsectionTime` INT NULL DEFAULT NULL COMMENT '存储时长，只记录多少分钟',
   `subsectionChecked` BIT(1) NULL DEFAULT NULL,
   `section_sectionId` INT(11) NOT NULL,
   PRIMARY KEY (`subsectionId`),
