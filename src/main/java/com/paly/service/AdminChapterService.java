@@ -9,7 +9,9 @@ import com.paly.pageModel.Datagrid;
 public interface AdminChapterService extends BaseService<Section>{
 	public void save(Chapter chapter);
 
-	public Datagrid datagrid(Chapter chapter);
+	public Datagrid datagridAudit(Chapter chapter);
+	
+	public Datagrid datagridUnaudit(Chapter chapter);
 
 	public int remove(String ids);
 

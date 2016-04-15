@@ -34,18 +34,18 @@ public class AdminQuestionBankController extends AdminBaseController{
 	
 	//数据库数据显示
 	@RequestMapping("/questionbank/auditdatagrid.action")
-	public void auditdatagrid(HttpServletResponse response) {
+	public void auditdatagrid(Question question,HttpServletResponse response) {
 		logger.info("datagrid");
-		Datagrid dg = new Datagrid();  //获取数据库题目数据
+		Datagrid dg = adminQuestionService.datagridForAudit(question);  
 		super.writeJson(dg,response);
-		System.out.println("更新已经过验证题目");
+		System.out.println("更新未经过验证题目");
 	}
 	
 	//数据库数据显示
 		@RequestMapping("/questionbank/unauditdatagrid.action")
 		public void unAuditDatagrid(Question question,HttpServletResponse response) {
 			logger.info("datagrid");
-			Datagrid dg = adminQuestionService.datagrid(question);  
+			Datagrid dg = adminQuestionService.datagridForUnaudit(question);  
 			super.writeJson(dg,response);
 			System.out.println("更新未经过验证题目");
 		}

@@ -174,7 +174,7 @@
 		function zjManager() {
 			var rows = $('#admin_zjgl_zjgl_datagrid').datagrid('getChecked');
 			if (rows.length == 1) {
-				document.cookie = 'zjid=' + rows[0].id;
+				document.cookie = 'zjid=' + rows[0].sectionId;
 				var url = '${pageContext.request.contextPath}/admin/xjgl/xjgl.jsp';
 				addTabs({
 					title : '小节管理',
