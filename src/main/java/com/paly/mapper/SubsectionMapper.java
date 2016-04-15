@@ -35,4 +35,18 @@ public interface SubsectionMapper extends BaseMapper<Subsection> {
 	 * @return 返回未审核的子章节列表
 	 */
 	List<Subsection> queryIsNotChecked();
+	
+	/**
+	 * 查询章节下未经过审核的子章节列表
+	 * @param sectionId 章节id
+	 * @return 返回指定章节下未经审核的子章节列表
+	 */
+	List<Subsection> queryIsNotCheckedBySecId(int sectionId);
+		
+	/**
+	 * 查询章节下经过审核的子章节列表
+	 * @param sectionId 章节id
+	 * @return 返回指定章节下经过审核的子章节列表
+	 */
+	List<Subsection> queryIsCheckedBySecId(int sectionId);
 }
