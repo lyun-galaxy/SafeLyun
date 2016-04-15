@@ -48,7 +48,7 @@ public class AdminChapterController extends AdminBaseController{
 	@RequestMapping("/chapter/datagridUnaudit.action")
 	public void datagridUnaudit(Chapter chapter,HttpServletResponse response) {
 		logger.info("datagrid");
- 		Datagrid dg = adminChapterService.datagrid(chapter);
+ 		Datagrid dg = adminChapterService.datagridUnaudit(chapter);
 		super.writeJson(dg,response);
 		System.out.println(chapter.getRows()+"|"+chapter.getPage()+"=========");
 	}
@@ -56,7 +56,7 @@ public class AdminChapterController extends AdminBaseController{
 	@RequestMapping("/chapter/datagridAudit.action")
 	public void datagridAudit(Chapter chapter,HttpServletResponse response) {
 		logger.info("datagrid");
- 		Datagrid dg = adminChapterService.datagrid(chapter);
+ 		Datagrid dg = adminChapterService.datagridAudit(chapter);
 		super.writeJson(dg,response);
 		System.out.println(chapter.getRows()+"|"+chapter.getPage()+"=========");
 	}

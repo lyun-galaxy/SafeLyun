@@ -7,6 +7,8 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.paly.domain.Section;
 import com.paly.mapper.BaseMapper;
 import com.paly.mapper.SectionMapper;
@@ -30,20 +32,37 @@ public class AdminChapterServiceImpl extends BaseServiceImpl<Section> implements
 		// TODO Auto-generated method stub
 		Section section = new Section();
 		section.setSectionName(chapter.getName());
+		section.setSectionChecked(false);
 		super.save(section);
 		
 	}
 
 	@Override
-	public Datagrid datagrid(Chapter chapter) {
+	public Datagrid datagridAudit(Chapter chapter) {
 		// TODO Auto-generated method stub
-		List<Section> sections = sectionMapper.selectAll();
+		PageHelper.startPage(chapter.getPage(), chapter.getRows());
+		List<Section> sections = sectionMapper.queryIsChecked();
+		PageInfo<Section> page = new PageInfo<Section>(sections);
+		
 		Datagrid datagrid = new Datagrid();
 		datagrid.setRows(sections);
-		datagrid.setTotal((long) sections.size());
+		datagrid.setTotal(page.getTotal());
 		return datagrid;
 	}
 
+	@Override
+	public Datagrid datagridUnaudit(Chapter chapter) {
+		// TODO Auto-generated method stub
+		PageHelper.startPage(chapter.getPage(), chapter.getRows());
+		List<Section> sections = sectionMapper.queryIsNotChecked();
+		PageInfo<Section> page = new PageInfo<Section>(sections);
+		
+		Datagrid datagrid = new Datagrid();
+		datagrid.setRows(sections);
+		datagrid.setTotal(page.getTotal());
+		return datagrid;
+	}
+	
 	@Override
 	public int remove(String ids) {
 		// TODO Auto-generated method stub

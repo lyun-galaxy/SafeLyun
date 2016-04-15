@@ -7,7 +7,7 @@
 
 		function xjInit() {
 			$('#admin_xjgl_xjgl_datagrid').datagrid({
-				url : '${pageContext.request.contextPath}/sectionAction!datagridAudit.action',
+				url : '${pageContext.request.contextPath}/sectionController/datagridAudit.action',
 				fit : true,
 				pagination : true,
 				idField : 'id',
@@ -69,7 +69,7 @@
 
 		function xjUnAudit() {
 			$('#admin_xjgl_xjgl_datagrid').datagrid({
-				url : '${pageContext.request.contextPath}/sectionAction!datagridUnaudit.action',
+				url : '${pageContext.request.contextPath}/sectionController/datagridUnaudit.action',
 				fit : true,
 				pagination : true,
 				idField : 'id',
@@ -156,7 +156,7 @@
 							ids.push(rows[i].id);
 						}
 						$.ajax({
-							url : '${pageContext.request.contextPath}/sectionAction!audit.action',
+							url : '${pageContext.request.contextPath}/sectionController/audit.action',
 							data : {
 								ids : ids.join(',')
 							},
@@ -199,16 +199,16 @@
 						text : '修改',
 						handler : function() {
 							$('#admin_xjgl_xjglEdit_editForm').form('submit', {
-								url : '${pageContext.request.contextPath}/sectionAction!edit.action',
+								url : '${pageContext.request.contextPath}/sectionController/edit.action',
 								success : function(data) {
 									var obj = jQuery.parseJSON(data);
 									if (obj.success) {
 										d.dialog('destroy');
-										//$('#admin_xjgl_xjgl_datagrid').datagrid('load');
-										$('#admin_xjgl_xjgl_datagrid').datagrid('updateRow', {
+										$('#admin_xjgl_xjgl_datagrid').datagrid('load');
+										/*$('#admin_xjgl_xjgl_datagrid').datagrid('updateRow', {
 											index : $('#admin_xjgl_xjgl_datagrid').datagrid('getRowIndex', rows[0]),
 											row : obj.obj
-										});
+										});*/
 									}
 
 									$.messager.show({
@@ -243,7 +243,7 @@
 							ids.push(rows[i].id);
 						}
 						$.ajax({
-							url : '${pageContext.request.contextPath}/sectionAction!remove.action',
+							url : '${pageContext.request.contextPath}/sectionController/remove.action',
 							data : {
 								ids : ids.join(',')
 							},
@@ -309,16 +309,16 @@
 					iconCls : 'icon-add',
 					handler : function() {
 						$('#admin_xjgl_xjgl_addForm').form('submit',{
-							url : '${pageContext.request.contextPath}/sectionAction!add.action',
+							url : '${pageContext.request.contextPath}/sectionController/add.action',
 							success : function(data) {
 								var obj = jQuery.parseJSON(data);
 								if (obj.success) {
-									/*$('#admin_xjgl_xjgl_datagrid').datagrid('load');*/
+									$('#admin_xjgl_xjgl_datagrid').datagrid('load');
 									/*$('#admin_xjgl_xjgl_datagrid').datagrid('appendRow',obj.obj);*/
-									$('#admin_xjgl_xjgl_datagrid').datagrid('insertRow',{
+									/*$('#admin_xjgl_xjgl_datagrid').datagrid('insertRow',{
 										index: 0,
 										row:obj.obj
-									});
+									});*/
 									$('#admin_xjgl_xjgl_addDialog').dialog('close');
 								}
 								$.messager.show({
