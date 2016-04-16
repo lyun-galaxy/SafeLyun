@@ -357,7 +357,10 @@ public class DaoTest {
 			Student s = new Student("student"+i, pass.toString());
 			userMapper.insert(u);
 		}*/
-		
+		List<Object> list = sm.queryScoreByGrade("2013");
+		List<Object> list1 = sm.queryFailScoreByGrade("2013");
+		log.debug("list:" + list);
+		log.debug("list1:" + list1);
 	}
 	@Test
 	public void testScore() throws Exception {
@@ -385,4 +388,5 @@ public class DaoTest {
 		
 		sqlSession.commit();
 	}
+	
 }

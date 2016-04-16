@@ -17,4 +17,18 @@ public interface StudentMapper extends BaseMapper<Student> {
 	 * @return 返回指定班级下的所有学生列表
 	 */
 	List<Student> getByClassesId(int classesId);
+	
+	/**
+	 * 查看同一年级下所有学生成绩
+	 * @param grade 年级
+	 * @return 返回学生的成绩，学号，姓名，专业，班级，院系
+	 */
+	List<Object> queryScoreByGrade(String grade);
+	
+	/**
+	 * 查看同一年级下所有未通过学生成绩	
+	 * @param grade 年级
+	 * @return 返回未通过学生的成绩，学号，姓名，专业，班级，院系
+	 */
+	List<Object> queryFailScoreByGrade(String grade);
 }

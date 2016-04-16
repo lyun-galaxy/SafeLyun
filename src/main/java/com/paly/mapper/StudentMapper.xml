@@ -67,4 +67,20 @@
   	select stud.* from student stud
   		join studyschedule study on stud.studentId=study.student_studentId and study.studyscheduleId=#{studyscheduleId}
   </select>
+  
+  <!-- 查看同一年级下所有学生成绩 -->
+  <select id="queryScoreByGrade" resultType="list"  parameterType="string">
+  	select scoreMark,studentNumber,studentName,classesName,specialtyName,departmentName
+ 	from score,student,classes,specialty,department	
+	where student_studentId=studentId and classes_classesId=classesId and specialty_specialtyId=specialtyId
+	 and department_departmentId=departmentId and grade=#{grade} order by studentNumber
+  </select>
+  
+  <!-- 查看同一年级下所有未通过学生成绩 -->
+  <select id="queryFailScoreByGrade" resultType="list" parameterType="string">
+  	select scoreMark,studentNumber,studentName,classesName,specialtyName,departmentName
+    from score,student,classes,specialty,department	
+	where student_studentId=studentId and classes_classesId=classesId and specialty_specialtyId
+	=specialtyId and department_departmentId=departmentId and <![CDATA[scoreMark<60]]> and grade=#{grade} order by studentNumber
+  </select>
 </mapper>
