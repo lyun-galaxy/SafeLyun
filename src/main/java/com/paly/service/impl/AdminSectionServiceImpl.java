@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.druid.sql.visitor.functions.Substring;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.paly.domain.Subsection;
@@ -141,4 +142,16 @@ public class AdminSectionServiceImpl implements AdminSectionService{
 		return datagrid;
 	}
 
+	@Override
+	public int audit(String ids) {
+		// TODO Auto-generated method stub
+		String[] nids = ids.split(",");
+		for (int i = 0; i < nids.length; i++) {
+			int id = Integer.valueOf(nids[i]);
+			Subsection subsection = subsectionMapper.selectByPrimaryKey(id);
+			subsection.setSubsectionChecked(true);
+			subsectionMapper.updateByPrimaryKey(subsection);
+		}
+		return nids.length;
+	}
 }

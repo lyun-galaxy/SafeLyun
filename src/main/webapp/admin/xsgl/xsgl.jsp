@@ -65,10 +65,10 @@
 
 		function setSwitch() {
 			$.ajax({
-				url : '${pageContext.request.contextPath}/switchAction!getFlag.action',
+				url : '${pageContext.request.contextPath}/switchController/getFlag.action',
 				dataType : 'json',
 				success : function(d) {
-					if (d.flag == 0) {
+					if (d.flag == false) {
 						$('#xsSwitch').switchbutton({
 							checked : false
 						});
@@ -84,7 +84,7 @@
 
 		function admin_xsgl_xsgl_xsChange() {
 			$.ajax({
-				url : '${pageContext.request.contextPath}/switchAction!changeFlag.action',
+				url : '${pageContext.request.contextPath}/switchController/changeFlag.action',
 				dataType : 'json',
 				success : function(d) {
 					$.messager.show({

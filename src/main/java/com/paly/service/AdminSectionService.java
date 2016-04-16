@@ -15,4 +15,6 @@ public interface AdminSectionService {
 	public int remove(String ids);
 
 	public Section edit(Section section);
+	
+	public int audit(String ids);
 }
