@@ -24,6 +24,8 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.paly.domain.Itempool;
 import com.paly.mapper.BaseMapper;
 import com.paly.mapper.ItempoolMapper;
@@ -78,7 +80,9 @@ public class AdminQuestionServiceImpl extends BaseServiceImpl<Itempool> implemen
 				itempool.setC(c);
 				itempool.setD(d);
 				itempool.setItempoolCorrect(anser);
+				itempool.setItempoolChecked(false);
 				itempoolMapper.insert(itempool);
+			
 			}
 			
 		} catch (FileNotFoundException e) {
@@ -102,14 +106,19 @@ public class AdminQuestionServiceImpl extends BaseServiceImpl<Itempool> implemen
 			itempool.setC(question.getC());
 			itempool.setD(question.getD());
 			itempool.setItempoolCorrect(question.getAnswer());
+			itempool.setItempoolChecked(false);
 			itempoolMapper.insert(itempool);
 			return question;
 		}
 
 		//查询题目
-		public Datagrid datagrid(Question question) {
+		public Datagrid datagridForAudit(Question question) {
 			// TODO Auto-generated method stub
-			List<Itempool> itempools = itempoolMapper.selectAll();
+			
+			PageHelper.startPage(question.getPage(), question.getRows());
+			List<Itempool> itempools = itempoolMapper.getIsChecked();
+			PageInfo<Itempool> page = new PageInfo<Itempool>(itempools);
+		
 			List<Question> questions = new ArrayList<Question>();
 			Question q=null;
 			for(int i = 0;i < itempools.size();i++){
@@ -119,15 +128,46 @@ public class AdminQuestionServiceImpl extends BaseServiceImpl<Itempool> implemen
 				q.setB(itempools.get(i).getB());
 				q.setC(itempools.get(i).getC());
 				q.setD(itempools.get(i).getD());
+				q.setStatus(itempools.get(i).getItempoolChecked());
 			    q.setTitle(itempools.get(i).getItempoolQuestion());
 				q.setAnswer(itempools.get(i).getItempoolCorrect());
+				q.setPage(page.getLastPage()-page.getFirstPage());
+				q.setRows(page.getPageSize());
 				questions.add(q); 
-			}
+			}		
 			Datagrid datagrid = new Datagrid();
-			datagrid.setTotal((long)questions.size());
+			datagrid.setTotal(page.getTotal());
 			datagrid.setRows(questions);
 			return datagrid;
 		}
+		
+		//查询题目
+				public Datagrid datagridForUnaudit(Question question) {
+					// TODO Auto-generated method stub
+					PageHelper.startPage(question.getPage(), question.getRows());
+					List<Itempool> itempools = itempoolMapper.getIsNotChecked();
+					PageInfo<Itempool> page = new PageInfo<Itempool>(itempools);
+					List<Question> questions = new ArrayList<Question>();
+					Question q=null;
+					for(int i = 0;i < itempools.size();i++){
+						q=new Question();
+						q.setId(String.valueOf(itempools.get(i).getItempoolId()));
+						q.setA(itempools.get(i).getA());
+						q.setB(itempools.get(i).getB());
+						q.setC(itempools.get(i).getC());
+						q.setD(itempools.get(i).getD());
+						q.setStatus(itempools.get(i).getItempoolChecked());
+					    q.setTitle(itempools.get(i).getItempoolQuestion());
+						q.setAnswer(itempools.get(i).getItempoolCorrect());
+						q.setPage(page.getLastPage()-page.getFirstPage());
+						q.setRows(page.getPageSize());
+						questions.add(q); 
+					}
+					Datagrid datagrid = new Datagrid();
+					datagrid.setTotal(page.getTotal());
+					datagrid.setRows(questions);
+					return datagrid;
+				}
 
 		//删除题目
 		public int remove(String ids) {
@@ -145,13 +185,13 @@ public class AdminQuestionServiceImpl extends BaseServiceImpl<Itempool> implemen
 		//更改题目
 		public Question edit(Question question) {
 			// TODO Auto-generated method stub
-			Itempool itempool = new Itempool();
-			itempool.setItempoolId(Integer.valueOf(question.getId()));
+
+			Itempool itempool = itempoolMapper.selectByPrimaryKey(Integer.valueOf(question.getId()));
 			itempool.setItempoolQuestion(question.getTitle());
 			itempool.setA(question.getA());
 			itempool.setB(question.getB());
-			itempool.setC(question.getB());
-			itempool.setD(question.getB());
+			itempool.setC(question.getC());
+			itempool.setD(question.getD());
 			itempool.setItempoolCorrect(question.getAnswer());
             super.update(itempool);
 			return question;
@@ -171,9 +211,11 @@ public class AdminQuestionServiceImpl extends BaseServiceImpl<Itempool> implemen
 			String[] nids = ids.split(",");
 			int n = 0;
 			for (String string : nids) {
-				int id = Integer.valueOf(string);		
-				
-				
+				int id = Integer.valueOf(string);	
+				Itempool itempool = super.getById(id);
+				itempool.setItempoolId(id);
+				itempool.setItempoolChecked(true);
+				super.update(itempool);	
 			}
 		}
 

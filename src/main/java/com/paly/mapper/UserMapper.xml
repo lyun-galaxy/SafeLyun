@@ -8,6 +8,8 @@
      <!-- property: 指的是集合属性的值, ofType：指的是集合中元素的类型 -->
   	<collection property="roles" ofType="com.paly.domain.Role" select="com.paly.mapper.RoleMapper.getByUserId" column="userId">  		
   	</collection>
+  	<collection property="classes" ofType="com.paly.domain.Classes" select="com.paly.mapper.ClassesMapper.getByUserId" column="userId">  		
+  	</collection>
   </resultMap> 
   
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
@@ -43,6 +45,12 @@
   		values (#{userId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER})
   </insert>
   
+  <!-- 设置用户管理的班级 -->
+  <insert id="setUserHasClasses">
+  	insert into user_classes (user_userId, classes_classesId) 
+  		values (#{userId,jdbcType=INTEGER}, #{classesId,jdbcType=INTEGER})
+  </insert>
+  
   <!-- 获取角色下的所有用户列表 -->
   <select id="getByRoleId" resultMap="BaseResultMap" parameterType="int">
   	select u.* from user u, user_role ur
@@ -52,6 +60,6 @@
   <!-- 根据学生id获取与其关联的用户  -->
   <select id="getByStudentId" resultMap="BaseResultMap" parameterType="int">
   	select u.* from user u, student s
-  		where u.userId=s.studentId and s.studentId=#{studentId}
+  		where u.userId=s.user_userId and s.studentId=#{studentId}
   </select>
 </mapper>

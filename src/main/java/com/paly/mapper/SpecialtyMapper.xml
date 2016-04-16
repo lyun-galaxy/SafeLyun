@@ -42,12 +42,12 @@
   <!-- 根据院系id获取其下的所有专业列表 -->
   <select id="getByDepartmentId" resultMap="BaseResultMap" parameterType="int">
   	select s.* from specialty s 
-  		left join department d on d.departmentId=#{departmentId}
+  		join department d on s.department_departmentId=d.departmentId and d.departmentId=#{departmentId}
   </select>
   
   <!-- 根据班级id获取其所属的专业 -->
   <select id="getByClassesId" resultMap="BaseResultMap" parameterType="int">
   	select s.* from  specialty s 
-  		left join classes c on c.classesId=#{classesId}
+  		join classes c on s.specialtyId=c.specialty_specialtyId and c.classesId=#{classesId}
   </select>
 </mapper>

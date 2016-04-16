@@ -15,7 +15,7 @@
   <insert id="insert" parameterType="com.paly.domain.Department" >   
     insert into department (departmentId, departmentName)
     values (#{departmentId,jdbcType=INTEGER}, #{departmentName,jdbcType=VARCHAR})
-  </insert>
+  </insert>  
   <update id="updateByPrimaryKey" parameterType="com.paly.domain.Department" >
     update department
     set departmentName = #{departmentName,jdbcType=VARCHAR}
@@ -35,10 +35,20 @@
     select departmentId, departmentName
     from department
   </select>
+  <!-- 批量添加院系 -->
+  <insert id="batchAdd" parameterType="com.paly.domain.Department" >   
+    insert into department (departmentId, departmentName)
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+    (
+    #{item.departmentId,jdbcType=INTEGER}, #{item.departmentName,jdbcType=VARCHAR}
+    )
+    </foreach>     
+  </insert>
   
   <!-- 根据专业id获取其所属的院系 -->
   <select id="getBySpecialtyId" resultMap="BaseResultMap" parameterType="int">
   	select d.* from department d, specialty s
-  		where d.departmentId=s.specialtyId and s.specialtyId=#{specialtyId}
+  		where d.departmentId=s.department_departmentId and s.specialtyId=#{specialtyId}
   </select>
 </mapper>

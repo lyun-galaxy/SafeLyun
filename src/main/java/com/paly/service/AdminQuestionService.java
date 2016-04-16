@@ -11,7 +11,9 @@ public interface AdminQuestionService extends BaseService<Itempool>{
 	
 	public Question save(Question question);
 
-	public Datagrid datagrid(Question question);  
+	public Datagrid datagridForUnaudit(Question question);  
+	
+	public Datagrid datagridForAudit(Question question); 
 
 	public int remove(String ids);
 

@@ -140,7 +140,7 @@
 				$.messager.confirm('确认', '您是否要授权当前选中的选项？', function(r) {
 					if (r) {
 						for ( var i = 0; i < rows.length; i++) {
-							ids.push(rows[i].id);
+							ids.push(rows[i].sectionId);
 						}
 						$.ajax({
 							url : '${pageContext.request.contextPath}/chapter/audit.action',
@@ -174,7 +174,7 @@
 		function zjManager() {
 			var rows = $('#admin_zjgl_zjgl_datagrid').datagrid('getChecked');
 			if (rows.length == 1) {
-				document.cookie = 'zjid=' + rows[0].id;
+				document.cookie = 'zjid=' + rows[0].sectionId;
 				var url = '${pageContext.request.contextPath}/admin/xjgl/xjgl.jsp';
 				addTabs({
 					title : '小节管理',

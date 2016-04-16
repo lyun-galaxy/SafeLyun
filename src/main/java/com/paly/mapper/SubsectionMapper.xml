@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.paly.domain.Subsection" >
     <id column="subsectionId" property="subsectionId" jdbcType="INTEGER" />
     <result column="subsectionName" property="subsectionName" jdbcType="VARCHAR" />
-    <result column="subsectionTime" property="subsectionTime" jdbcType="TIME" />
+    <result column="subsectionTime" property="subsectionTime" jdbcType="INTEGER" />
     <result column="subsectionChecked" property="subsectionChecked" jdbcType="BIT" />    
     <result column="subsectionContent" property="subsectionContent" jdbcType="LONGVARCHAR" />
     <association property="section" javaType="Section" select="com.paly.mapper.SectionMapper.getBySubsectionId" column="subsectionId">
@@ -18,14 +18,14 @@
     insert into subsection (subsectionId, subsectionName, subsectionTime, 
       subsectionChecked, section_sectionId, subsectionContent
       )
-    values (#{subsectionId,jdbcType=INTEGER}, #{subsectionName,jdbcType=VARCHAR}, #{subsectionTime,jdbcType=TIME}, 
+    values (#{subsectionId,jdbcType=INTEGER}, #{subsectionName,jdbcType=VARCHAR}, #{subsectionTime,jdbcType=INTEGER}, 
       #{subsectionChecked,jdbcType=BIT}, #{section.sectionId,jdbcType=INTEGER}, #{subsectionContent,jdbcType=LONGVARCHAR}
       )
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.paly.domain.Subsection" >
     update subsection
     set subsectionName = #{subsectionName,jdbcType=VARCHAR},
-      subsectionTime = #{subsectionTime,jdbcType=TIME},
+      subsectionTime = #{subsectionTime,jdbcType=INTEGER},
       subsectionChecked = #{subsectionChecked,jdbcType=BIT},
       section_sectionId = #{section.sectionId,jdbcType=INTEGER},
       subsectionContent = #{subsectionContent,jdbcType=LONGVARCHAR}
@@ -46,12 +46,36 @@
   <!-- 根据章节Id获取其下的子章节列表 -->  
   <select id="getBySectionId" resultMap="BaseResultMap" parameterType="int">
   	select sub.* from subsection sub
-  		left join section sec on sec.sectionId=#{sectionId}
+  		join section sec on sub.section_sectionId=sec.sectionId and sec.sectionId=#{sectionId}
   </select>
   
   <!-- 根据学习进度id获取其关联的子章节 -->
   <select id="getByStudyscheduleId" resultMap="BaseResultMap" parameterType="int">
   	select sub.* from subsection sub
-  		left join studyschedule stu on stu.studyscheduleId=#{studyscheduleId}
+  		join studyschedule study on sub.subsectionId=study.subsection_subsectionId and study.studyscheduleId=#{studyscheduleId}
+  </select>
+  
+  <!-- 查询经过审核的子章节 -->
+  <select id="queryIsChecked" resultMap="BaseResultMap">
+  	select sub.* from subsection sub
+  		where sub.subsectionChecked=1
+  </select>
+  
+  <!-- 查询未经过审核的子章节 -->
+  <select id="queryIsNotChecked" resultMap="BaseResultMap">
+  	select sub.* from subsection sub
+  		where sub.subsectionChecked=0
+  </select>
+  
+  <!-- 章节下未经过审核的子章节列表 -->
+  <select id="queryIsNotCheckedBySecId" resultMap="BaseResultMap" parameterType="int">
+  	select sub.* from subsection sub
+  		join section sec on sub.section_sectionId=sec.sectionId and sec.sectionId=#{sectionId} and sub.subsectionChecked=0
+  </select>
+  
+  <!-- 章节下经过审核的子章节列表 -->
+  <select id="queryIsCheckedBySecId" resultMap="BaseResultMap" parameterType="int">
+  	select sub.* from subsection sub
+  		join section sec on sub.section_sectionId=sec.sectionId and sec.sectionId=#{sectionId} and sub.subsectionChecked=1
   </select>
 </mapper>

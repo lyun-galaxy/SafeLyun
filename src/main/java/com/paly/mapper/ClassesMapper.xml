@@ -34,17 +34,26 @@
     select classesId, classesName, specialty_specialtyId
     from classes
   </select>
+  <!-- 根据名称查询班级信息 -->
+  <select id="selectByName" resultMap="BaseResultMap" parameterType="string">
+  	select * from classes c where c.classesName=#{classesName}
+  </select>
   
   <!-- 根据学生id获取其所属的班级 -->
   <select id="getByStudentId" resultMap="BaseResultMap" parameterType="int">
   	select c.* from classes c, student s
-  		where c.classesId=s.studentId and s.studentId=#{studentId}
+  		where c.classesId=s.classes_classesId and s.studentId=#{studentId}
   </select>
   
   <!-- 根据专业id获取其下的班级列表 -->
   <select id="getBySpecialtyId" resultMap="BaseResultMap" parameterType="int">
-  	select c.* from classes c 
-  		left join specialty s on s.specialtyId=#{specialtyId}
-  		
+  	select c.* from classes c
+  		join specialty s on c.specialty_specialtyId=s.specialtyId and s.specialtyId=#{specialtyId} 	
+  </select>
+  
+  <!-- 根据用户id获取其管理的班级列表 -->
+  <select id="getByUserId" resultMap="BaseResultMap" parameterType="int">
+  	select c.* from classes c
+  		join user_classes uc on c.classesId=uc.classes_classesId and uc.user_userId=#{userId}  
   </select>
 </mapper>

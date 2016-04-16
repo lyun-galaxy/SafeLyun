@@ -26,7 +26,7 @@ public class Section implements Serializable {
     private Boolean sectionChecked;
     
     /**
-     * 与子章节一对多
+     * 与子章节关联，拥有多个子章节
      */
     private List<Subsection> subsections;
 

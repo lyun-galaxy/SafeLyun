@@ -1,11 +1,22 @@
 package com.paly.pageModel;
 
+import java.util.Date;
+
 public class Section extends BaseModel {
 
 	private String id;
 	private String chapterId;
 	private String name;
 	private String context;
+    private int minutes;
+    private boolean status;
+	public boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
 
 	public Section() {
 		super();
@@ -50,5 +61,15 @@ public class Section extends BaseModel {
 	public void setContext(String context) {
 		this.context = context;
 	}
+
+	public int getMinutes() {
+		return minutes;
+	}
+
+	public void setMinutes(int minutes) {
+		this.minutes = minutes;
+	}
+
+	
 
 }
