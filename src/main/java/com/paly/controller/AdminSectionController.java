@@ -96,4 +96,20 @@ public class AdminSectionController extends AdminBaseController{
 		}
 		super.writeJson(json,response);
 	}
+    
+    @RequestMapping("/sectionController/audit.action")
+  	public void audit(String ids,HttpServletResponse response) {
+  		Json json = new Json();
+  		try {
+  			int n = adminSectionService.audit(ids);
+  			json.setSuccess(true);
+  			json.setMsg("审核通过" + n + "条记录!");
+
+  		} catch (Exception e) {
+  			json.setMsg(e.getMessage());
+  		}
+
+  		super.writeJson(json,response);
+  	}
+    
 }
