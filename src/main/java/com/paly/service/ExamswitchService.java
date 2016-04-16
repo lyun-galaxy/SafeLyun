@@ -7,5 +7,9 @@ import com.paly.domain.Examswitch;
  * @author luohuaming
  */
 public interface ExamswitchService extends BaseService<Examswitch> {
-    
+	/**
+	 * 获取考试开关 
+	 * @return
+	 */
+	Examswitch getExamswitch();
 }
