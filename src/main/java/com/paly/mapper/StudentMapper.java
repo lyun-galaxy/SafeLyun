@@ -12,6 +12,13 @@ import com.paly.domain.Student;
 public interface StudentMapper extends BaseMapper<Student> {
 	
 	/**
+	 * 根据学号查询学生信息
+	 * @param studentNumber 学号
+	 * @return 返回指定学号的学生信息
+	 */
+	Student selectByStudentNumber(String studentNumber);
+	
+	/**
 	 * 根据班级id获取其下的学生列表
 	 * @param classesId 班级id
 	 * @return 返回指定班级下的所有学生列表

@@ -10,9 +10,9 @@
     <result column="studentEmail" property="studentEmail" jdbcType="VARCHAR" />  
     <association property="user" javaType="User" select="com.paly.mapper.UserMapper.getByStudentId" column="studentId">
 	</association>
-  	<association property="classes" javaType="Classes" select="com.paly.domain.Classes.getByStudentId" column="studentId">
+  	<association property="classes" javaType="Classes" select="com.paly.mapper.ClassesMapper.getByStudentId" column="studentId">
   	</association>   
-  	<association property="score" javaType="Score" select="com.paly.domain.Score.getByStudentId" column="studentId">
+  	<association property="score" javaType="Score" select="com.paly.mapper.ScoreMapper.getByStudentId" column="studentId">
   	</association> 	
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
@@ -20,7 +20,7 @@
     where studentId = #{studentId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.paly.domain.Student" >
-    insert into student (studentId, studentNumber, studentName, grade
+    insert into student (studentId, studentNumber, studentName, grade,
       studentSex, studentEmail, user_userId, 
       classes_classesId)
     values (#{studentId,jdbcType=INTEGER}, #{studentNumber,jdbcType=VARCHAR}, #{studentName,jdbcType=VARCHAR}, #{grade,jdbcType=VARCHAR}, 
@@ -48,6 +48,11 @@
     select studentId, studentNumber, studentName, grade, studentSex, studentEmail, user_userId, 
     classes_classesId
     from student
+  </select>
+  
+  <!-- 根据学号查询学生信息  -->
+  <select id="selectByStudentNumber" resultMap="BaseResultMap" parameterType="string">
+  	select stu.* from student stu where stu.studentNumber=#{studentNumber}
   </select>
   
   <!-- 根据班级id获取其下的学生列表 -->
