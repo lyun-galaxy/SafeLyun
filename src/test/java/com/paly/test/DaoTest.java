@@ -46,13 +46,13 @@ public class DaoTest {
 		SqlSession sqlSession = MyBatisDAOUtil.getSqlSessionFactory().openSession();
 		UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
 		// c
-		/*MessageDigest md = MessageDigest.getInstance("MD5");
+		MessageDigest md = MessageDigest.getInstance("MD5");
 		for (int i = 0; i < 5; i++) {
 			byte[] pass = md.digest((i+"pass").getBytes());
 			User u = new User("user"+i, pass.toString());
 			userMapper.insert(u);
 		}
-		sqlSession.commit();*/
+		sqlSession.commit();
 		
 		
 		// ru
