@@ -56,23 +56,23 @@
 		<table class="gray">
 				<tr>
 					<td>学号：</td>
-					<td>2013034500</td>
+					<td>${student.studentNumber }</td>
 					<td>姓名: </td>
-					<td>张三</td>
+					<td>${student.studentName }</td>
 				</tr>
 				<tr>
 					<td>院系：</td>
-					<td>信息工程学院</td>
+					<td>${student.classes.specialty.department.departmentName }</td>
 					<td>专业: </td>
-					<td>软件工程</td>
+					<td>${student.classes.specialty }</td>
 				</tr>
 				<tr>
 					<td>班级：</td>
-					<td>13级软工一班</td>
+					<td>${student.classes.classesName }</td>
 				</tr>
 				<tr>
 					<td>成绩：</td>
-					<td>${submitTestPaperok }</td>
+					<td>${student.score.scoreMark }</td>
 				</tr>
 		</table>
 		
@@ -93,12 +93,12 @@
 		
 		$.ajax({
 			type : 'get',
-			url : '${pageContext.request.contextPath }/score.json',
+			url : 'client_score/getClassesStudentScore.action',
 			dataType : 'json',
 			cache : false,
 			success : function(data) {
 				var html = "<tr><th>编号</th><th>学号</th><th>姓名</th><th>院系</th><th>专业</th><th>班级</th><th>成绩</th></tr>";
-				
+				console.info(data);
 				$(data.studentlist).each(function(i,d){
 					
 					html += "<tr><td>"+(i+1)+"</td><td>"+d.studentNumber+"</td><td>"+d.studentName+"</td><td>"+d.department+"</td><td>"+d.specialties+"</td><td>"+d.classes+"</td><td>"+d.score+"</td></tr>";

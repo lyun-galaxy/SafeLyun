@@ -4,6 +4,12 @@ import java.util.List;
 
 import com.paly.domain.Itempool;
 
+/**
+ * 试题包装类
+ * 
+ * @author luohuaming
+ *
+ */
 public class ItempoolCustom {
 	private List<Itempool> choiceList;
 
