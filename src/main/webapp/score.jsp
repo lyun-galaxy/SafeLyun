@@ -10,9 +10,9 @@
 <link
 	href="${pageContext.request.contextPath}/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css"
 	rel="stylesheet">
-<link rel="stylesheet" href="css/style.css" media="screen"
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" media="screen"
 	type="text/css" />
-<link rel="stylesheet" href="css/score.css" media="screen"
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/score.css" media="screen"
 	type="text/css" />
 <link href="${pageContext.request.contextPath}/buttons/css/buttons.css" rel="stylesheet">
 <script
@@ -34,13 +34,13 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="main.jsp">平安龙院</a>
+			<a class="navbar-brand" href="${pageContext.request.contextPath}/main.jsp">平安龙院</a>
 		</div>
 		<div id="navbar" class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
-				<li><a href="main.jsp">主页</a></li>
-				<li><a href="study.jsp">在线学习</a></li>
-				<li><a href="exam.jsp">在线考试</a></li>
+				<li><a href="${pageContext.request.contextPath}/main.jsp">主页</a></li>
+				<li><a href="${pageContext.request.contextPath }/client_study/studyUI.action">在线学习</a></li>
+				<li><a href="${pageContext.request.contextPath}/exam.jsp">在线考试</a></li>
 				<li class="active"><a href="#score">查看成绩</a></li>
 			</ul>
 		</div>
@@ -72,7 +72,7 @@
 				</tr>
 				<tr>
 					<td>成绩：</td>
-					<td>95分</td>
+					<td>${submitTestPaperok }</td>
 				</tr>
 		</table>
 		<button class="b  ">查看班级排名</button>

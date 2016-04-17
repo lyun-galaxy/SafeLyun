@@ -22,8 +22,8 @@
 	 -->
 	<property name="dataSource" ref="dataSource"/>
 </bean>
-<!-- 打开以注解的方式管理事物 -->
-	<!-- <tx:annotation-driven transaction-manager="transactionManager" /> -->
+	<!-- 打开注解 -->
+	<tx:annotation-driven/>
 <!-- 拦截器方式配置事物 -->
 	<tx:advice id="transactionAdvice" transaction-manager="transactionManager">
 		<tx:attributes>

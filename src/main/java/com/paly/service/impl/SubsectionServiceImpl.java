@@ -1,5 +1,7 @@
 package com.paly.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -23,5 +25,13 @@ public class SubsectionServiceImpl extends BaseServiceImpl<Subsection> implement
 	public BaseMapper<Subsection> getBaseMapper() {
 		return subsectionMapper;
 	}
+	@Override
+	public List<Subsection> getBySectionId(int sectionId) {
+		return subsectionMapper.getBySectionId(sectionId);
+	}
 
+	@Override
+	public Subsection getByStudyscheduleId(int studyscheduleId) {
+		return subsectionMapper.getByStudyscheduleId(studyscheduleId);
+	}
 }

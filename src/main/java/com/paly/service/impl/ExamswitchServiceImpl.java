@@ -1,5 +1,7 @@
 package com.paly.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -23,5 +25,9 @@ public class ExamswitchServiceImpl extends BaseServiceImpl<Examswitch> implement
 	public BaseMapper<Examswitch> getBaseMapper() {
 		return examswitchMapper;
 	}
-
+	@Override
+	public Examswitch getExamswitch() {
+		List<Examswitch> list = examswitchMapper.selectAll();
+		return list.get(0);
+	}
 }
