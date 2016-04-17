@@ -51,4 +51,19 @@
   	select d.* from department d, specialty s
   		where d.departmentId=s.department_departmentId and s.specialtyId=#{specialtyId}
   </select>
+  
+  <!-- 查看同一年级，院系下所有学生的人数 -->
+  <select id="queryStuCount">
+  	select count(*) from student,classes,specialty,department	
+	where grade=#{grade} and classes_classesId=classesId and specialty_specialtyId=specialtyId and department_departmentId=departmentId
+	 and departmentName=#{departmentName}
+  </select> 
+  
+  <!-- 查看同一年级，院系下所有通过考试的学生的人数 -->
+   <select id="queryPassExamStuCount">
+  	select count(*) from student,score,classes,specialty,department	
+	where student_studentId=studentId and grade=#{grade} and classes_classesId=classesId
+	and specialty_specialtyId=specialtyId and department_departmentId=departmentId
+	 and departmentName=#{departmentName} and <![CDATA[scoreMark>=60]]>
+  </select>
 </mapper>

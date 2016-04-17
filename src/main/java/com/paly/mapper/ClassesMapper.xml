@@ -56,4 +56,14 @@
   	select c.* from classes c
   		join user_classes uc on c.classesId=uc.classes_classesId and uc.user_userId=#{userId}  
   </select>
+  
+  <!-- 查看同一年级，院系，专业，班级下所有学生成绩 -->
+  <select id="queryClassesReport">
+  	select studentNumber,studentName,scoreMark
+ 	from student,score,classes,specialty,department	
+	where student_studentId=studentId and grade=#{grade} and classes_classesId=classesId and classesName=#{classesName} 
+	and specialty_specialtyId=specialtyId and specialtyName=#{specialtyName} and department_departmentId=departmentId
+	 and departmentName=#{departmentName} order by studentNumber
+  </select>
+  
 </mapper>

@@ -2,6 +2,8 @@ package com.paly.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.paly.domain.Classes;
 
 /**
@@ -38,4 +40,15 @@ public interface ClassesMapper extends BaseMapper<Classes>{
 	 * @return 返回指定用户管理的班级列表
 	 */
 	List<Classes> getByUserId(int userId);
+	
+	/**
+	 * 查看同一年级，院系，专业，班级下所有学生成绩
+	 * @param grade 年级
+	 * @param departmentName 院系
+	 * @param specialtyName 专业
+	 * @param classesName 班级
+	 * @return 返回学生的学号，姓名，成绩
+	 */
+	List<Object> queryClassesReport(@Param("grade")String grade, @Param("departmentName")String departmentName,
+			@Param("specialtyName")String specialtyName, @Param("classesName")String classesName);
 }
