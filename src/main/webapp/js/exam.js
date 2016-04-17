@@ -1,3 +1,23 @@
+$(document).ready(function(){
+			$.ajax({   
+				url:'client_exam/getEpaper.action',   
+				type:'get',   
+				async : true, //默认为true 异步   
+				dataType:'json',
+			     success:function(data){  
+			    	 var html = '';
+			    	 $.each(data,function(i,item){
+			    		 //choiceList.push(i+"");
+			    		  html +='<strong>[&nbsp;'+(i+1)+'&nbsp;]&nbsp;'+item.itempoolQuestion+'</strong><br/><br/>';
+			    		 html +='<label class="radio"> <input type="radio" name="choiceList['+i+'].itempoolCorrect"  value="A"/>'+item.a+'</label>';
+			    		 html +='<label class="radio"> <input type="radio" name="choiceList['+i+'].itempoolCorrect" value="B"/>'+item.b+'</label>';
+			    		 html +='<label class="radio"> <input type="radio" name="choiceList['+i+'].itempoolCorrect" value="C"/>'+item.c+'</label>';
+			    		 html +='<label class="radio"> <input type="radio" name="choiceList['+i+'].itempoolCorrect" value="D"/>'+item.d+'</label>';
+				     });
+			    	 $("#exam").append(html);
+			     }
+			});
+		});
 var examTime=20*60;
 	var useTime=0,remainTime=examTime;
 	
