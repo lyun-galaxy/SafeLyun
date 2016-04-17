@@ -53,7 +53,7 @@
 		<div class="row row-offcanvas row-offcanvas-right" >
 		
 		<div class="col-md-6 col-md-offset-3 "  align="center">
-			<table class="gray">
+		<table class="gray">
 				<tr>
 					<td>学号：</td>
 					<td>2013034500</td>
@@ -75,7 +75,8 @@
 					<td>${submitTestPaperok }</td>
 				</tr>
 		</table>
-		<button class="b  ">查看班级排名</button>
+		
+		<button class="b  " onclick="getClassesScore()">查看班级排名</button>
 			<button class="b  ">补考</button>
 	</div>
 	</div>
@@ -87,4 +88,29 @@
 	</div>
 	
 </body>
+<script type="text/javascript">
+	function getClassesScore() {
+		
+		$.ajax({
+			type : 'get',
+			url : '${pageContext.request.contextPath }/score.json',
+			dataType : 'json',
+			cache : false,
+			success : function(data) {
+				var html = "<tr><th>编号</th><th>学号</th><th>姓名</th><th>院系</th><th>专业</th><th>班级</th><th>成绩</th></tr>";
+				
+				$(data.studentlist).each(function(i,d){
+					
+					html += "<tr><td>"+(i+1)+"</td><td>"+d.studentNumber+"</td><td>"+d.studentName+"</td><td>"+d.department+"</td><td>"+d.specialties+"</td><td>"+d.classes+"</td><td>"+d.score+"</td></tr>";
+				
+				});
+				
+				$(".gray").removeClass("gray").addClass("table").addClass("table-bordered").addClass("table-hover").empty().append(html);
+			},
+			error : function() {
+				alert('error');
+			}
+		});
+	}
+</script>
 </html>

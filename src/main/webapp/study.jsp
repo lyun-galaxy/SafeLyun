@@ -65,9 +65,11 @@
 					<button type="button" class="btn btn-primary btn-xs"
 						data-toggle="offcanvas">Toggle nav</button>
 				</p>
-				<div class="jumbotron">${subsection.subsectionName }</div>
+				<div class="row">
+				<div class="jumbotron"><h1>${subsection.subsectionName }</h1></div>
 				<div class="row" id="content">${subsection.subsectionContent }</div>
 				<!--/row-->
+				</div>
 			</div>
 			<!--/.col-xs-12.col-sm-9-->
 
@@ -90,45 +92,7 @@
 
 						</li>
 					</c:forEach>
-					<!-- <li class="open">
-						<div class="link">
-							<i class="fa fa-paint-brush"></i>第一章 自然灾害<i
-								class="fa fa-chevron-down"></i>
-						</div>
-						<ul class="submenu"  style="display:block;">
-							<li><a href="#" style="background: #b63b4d;">第一课 可怕的龙卷风</a></li>
-							<li><a href="#">第二课 突遇疯狂海啸</a></li>
-
-						</ul>
-					</li>
-					<li>
-						<div class="link">
-							<i class="fa fa-code"></i>第二章 意外伤害<i class="fa fa-chevron-down"></i>
-						</div>
-						<ul class="submenu">
-							<li><a href="#">第一课 突遇车祸</a></li>
-							<li><a href="#">第二课 警惕宿舍起火</a></li>
-
-						</ul>
-					</li>
-					<li>
-						<div class="link">
-							<i class="fa fa-mobile"></i>第三章 公共卫生<i class="fa fa-chevron-down"></i>
-						</div>
-						<ul class="submenu">
-							<li><a href="#">第一课 安全用药</a></li>
-							<li><a href="#">第二课 将毒食品“掷出窗外“</a></li>
-
-						</ul>
-					</li>
-					<li><div class="link">
-							<i class="fa fa-globe"></i>第四章 其他安全<i class="fa fa-chevron-down"></i>
-						</div>
-						<ul class="submenu">
-							<li><a href="#">第一课 核辐射危害健康</a></li>
-							<li><a href="#">第二课 在野外迷路</a></li>
-
-						</ul></li> -->
+					
 				</ul>
 
 			</div>
