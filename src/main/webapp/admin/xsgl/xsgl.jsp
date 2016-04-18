@@ -52,7 +52,7 @@
 		}
 
 		function xsExportAllStudentScore() {
-			$('#admin_xsgl_xsgl_rollingDialog').dialog('open');
+		/*	$('#admin_xsgl_xsgl_rollingDialog').dialog('open');
 			
 			//要自己修改
 			location.href = '${pageContext.request.contextPath}/fileAction!download.action?filePath=' + 'D:\\apache-tomcat-7.0.41\\webapps\\ajaxFile';
@@ -60,7 +60,25 @@
 			$.messager.show({
 				title : '提示',
 				msg : '导出成功！',
-			});
+			});*/
+		//	var garde = $('#admin_xsgl_xsgl_grade').combobox('getText');
+			alert("1");
+			$.ajax({
+				type: "POST",
+				url : "${pageContext.request.contextPath}/reportPrint/ClassStudent.action",
+				dataType : 'json',
+				success : function(d) {
+					alert('hjk');
+					$.messager.show({
+						"title" : '提示',
+						"msg" : d.msg
+					});
+				},
+				error:function(){
+					alert("11");
+				}
+				});
+			alert("2");
 		}
 
 		function setSwitch() {
@@ -102,7 +120,7 @@
 					msg : '请选择一个年级！',
 				});
 			} else {
-				document.cookie = 'gradeId=' + $('#admin_xsgl_xsgl_grade').combobox('getValue');
+				document.cookie = 'gradeId=' + $('#admin_xsgl_xsgl_grade').combobox('getText');
 				$('#admin_xsgl_xsgl_Datagrid').datagrid({
 					url : '${pageContext.request.contextPath}/report/allStudentScore.action',
 					fit : true,
@@ -130,6 +148,11 @@
 						width : 200,
 						align : 'center',
 					}, {
+						field : 'clazzName',
+						title : '班级',
+						width : 200,
+						align : 'center',
+					},{
 						field : 'score',
 						title : '成绩',
 						width : 150,
@@ -160,7 +183,7 @@
 					msg : '请选择一个年级！',
 				});
 			} else {
-				document.cookie = 'gradeId=' + $('#admin_xsgl_xsgl_grade').combobox('getValue');
+				document.cookie = 'gradeId=' + $('#admin_xsgl_xsgl_grade').combobox('getText');
 				$('#admin_xsgl_xsgl_Datagrid').datagrid({
 					url : '${pageContext.request.contextPath}/report/allNoPass.action',
 					fit : true,

@@ -9,6 +9,14 @@
     <collection property="students" ofType="com.paly.domain.Student" select="com.paly.mapper.StudentMapper.getByClassesId" column="classesId">
     </collection>
   </resultMap>
+  
+  <resultMap id="StudentScoreVO" type="com.paly.vo.StudentVo" >
+    <id column="studentId" property="classesId" jdbcType="INTEGER" />
+    <result column="studentNumber" property="studentNumber" jdbcType="VARCHAR" />
+    <result column="studentName" property="studentName" jdbcType="VARCHAR" />
+    <result column="scoreMark" property="scoreMark" jdbcType="INTEGER" />
+  </resultMap>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from classes
     where classesId = #{classesId,jdbcType=INTEGER}
@@ -58,7 +66,7 @@
   </select>
   
   <!-- 查看同一年级，院系，专业，班级下所有学生成绩 -->
-  <select id="queryClassesReport">
+  <select id="queryClassesReport" resultMap="StudentScoreVO">
   	select studentNumber,studentName,scoreMark
  	from student,score,classes,specialty,department	
 	where student_studentId=studentId and grade=#{grade} and classes_classesId=classesId and classesName=#{classesName} 
