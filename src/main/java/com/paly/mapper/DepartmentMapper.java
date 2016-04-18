@@ -49,4 +49,12 @@ public interface DepartmentMapper extends BaseMapper<Department> {
 	 * @return 返回同一年级，院系下所有通过考试的学生的人数
 	 */
 	int queryPassExamStuCount(@Param("grade")String grade, @Param("departmentName")String departmentName);
+	
+	/**
+	 * 查看同一年级，院系下所有成绩不为空（有成绩）的学生的人数
+	 * @param grade 年级
+	 * @param departmentName 院系
+	 * @return 返回同一年级，院系下所有成绩不为空（有成绩）的学生的人数
+	 */
+	int queryStuHasScoreCount(@Param("grade")String grade, @Param("departmentName")String departmentName);
 }

@@ -53,4 +53,14 @@ public interface SpecialtyMapper extends BaseMapper<Specialty> {
 	 */
 	int queryPassExamStuCount(@Param("grade")String grade, @Param("departmentName")String departmentName,
 			@Param("specialtyName")String specialtyName);
+	
+	/**
+	 * 查看同一年级，院系，专业下所有成绩不为空（有成绩）的学生的人数
+	 * @param grade 年级
+	 * @param departmentName 院系
+	 * @param specialtyName 专业
+	 * @return 返回同一年级，院系，专业下所有成绩不为空（有成绩）的学生的人数
+	 */
+	int queryStuHasScoreCount(@Param("grade")String grade, @Param("departmentName")String departmentName,
+			@Param("specialtyName")String specialtyName);
 }
