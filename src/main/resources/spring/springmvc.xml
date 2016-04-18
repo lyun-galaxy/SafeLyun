@@ -15,14 +15,15 @@
 	<!-- 注解方式 springmvc control层，不能包含其他层，否则会产生错误 -->
 	<context:component-scan base-package="com.paly.controller" />
 	<!-- 静态资源解析 包括 ：js、css、img、.. -->
-	<!-- <mvc:resources location="/js/" mapping="/js/**" />
+	<mvc:resources location="/js/" mapping="/js/**" />
 	<mvc:resources location="/imgges/" mapping="/imgges/**" />
 	<mvc:resources location="/css/" mapping="/css/**" />
-	<mvc:resources location="/My97DatePicker/" mapping="/My97DatePicker/**" /> -->
-	<!-- 处理器适配器 -->
-	<!-- 处理器适配器 所有处理器适配器都实现 HandlerAdapter接口 -->
-	<!-- <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter" 
-		/> -->
+	<mvc:resources location="/font/" mapping="/font/**" />
+	<mvc:resources location="/jslib/" mapping="/jslib/**" />
+	<mvc:resources location="/ueditor/" mapping="/ueditor/**" />
+	<mvc:resources location="/buttons/" mapping="/buttons/**" />
+	<mvc:resources location="/icons/" mapping="/icons/**" />
+	<mvc:resources location="/bootstrap-3.3.5-dist/" mapping="/bootstrap-3.3.5-dist/**" />
 
 	<!-- 视图解析器 -->
 	<bean

@@ -66,11 +66,9 @@ public class Student implements Serializable {
      * @param studentEmail 邮箱
      * @param user 所属的用户，不为空
      * @param classes 所属的班级，不为空
-     * @param score 拥有的成绩，不为空
      */
 	public Student(String studentNumber, String studentName, String grade, String studentSex, String studentEmail,
-			User user, Classes classes, Score score) {
-		super();
+			User user, Classes classes) {
 		this.studentNumber = studentNumber;
 		this.studentName = studentName;
 		this.grade = grade;
@@ -78,7 +76,6 @@ public class Student implements Serializable {
 		this.studentEmail = studentEmail;
 		this.user = user;
 		this.classes = classes;
-		this.score = score;
 	}
 
 	/**

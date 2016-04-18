@@ -10,9 +10,9 @@
 <link
 	href="${pageContext.request.contextPath}/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css"
 	rel="stylesheet">
-<link rel="stylesheet" href="css/style.css" media="screen"
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" media="screen"
 	type="text/css" />
-<link rel="stylesheet" href="css/score.css" media="screen"
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/score.css" media="screen"
 	type="text/css" />
 <link href="${pageContext.request.contextPath}/buttons/css/buttons.css" rel="stylesheet">
 <script
@@ -34,13 +34,13 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="main.jsp">平安龙院</a>
+			<a class="navbar-brand" href="${pageContext.request.contextPath}/main.jsp">平安龙院</a>
 		</div>
 		<div id="navbar" class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
-				<li><a href="main.jsp">主页</a></li>
-				<li><a href="study.jsp">在线学习</a></li>
-				<li><a href="exam.jsp">在线考试</a></li>
+				<li><a href="${pageContext.request.contextPath}/main.jsp">主页</a></li>
+				<li><a href="${pageContext.request.contextPath }/client_study/studyUI.action">在线学习</a></li>
+				<li><a href="${pageContext.request.contextPath}/exam.jsp">在线考试</a></li>
 				<li class="active"><a href="#score">查看成绩</a></li>
 			</ul>
 		</div>
@@ -53,29 +53,30 @@
 		<div class="row row-offcanvas row-offcanvas-right" >
 		
 		<div class="col-md-6 col-md-offset-3 "  align="center">
-			<table class="gray">
+		<table class="gray">
 				<tr>
 					<td>学号：</td>
-					<td>2013034500</td>
+					<td>${student.studentNumber }</td>
 					<td>姓名: </td>
-					<td>张三</td>
+					<td>${student.studentName }</td>
 				</tr>
 				<tr>
 					<td>院系：</td>
-					<td>信息工程学院</td>
+					<td>${student.classes.specialty.department.departmentName }</td>
 					<td>专业: </td>
-					<td>软件工程</td>
+					<td>${student.classes.specialty }</td>
 				</tr>
 				<tr>
 					<td>班级：</td>
-					<td>13级软工一班</td>
+					<td>${student.classes.classesName }</td>
 				</tr>
 				<tr>
 					<td>成绩：</td>
-					<td>95分</td>
+					<td>${student.score.scoreMark }</td>
 				</tr>
 		</table>
-		<button class="b  ">查看班级排名</button>
+		
+		<button class="b  " onclick="getClassesScore()">查看班级排名</button>
 			<button class="b  ">补考</button>
 	</div>
 	</div>
@@ -87,4 +88,29 @@
 	</div>
 	
 </body>
+<script type="text/javascript">
+	function getClassesScore() {
+		
+		$.ajax({
+			type : 'get',
+			url : 'client_score/getClassesStudentScore.action',
+			dataType : 'json',
+			cache : false,
+			success : function(data) {
+				var html = "<tr><th>编号</th><th>学号</th><th>姓名</th><th>院系</th><th>专业</th><th>班级</th><th>成绩</th></tr>";
+				console.info(data);
+				$(data.studentlist).each(function(i,d){
+					
+					html += "<tr><td>"+(i+1)+"</td><td>"+d.studentNumber+"</td><td>"+d.studentName+"</td><td>"+d.department+"</td><td>"+d.specialties+"</td><td>"+d.classes+"</td><td>"+d.score+"</td></tr>";
+				
+				});
+				
+				$(".gray").removeClass("gray").addClass("table").addClass("table-bordered").addClass("table-hover").empty().append(html);
+			},
+			error : function() {
+				alert('error');
+			}
+		});
+	}
+</script>
 </html>

@@ -39,4 +39,12 @@ public interface UserService extends BaseService<User> {
 	 * @return 返回与指定学生关联的用户
 	 */
 	User getByStudentId(int studentId);
+	
+	/**
+	 * 通过用户名和密码获取用户
+	 * @param username 用户名
+	 * @param password 密码
+	 * @return 用户
+	 */
+	User getByUsernameAndPassword(String username,String password);
 }

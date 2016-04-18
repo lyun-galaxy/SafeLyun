@@ -6,7 +6,7 @@
     <result column="scoreMark" jdbcType="REAL" property="scoreMark" />
     <result column="scoreMakeupNum" jdbcType="INTEGER" property="scoreMakeupNum" />
     
-    <association property="student" javaType="Student" select="com.paly.domain.Student.getByScoreId" column="scoreId">
+    <association property="student" javaType="Student" select="com.paly.mapper.StudentMapper.getByScoreId" column="scoreId">
     </association>
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
@@ -38,7 +38,7 @@
   
   <!-- 根据学生id获取其对应的成绩信息 -->
   <select id="getByStudentId" resultMap="BaseResultMap" parameterType="int">
-  	select sc.* from score sc
-  		join student stu on sc.student_studentId=stu.studentId and stu.studentId=#{studentId}
+  	select sc.* from score sc 
+  		where sc.student_studentId=#{studentId}
   </select>
 </mapper>

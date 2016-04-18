@@ -70,7 +70,7 @@ public class AdminQuestionBankController extends AdminBaseController{
 		}
 
 		super.writeJson(json, response);
-		System.out.println("add");
+		
 	}
 	
 	//删除题目

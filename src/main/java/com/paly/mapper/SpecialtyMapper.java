@@ -2,6 +2,8 @@ package com.paly.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.paly.domain.Specialty;
 
 /**
@@ -31,5 +33,24 @@ public interface SpecialtyMapper extends BaseMapper<Specialty> {
 	 * @return 返回指定班级所属的专业
 	 */
 	Specialty getByClassesId(int classesId);
+	
+	/**
+	 * 查看同一年级，院系，专业下所有学生的人数
+	 * @param grade 年级
+	 * @param departmentName 院系
+	 * @param specialtyName 专业
+	 * @return 同一年级，院系，专业下所有学生的人数
+	 */
+	int queryStuCount(@Param("grade")String grade, @Param("departmentName")String departmentName,
+			@Param("specialtyName")String specialtyName);
 
+	/**
+	 * 查看同一年级，院系，专业下所有通过考试的学生的人数
+	 * @param grade 年级
+	 * @param departmentName 院系
+	 * @param specialtyName 专业
+	 * @return 同一年级，院系，专业下所有通过考试的学生的人数
+	 */
+	int queryPassExamStuCount(@Param("grade")String grade, @Param("departmentName")String departmentName,
+			@Param("specialtyName")String specialtyName);
 }

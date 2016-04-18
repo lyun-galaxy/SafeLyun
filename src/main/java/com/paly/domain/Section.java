@@ -1,8 +1,9 @@
 package com.paly.domain;
 
 import java.io.Serializable;
-
 import java.util.List;
+
+import com.alibaba.fastjson.annotation.JSONField;
 
 /**
  * 章节
@@ -28,6 +29,8 @@ public class Section implements Serializable {
     /**
      * 与子章节关联，拥有多个子章节
      */
+  //解决延迟加载导致转换成json对象异常
+   // @JSONField(serialize=false)
     private List<Subsection> subsections;
 
     

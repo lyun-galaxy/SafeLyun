@@ -39,6 +39,11 @@
     from user
   </select>
 
+  <!-- 通过用户名和密码查找User -->
+  <select id="queryByNameAndPasswd" resultMap="BaseResultMap">
+  	select u.* from user u where u.userName=#{userName} and u.userPassword=#{passwd}
+  </select>
+  
   <!-- 设置用户拥有的角色 -->
   <insert id="setUserHasRole">
   	insert into user_role (user_userId, role_roleId) 

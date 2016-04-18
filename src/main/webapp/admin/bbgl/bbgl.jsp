@@ -5,14 +5,14 @@
 	<script type="text/javascript">
 		$(function() {
 			$('#admin_bbgl_bbgl_grade').combobox({
-				valueField : 'gradeId',
+				valueField : 'gradeName',
 				textField : 'gradeName',
 				editable : false,
 				url : '${pageContext.request.contextPath}/report/getGradeJson.action'
 			});
 
 			var depart03 = $('#admin_bbgl_bbgl_depart').combobox({
-				valueField : 'departId',
+				valueField : 'departName',
 				textField : 'departName',
 				editable : false,
 				url : '${pageContext.request.contextPath}/report/getDepartJson.action',
@@ -27,7 +27,7 @@
 			});
 
 			var pro03 = $('#admin_bbgl_bbgl_pro').combobox({
-				valueField : 'proId',
+				valueField : 'proName',
 				textField : 'proName',
 				editable : false,
 				onSelect : function(params) {
@@ -41,7 +41,7 @@
 			});
 
 			var class03 = $('#admin_bbgl_bbgl_class').combobox({
-				valueField : 'classId',
+				valueField : 'className',
 				textField : 'className',
 				editable : false
 			});
@@ -255,10 +255,10 @@
 		<div data-options="region:'north',title:'查询条件',border:false"
 			style="height: 120px">
 			<form id="admin_bbgl_bbgl_getClassForm" method="post">
-				年级：<input id="admin_bbgl_bbgl_grade" name="gradeId" style="width: 10%">
-				院系：<input id="admin_bbgl_bbgl_depart" name="departId"> 专业：<input
-					id="admin_bbgl_bbgl_pro" name="proId" style="width: 12%"> 班级：<input
-					id="admin_bbgl_bbgl_class" name="classId" style="width: 12%"> <br>
+				年级：<input id="admin_bbgl_bbgl_grade" name="gradeName" style="width: 10%">
+				院系：<input id="admin_bbgl_bbgl_depart" name="departName"> 专业：<input
+					id="admin_bbgl_bbgl_pro" name="proName" style="width: 12%"> 班级：<input
+					id="admin_bbgl_bbgl_class" name="className" style="width: 12%"> <br>
 				<a id="" href="#" class="easyui-linkbutton" onclick="admin_bbgl_bbgl_searchGrade()">查询院系报表</a>
 				<a id="" href="#" class="easyui-linkbutton" onclick="admin_bbgl_bbgl_searchDepart()">查询专业报表</a>
 				<a id="" href="#" class="easyui-linkbutton" onclick="admin_bbgl_bbgl_searchClass()">查询班级报表</a>

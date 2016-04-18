@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.crypto.ExemptionMechanism;
 
@@ -45,13 +46,13 @@ public class DaoTest {
 		SqlSession sqlSession = MyBatisDAOUtil.getSqlSessionFactory().openSession();
 		UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
 		// c
-		/*MessageDigest md = MessageDigest.getInstance("MD5");
+		MessageDigest md = MessageDigest.getInstance("MD5");
 		for (int i = 0; i < 5; i++) {
 			byte[] pass = md.digest((i+"pass").getBytes());
 			User u = new User("user"+i, pass.toString());
 			userMapper.insert(u);
 		}
-		sqlSession.commit();*/
+		sqlSession.commit();
 		
 		
 		// ru
@@ -352,20 +353,47 @@ public class DaoTest {
 		StudentMapper sm = sqlSession.getMapper(StudentMapper.class);
 		UserMapper um = sqlSession.getMapper(UserMapper.class);
 		ClassesMapper cm = sqlSession.getMapper(ClassesMapper.class);
-		/*for (int i = 0; i < 5; i++) {
-			byte[] pass = md.digest((i+"pass").getBytes());
-			Student s = new Student("student"+i, pass.toString());
-			userMapper.insert(u);
+		
+		// c		
+		/*User user = um.selectByPrimaryKey(1);
+		Classes classes = cm.selectByPrimaryKey(1);
+		for (int i = 0; i < 5; i++) {
+			Student s = new Student("201303450"+i, "student"+i+"号", "2013",
+					"男", "123@gmail.com", user, classes);
+			sm.insert(s);
+		}
+		
+		User user1 = um.selectByPrimaryKey(2);
+		Classes classes1 = cm.selectByPrimaryKey(2);
+		for (int i = 0; i < 5; i++) {
+			Student s = new Student("201403450"+i, "student"+i+"号", "2014",
+					"男", "123@gmail.com", user1, classes1);
+			sm.insert(s);
 		}*/
 		
+	
+		
+		/*List<Object> list = sm.queryScoreByGrade("2013");
+		List<Object> list1 = sm.queryFailScoreByGrade("2013");
+		log.debug("list:" + list);
+		log.debug("list1:" + list1);*/
+		
+		sqlSession.commit();
 	}
 	@Test
 	public void testScore() throws Exception {
-		/*SqlSession sqlSession = MyBatisDAOUtil.getSqlSessionFactory().openSession();
+		SqlSession sqlSession = MyBatisDAOUtil.getSqlSessionFactory().openSession();
 		ScoreMapper scoreMapper = sqlSession.getMapper(ScoreMapper.class);
-		Score s = new Score(98.5f, 0);
-		scoreMapper.insert(s);	// 没有学生就没有成绩
-		sqlSession.commit();*/
+		StudentMapper sm = sqlSession.getMapper(StudentMapper.class);
+		Random rand = new Random(100);		
+		List<Student> stus = sm.selectAll();	
+		for (Student student : stus) {
+			float mark = rand.nextFloat() * 100;	// 生成区间[0,100）的小数
+			Score s = new Score(mark, 0, student);
+			scoreMapper.insert(s);
+		}
+		
+		sqlSession.commit();
 	}
 	
 	@Test
@@ -385,4 +413,5 @@ public class DaoTest {
 		
 		sqlSession.commit();
 	}
+	
 }

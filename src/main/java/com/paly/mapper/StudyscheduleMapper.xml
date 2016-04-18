@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.paly.domain.Studyschedule" >
     <id column="studyscheduleId" property="studyscheduleId" jdbcType="INTEGER" />
     <result column="studyscheduleHasNum" property="studyscheduleHasNum" jdbcType="INTEGER" />
-    <association property="subsection" javaType="Subsection" select="com.paly.domain.Subsection.getByStudyscheduleId" column="studyscheduleId" />   
+    <association property="subsection" javaType="Subsection" select="com.paly.mapper.SubsectionMapper.getByStudyscheduleId" column="studyscheduleId" />   
     <association property="student" javaType="Student" select="com.paly.mapper.StudentMapper.getByStudyscheduleId" column="studyscheduleId" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
