@@ -26,11 +26,11 @@ public class LoginController {
 	public ModelAndView login(HttpSession session, User user) {
 		ModelAndView modelAndView = new ModelAndView();
 		// User u = userService.findByNumberAndNameAndPassword(user);
-		User u = userService.getById(1);
+		User u = userService.getByUsernameAndPassword(user.getUserName(), user.getUserPassword());
 		if (u == null) {
 			modelAndView.addObject("usernameError", "学号/教工号、姓名或密码错误");
 			modelAndView.addObject("user", user);
-			modelAndView.setViewName("../../login");
+			modelAndView.setViewName("../../login.html");
 		} else {
 			session.setAttribute("user", u);
 			modelAndView.setViewName("redirect:/client_home/toHomePage.action");
@@ -41,6 +41,6 @@ public class LoginController {
 	@RequestMapping("logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
-		return "redirect:/";
+		return "../../login.html";
 	}
 }

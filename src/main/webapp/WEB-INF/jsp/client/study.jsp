@@ -45,10 +45,10 @@
 		</div>
 		<div id="navbar" class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
-				<li><a href="${pageContext.request.contextPath}/main.jsp">主页</a></li>
+				<li><a href="${pageContext.request.contextPath }/client_home/toHomePage.action">主页</a></li>
 				<li class="active"><a href="#">在线学习</a></li>
-				<li><a href="${pageContext.request.contextPath}/exam.jsp">在线考试</a></li>
-				<li><a href="${pageContext.request.contextPath}/score.jsp">查看成绩</a></li>
+				<li><a href="${pageContext.request.contextPath}/client_exam/toExamPage.action">在线考试</a></li>
+				<li><a href="${pageContext.request.contextPath}/client_score/toScoreUI.action">查看成绩</a></li>
 			</ul>
 		</div>
 		<!-- /.nav-collapse -->

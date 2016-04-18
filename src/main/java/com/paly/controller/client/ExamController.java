@@ -37,6 +37,16 @@ public class ExamController extends BaseController {
 	private ScoreService scoreService;
 
 	/**
+	 * 跳转到考试界面
+	 * 
+	 * @return
+	 */
+	@RequestMapping("/toExamPage")
+	public String toExamPage() {
+		return "client/exam.jsp";
+	}
+
+	/**
 	 * 从题库中随机获取试题，发送试题列表json数据
 	 * 
 	 * @param response
@@ -70,8 +80,10 @@ public class ExamController extends BaseController {
 	/**
 	 * 保存学生成绩
 	 * 
-	 * @param session session域,需从session域中获取数据
-	 * @param fration 成绩
+	 * @param session
+	 *            session域,需从session域中获取数据
+	 * @param fration
+	 *            成绩
 	 */
 	private void saveScore(HttpSession session, float fration) {
 		User user = (User) session.getAttribute("user");
@@ -80,13 +92,16 @@ public class ExamController extends BaseController {
 			Student student = studentService.selectByStudentNumber(user.getUserName());
 			if (student != null) {
 				// 保存学生成绩
-				Score score = new Score();
+				Score score = student.getScore();
 				// 从session域获取补考次数
-				int scoreMakeupNum = (int) session.getAttribute("scoreMakeupNum");
+				int scoreMakeupNum = 0;
+				if (session.getAttribute("scoreMakeupNum") != null) {
+					scoreMakeupNum = (int) session.getAttribute("scoreMakeupNum");
+				}
 				score.setScoreMakeupNum(scoreMakeupNum);
 				score.setScoreMark(fration);
 				score.setStudent(student);
-				scoreService.save(score);
+				scoreService.update(score);
 			}
 		}
 	}

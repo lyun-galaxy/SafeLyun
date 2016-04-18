@@ -1,23 +1,3 @@
-$(document).ready(function(){
-			$.ajax({   
-				url:'client_exam/getEpaper.action',   
-				type:'get',   
-				async : true, //默认为true 异步   
-				dataType:'json',
-			     success:function(data){  
-			    	 var html = '';
-			    	 $.each(data,function(i,item){
-			    		 //choiceList.push(i+"");
-			    		  html +='<strong>[&nbsp;'+(i+1)+'&nbsp;]&nbsp;'+item.itempoolQuestion+'</strong><br/><br/>';
-			    		 html +='<label class="radio"> <input type="radio" name="choiceList['+i+'].itempoolCorrect"  value="A"/>'+item.a+'</label>';
-			    		 html +='<label class="radio"> <input type="radio" name="choiceList['+i+'].itempoolCorrect" value="B"/>'+item.b+'</label>';
-			    		 html +='<label class="radio"> <input type="radio" name="choiceList['+i+'].itempoolCorrect" value="C"/>'+item.c+'</label>';
-			    		 html +='<label class="radio"> <input type="radio" name="choiceList['+i+'].itempoolCorrect" value="D"/>'+item.d+'</label>';
-				     });
-			    	 $("#exam").append(html);
-			     }
-			});
-		});
 var examTime=20*60;
 	var useTime=0,remainTime=examTime;
 	
@@ -50,3 +30,50 @@ var examTime=20*60;
 	}
 	
 	window.setInterval("showCount()", 1000);
+	
+	//禁止页面回退
+	javascript: window.history.forward(1);
+	var UnloadConfirm = {};
+	UnloadConfirm.MSG_UNLOAD = "数据尚未保存，离开后可能会导致试卷自动提交\n\n您确定要离开吗？";
+	UnloadConfirm.set = function(a) {
+	    window.onbeforeunload = function(b) {
+	        b = b || window.event;
+	        b.returnValue = a;
+	        return a
+	    }
+	};
+	UnloadConfirm.clear = function() {
+	    fckDraft.delDraftById();
+	    window.onbeforeunload = function() {}
+	};
+	UnloadConfirm.set(UnloadConfirm.MSG_UNLOAD);
+		function keydown() {
+			if (event.keyCode == 8) {
+				event.keyCode = 0;
+				event.returnValue = false;
+				alert("当前设置不允许使用退格键");
+			}
+			if (event.keyCode == 13) {
+				event.keyCode = 0;
+				event.returnValue = false;
+				alert("当前设置不允许使用回车键");
+			}
+			if (event.keyCode == 116) {
+				event.keyCode = 0;
+				event.returnValue = false;
+				alert("当前设置不允许使用F5刷新键");
+			}
+			if ((event.altKey)
+					&& ((window.event.keyCode == 37) || (window.event.keyCode == 39))) {
+				event.returnValue = false;
+				alert("当前设置不允许使用Alt+方向键←或方向键→");
+			}
+			if ((event.ctrlKey) && (event.keyCode == 78)) {
+				event.returnValue = false;
+				alert("当前设置不允许使用Ctrl+n新建IE窗口");
+			}
+			if ((event.shiftKey) && (event.keyCode == 121)) {
+				event.returnValue = false;
+				alert("当前设置不允许使用shift+F10");
+			}
+		}

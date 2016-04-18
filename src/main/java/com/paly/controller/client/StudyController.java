@@ -98,7 +98,7 @@ public class StudyController extends BaseController {
 		modelAndView.addObject("sectionList", sectionList);
 		//将学生正在学习的子章节添加到视图中
 		modelAndView.addObject("subsection", subsection);
-		modelAndView.setViewName("../../study");
+		modelAndView.setViewName("client/study.jsp");
 		return modelAndView;
 	}
 

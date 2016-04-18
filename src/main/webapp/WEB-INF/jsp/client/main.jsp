@@ -35,7 +35,7 @@
 			<div class="col-md-2 col-md-offset-8"
 				style="margin-top: 20px; margin-bottom: 20px">
 				<p>欢迎，${user.userName }</p>
-				<a href="#">注销</a>
+				<a href="${pageContext.request.contextPath}/client_login/logout.action">注销</a>
 			</div>
 		</div>
 	</div>
@@ -182,10 +182,10 @@
 		window.location = "${pageContext.request.contextPath }/client_study/studyUI.action";
 	}
 	function exam() {
-		window.location = "${pageContext.request.contextPath }/exam.jsp";
+		window.location = "${pageContext.request.contextPath}/client_exam/toExamPage.action";
 	}
 	function score() {
-		window.location = "${pageContext.request.contextPath }/score.jsp";
+		window.location = "${pageContext.request.contextPath }/client_score/toScoreUI.action";
 	}
 </script>
 </html>

@@ -53,7 +53,7 @@ public class HomeController {
 		// 添加用户学习进度
 		modelAndView.addObject("studyschedule", studyschedule);
 		// studyscheduleService.
-		modelAndView.setViewName("../../main");
+		modelAndView.setViewName("client/main.jsp");
 		return modelAndView;
 	}
 

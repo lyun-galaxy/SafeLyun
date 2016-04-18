@@ -20,6 +20,8 @@ import com.paly.domain.User;
 import com.paly.service.StudentService;
 import com.paly.vo.StudentScore;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
+
 /**
  * 成绩界面Controller
  * 
@@ -48,8 +50,8 @@ public class ScoreController {
 		}
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("student", student);
-		modelAndView.setViewName("../../score");
-		return null;
+		modelAndView.setViewName("client/score.jsp");
+		return modelAndView;
 	}
 
 	/**
@@ -63,19 +65,29 @@ public class ScoreController {
 		Map<String, List<StudentScore>> map = new HashMap<String, List<StudentScore>>();
 		List<StudentScore> studentScores = new ArrayList<StudentScore>();
 		List<Student> students = getClassesStudentList(session);
+		System.out.println(students.size());
 		for (int i = 0; students != null && i < students.size(); i++) {
 			Student student = students.get(i);
 			// 通过学生信息封装学生成绩视图包装对象
 			StudentScore studentScore = makeStudentScore(student);
 			studentScores.add(studentScore);
 		}
+		Collections.sort(studentScores, new Comparator<StudentScore>() {
+			@Override
+			// 按照成绩降序排序
+			public int compare(StudentScore student1, StudentScore student2) {
+				return (int) (student2.getScore() - student1.getScore());
+			}
+		});
 		map.put("studentlist", studentScores);
 		return map;
 	}
 
 	/**
 	 * 通过学生信息封装学生成绩视图包装对象
-	 * @param student 学生
+	 * 
+	 * @param student
+	 *            学生
 	 * @return 学生成绩视图包装对象
 	 */
 	private StudentScore makeStudentScore(Student student) {
@@ -91,7 +103,9 @@ public class ScoreController {
 
 	/**
 	 * 获取当前用户所在班级的所有学生列表
-	 * @param session session域对象，获取域中数据
+	 * 
+	 * @param session
+	 *            session域对象，获取域中数据
 	 * @return 学生列表
 	 */
 	private List<Student> getClassesStudentList(HttpSession session) {
@@ -103,6 +117,7 @@ public class ScoreController {
 			if (student != null) {
 				// 获取当前学生所在班级下的学生列表
 				students = studentService.getByClassesId(student.getClasses().getClassesId());
+				System.out.println("getStudentClasses");
 			}
 		}
 		return students;

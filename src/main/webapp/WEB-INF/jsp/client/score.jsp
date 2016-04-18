@@ -38,9 +38,9 @@
 		</div>
 		<div id="navbar" class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
-				<li><a href="${pageContext.request.contextPath}/main.jsp">主页</a></li>
+				<li><a href="${pageContext.request.contextPath }/client_home/toHomePage.action">主页</a></li>
 				<li><a href="${pageContext.request.contextPath }/client_study/studyUI.action">在线学习</a></li>
-				<li><a href="${pageContext.request.contextPath}/exam.jsp">在线考试</a></li>
+				<li><a href="${pageContext.request.contextPath}/client_exam/toExamPage.action">在线考试</a></li>
 				<li class="active"><a href="#score">查看成绩</a></li>
 			</ul>
 		</div>
@@ -64,7 +64,7 @@
 					<td>院系：</td>
 					<td>${student.classes.specialty.department.departmentName }</td>
 					<td>专业: </td>
-					<td>${student.classes.specialty }</td>
+					<td>${student.classes.specialty.specialtyName }</td>
 				</tr>
 				<tr>
 					<td>班级：</td>
@@ -72,7 +72,7 @@
 				</tr>
 				<tr>
 					<td>成绩：</td>
-					<td>${student.score.scoreMark }</td>
+					<td>${student.score.scoreMark}</td>
 				</tr>
 		</table>
 		
@@ -93,7 +93,7 @@
 		
 		$.ajax({
 			type : 'get',
-			url : 'client_score/getClassesStudentScore.action',
+			url : '${pageContext.request.contextPath}/client_score/getClassesStudentScore.action',
 			dataType : 'json',
 			cache : false,
 			success : function(data) {
