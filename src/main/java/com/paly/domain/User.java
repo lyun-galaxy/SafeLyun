@@ -36,6 +36,11 @@ public class User implements Serializable {
     
     public User(){}  
 
+    /**
+     * 通过用户名和密码实例化一个用户
+     * @param userName 用户名，必须唯一
+     * @param userPassword 密码，推荐md5加密 {@link java.security.MessageDigest}
+     */
 	public User(String userName, String userPassword) {
 		super();
 		this.userName = userName;

@@ -22,5 +22,13 @@ public class StudyscheduleServiceImpl extends BaseServiceImpl<Studyschedule> imp
 	public BaseMapper<Studyschedule> getBaseMapper() {
 		return studyscheduleMapper;
 	}
+	@Override
+	public Studyschedule getByStudentId(int studentId) {
+		return studyscheduleMapper.getByStudentId(studentId);
+	}
+	@Override
+	public Studyschedule getBySubsectionId(int subsectionId) {
+		return studyscheduleMapper.getBySubsectionId(subsectionId);
+	}
 
 }

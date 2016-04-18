@@ -12,7 +12,7 @@ import com.paly.mapper.UserMapper;
 import com.paly.service.UserService;
 
 /**
- * 用户Service实现  
+ * 用户Service实现
  * 
  * @author luohuaming
  *
@@ -40,5 +40,11 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 	@Override
 	public User getByStudentId(int studentId) {
 		return userMapper.getByStudentId(studentId);
+	}
+
+	@Override
+	public User getByUsernameAndPassword(String username, String password) {
+		// TODO 根据用户名和密码获取用户
+		return userMapper.queryByNameAndPasswd(username, password);
 	}
 }

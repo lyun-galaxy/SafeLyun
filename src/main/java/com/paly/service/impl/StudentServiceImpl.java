@@ -30,4 +30,19 @@ public class StudentServiceImpl extends BaseServiceImpl<Student> implements Stud
 		return studentMapper;
 	}
 
+	@Override
+	public Student selectByStudentNumber(String studentNumber) {
+		return studentMapper.selectByStudentNumber(studentNumber);
+	}
+
+	@Override
+	public List<Object> queryScoreByGrade(String grade) {
+		return studentMapper.queryScoreByGrade(grade);
+	}
+
+	@Override
+	public List<Object> queryFailScoreByGrade(String grade) {
+		return studentMapper.queryFailScoreByGrade(grade);
+	}
+
 }

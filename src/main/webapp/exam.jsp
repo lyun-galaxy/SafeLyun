@@ -10,9 +10,9 @@
 <link
 	href="${pageContext.request.contextPath}/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css"
 	rel="stylesheet">
-<link rel="stylesheet" href="css/style.css" media="screen"
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" media="screen"
 	type="text/css" />
-<link rel="stylesheet" href="css/exam.css" media="screen"
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/exam.css" media="screen"
 	type="text/css" />
 <script
 	src="${pageContext.request.contextPath}/bootstrap-3.3.5-dist/js/jquery.min.js"></script>

@@ -172,7 +172,8 @@ CREATE TABLE IF NOT EXISTS `safelyun`.`user` (
   `userName` VARCHAR(25) NOT NULL,
   `userPassword` VARCHAR(25) NOT NULL,
   PRIMARY KEY (`userId`),
-  UNIQUE INDEX `id_user_UNIQUE` (`userId` ASC))
+  UNIQUE INDEX `id_user_UNIQUE` (`userId` ASC),
+  UNIQUE INDEX `userName_UNIQUE` (`userName` ASC))
 ENGINE = InnoDB
 AUTO_INCREMENT = 6
 DEFAULT CHARACTER SET = utf8;

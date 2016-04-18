@@ -13,6 +13,14 @@ import com.paly.domain.User;
  */
 public interface UserMapper extends BaseMapper<User> {
     
+	/**
+	 * 通过用户名和密码查找User
+	 * @param userName 用户名
+	 * @param passwd 密码
+	 * @return 返回匹配指定用户名和密码的用户信息
+	 */
+	User queryByNameAndPasswd(@Param("userName")String userName, @Param("passwd")String passwd);
+	
     /**
      * 设置用户拥有哪个角色
      * @param userId 用户Id
