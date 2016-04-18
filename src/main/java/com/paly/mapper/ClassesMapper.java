@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.paly.domain.Classes;
+import com.paly.vo.StudentVo;
 
 /**
  * 班级Dao接口
@@ -49,6 +50,6 @@ public interface ClassesMapper extends BaseMapper<Classes>{
 	 * @param classesName 班级
 	 * @return 返回学生的学号，姓名，成绩
 	 */
-	List<Object> queryClassesReport(@Param("grade")String grade, @Param("departmentName")String departmentName,
+	List<StudentVo> queryClassesReport(@Param("grade")String grade, @Param("departmentName")String departmentName,
 			@Param("specialtyName")String specialtyName, @Param("classesName")String classesName);
 }
