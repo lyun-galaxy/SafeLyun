@@ -7,20 +7,61 @@
 <meta charset="utf-8">
 <title>Paper Stack</title>
 <link rel="stylesheet" type="text/css" href="css/login.css" />
+<link
+	href="bootstrap-3.3.5-dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<link
+	href="bootstrap-3.3.5-dist/css/bootstrap-theme.min.css"
+	rel="stylesheet">
+<script
+	src="bootstrap-3.3.5-dist/js/jquery.min.js"></script>
+<script
+	src="bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+	function login() {
+		var username = $("#username").value;
+		var password = $("password").value;
+		$.ajax({
+			type:"post",
+			url:"??",
+			data:{username : username,
+				password : password},
+			dataType:"json",
+			success:function(data) {
+				if(data.check) {
+					window.location = data.url;
+				}
+				else{
+					$(".modal-body").empty().append("帐号或密码错误，请重新输入！");
+					$("#mymodal").modal("show");
+				}
+				
+				
+			},
+			error:function() {
+				$(".modal-body").empty().append("请求超时");
+				$("#mymodal").modal("show");
+			}
+			
+		});	
+			
+		
+	}
+</script>
 </head>
 <body>
 <div class="container">
 	<section id="content">
-		<form action="client_login/login.action">
+		<form action="">
 			<h1>Login Form</h1>
 			<div>
-				<input type="text" placeholder="Username" required="" id="username" name="userName"/>
+				<input type="text" placeholder="Username" required="" id="username" />
 			</div>
 			<div>
-				<input type="password" placeholder="Password" required="" id="password" name="userPassword"/>
+				<input type="password" placeholder="Password" required="" id="password" />
 			</div>
 			<div>
-				<input type="submit" value="Log in" />
+				<input type="button" value="Log in" onclick="login()"/>
 			</div>
 		</form><!-- form -->
 		<div class="button">
@@ -28,5 +69,22 @@
 		</div><!-- button -->
 	</section><!-- content -->
 </div><!-- container -->
+<div class="modal fade bs-example-modal-sm" id="mymodal"tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="gridSystemModalLabel">提示</h4>
+      </div>
+       <div class="modal-body" >
+       	....
+       </div>
+       <div class="modal-footer">
+        
+        <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 </html>
