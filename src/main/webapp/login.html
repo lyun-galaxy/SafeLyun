@@ -19,13 +19,13 @@
 	src="bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 	function login() {
-		var username = $("#username").value;
-		var password = $("password").value;
+		var username = $("#username").val();
+		var password = $("#password").val();
 		$.ajax({
 			type:"post",
-			url:"??",
-			data:{username : username,
-				password : password},
+			url:"client_login/login.action",
+			data:{userName : username,
+				userPassword : password},
 			dataType:"json",
 			success:function(data) {
 				if(data.check) {
