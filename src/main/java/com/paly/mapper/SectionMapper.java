@@ -28,4 +28,11 @@ public interface SectionMapper extends BaseMapper<Section> {
 	 * @return 返回未经过审核的章节列表
 	 */
 	List<Section> queryIsNotChecked();
+	
+	/**
+	 * 模糊查找章节
+	 * @param sectionName 章节名
+	 * @return 返回查找章节到得章节列表
+	 */
+	List<Section> fuzzySearchSection(String sectionName);
 }

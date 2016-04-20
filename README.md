@@ -3,7 +3,7 @@
 
 jar包放在ueditor-lib目录下，找出其中的两个jar包，配置好maven环境后使用以下命令按照到本地库。
 
-若无法安装则拷贝com及下所有文件，放入本地库。
+若无法安装则下载并解压`com.paly.tar.gz`文件，放入本地库`.m2/repository/com`。
 
 	mvn install:install-file -Dfile=‪G:\学习jar\json.jar -DgroupId=com.paly -DartifactId=json -Dversion=1.0 -Dpackaging=jar -DgeneratePom=true -DcreateChecksum=true
 	
