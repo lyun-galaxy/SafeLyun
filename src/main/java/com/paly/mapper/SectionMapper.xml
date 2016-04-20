@@ -52,4 +52,10 @@
   		where sec.sectionChecked=0
   </select>
    
+  <!-- 模糊查找章节 -->
+  <select id="fuzzySearchSection" resultMap="BaseResultMap" parameterType="string">
+  		select sec.*from section sec where sec.sectionName like '%#{sectionName}%'
+  </select>
+  
+  
 </mapper>

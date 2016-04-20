@@ -1,6 +1,9 @@
 package com.paly.mapper;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
+import com.paly.domain.Section;
 import com.paly.domain.Subsection;
 
 /**
@@ -49,4 +52,12 @@ public interface SubsectionMapper extends BaseMapper<Subsection> {
 	 * @return 返回指定章节下经过审核的子章节列表
 	 */
 	List<Subsection> queryIsCheckedBySecId(int sectionId);
+	
+	/**
+	 * 模糊查找章节下的子章节
+	 * @param section 章节
+	 * @param subsectionName
+	 * @return 返回
+	 */
+	List<Subsection> fuzzySearchSubSection(@Param("section")Section section, @Param("subsectionName")String subsectionName);
 }

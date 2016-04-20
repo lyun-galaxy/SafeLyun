@@ -34,7 +34,7 @@
 			</div>
 			<div class="col-md-2 col-md-offset-8"
 				style="margin-top: 20px; margin-bottom: 20px">
-				<p>欢迎，${user.userName }</p>
+				<p>欢迎，${student.studentName }同学</p>
 				<a href="${pageContext.request.contextPath}/client_login/logout.action">注销</a>
 			</div>
 		</div>

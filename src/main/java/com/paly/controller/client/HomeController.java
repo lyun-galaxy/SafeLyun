@@ -48,10 +48,13 @@ public class HomeController {
 		// 获取用户学习进度
 		Studyschedule studyschedule = getUserStudyschedule(session);
 		ModelAndView modelAndView = new ModelAndView();
+		User user = (User) session.getAttribute("user");
+		Student student = studentService.selectByStudentNumber(user.getUserName());
 		// 添加考试开关信息到视图
 		modelAndView.addObject("examswitch", examswitch);
 		// 添加用户学习进度
 		modelAndView.addObject("studyschedule", studyschedule);
+		modelAndView.addObject("student",student);
 		// studyscheduleService.
 		modelAndView.setViewName("client/main.jsp");
 		return modelAndView;

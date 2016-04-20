@@ -77,4 +77,10 @@
   	select sub.* from subsection sub
   		join section sec on sub.section_sectionId=sec.sectionId and sec.sectionId=#{sectionId} and sub.subsectionChecked=1
   </select>
+  
+  <!-- 模糊查找章节下的子章节 -->
+  <select id="fuzzySearchSubSection" resultType="BaseResultMap" >
+  		select sec.*from section sec, subsection sub where sub.section_sectionId=sec.sectionId and
+  		  sub.subsectionName like '%#{subsectionName}%'
+  </select>
 </mapper>
