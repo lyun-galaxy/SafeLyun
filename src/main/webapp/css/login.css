@@ -155,7 +155,7 @@ form:after {
 	-ms-transition: all 0.5s ease;
 	-o-transition: all 0.5s ease;
 	transition: all 0.5s ease;
-	background: #eae7e7 url(../image/8bcLQqF.png) no-repeat;
+	background: #eae7e7 url(../images/8bcLQqF.png) no-repeat;
 	border: 1px solid #c8c8c8;
 	color: #777;
 	font: 13px Helvetica, Arial, sans-serif;
@@ -176,7 +176,7 @@ form:after {
 }
 #username { background-position: 10px 10px !important }
 #password { background-position: 10px -53px !important }
-#content form input[type="submit"] {
+#content form input[type="button"] {
 	background: rgb(254,231,154);
 	background: -moz-linear-gradient(top,  rgba(254,231,154,1) 0%, rgba(254,193,81,1) 100%);
 	background: -webkit-linear-gradient(top,  rgba(254,231,154,1) 0%,rgba(254,193,81,1) 100%);
