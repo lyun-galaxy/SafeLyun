@@ -7,6 +7,8 @@ package com.paly.vo;
  *
  */
 public class StudentScore {
+ 
+	private int studentId;
 	private String studentNumber;
 	private String studentName;
 	private String department;
@@ -49,4 +51,11 @@ public class StudentScore {
 	public void setScore(float score) {
 		this.score = score;
 	}
+	public int getStudentId() {
+		return studentId;
+	}
+	public void setStudentId(int studentId) {
+		this.studentId = studentId;
+	}
+
 }

@@ -20,4 +20,5 @@ public interface AdminQuestionService extends BaseService<Itempool>{
 	public Question edit(Question question);
 	
 	public void audit(String ids);
+	public Datagrid vagueDatagrid(Question question);
 }

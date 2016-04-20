@@ -33,7 +33,7 @@
 					width : 150,
 					align : 'center',
 					formatter : function(value, row, index) {
-						if (value == 1) {
+						if (value == true) {
 							return '已审核';
 						} else {
 							return '未审核';
@@ -91,7 +91,7 @@
 					width : 150,
 					align : 'center',
 					formatter : function(value, row, index) {
-						if (value == 1) {
+						if (value == true) {
 							return '已审核';
 						} else {
 							return '未审核';
@@ -297,7 +297,7 @@
 	<div id="admin_zjgl_zjgl_layout" class="easyui-layout" data-options="fit:true,border:false">
 		<div data-options="region:'north',title:'查询条件',border:false" style="height: 100px;">
 			<form id="admin_zjgl_zjgl_searchForm">
-				检索章节名称(可模糊查询):<input name="name" /> </a> <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="zjSearchFun()">查询</a> <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-back'" onclick="zjClearFun()">清空</a>
+				检索章节名称(可模糊查询):<input name="sectionName" /> </a> <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="zjSearchFun()">查询</a> <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-back'" onclick="zjClearFun()">清空</a>
 			</form>
 			<br>
 			<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="zjUnAudit()">查看未审核</a>

@@ -377,6 +377,132 @@
 			//	$('#admin_tkgl_tkgl_datagrid').datagrid('load', {
 			//		name : $('#admin_tkgl_tkgl_layout input[name=name]').val()
 			//	});
+			
+			$('#admin_tkgl_tkgl_datagrid').datagrid('unselectAll');
+			$('#admin_tkgl_tkgl_datagrid').datagrid({
+				url : '${pageContext.request.contextPath}/questionbank/vaguedatagrid.action',//查询未经认证数据
+				fit : true,
+				pagination : true,
+				idField : 'id',
+				checkOnSelect : false,
+				selectOnCheck : false,
+				fitColumns : true,
+				rownumbers : true,
+				sortName : 'createDateTime',
+				sortOrder : 'asc',
+				frozenColumns : [ [ {
+					field : 'id',
+					title : '编号',
+					width : 150,
+					align : 'center',
+					//hidden : true,
+					checkbox : true
+				}, {
+					field : 'title',
+					title : '题目',
+					width : 200,
+					align : 'center',
+					formatter : function(value, row, index) {
+						return '<span title="'+value+'">' + value + '</span>';
+					}
+				}, {
+					field : 'a',
+					title : 'A选项',
+					width : 150,
+					align : 'center',
+					formatter : function(value, row, index) {
+						return '<span title="'+value+'">' + value + '</span>';
+					}
+				}, {
+					field : 'b',
+					title : 'B选项',
+					width : 150,
+					align : 'center',
+					formatter : function(value, row, index) {
+						return '<span title="'+value+'">' + value + '</span>';
+					}
+				}, {
+					field : 'c',
+					title : 'C选项',
+					width : 150,
+					align : 'center',
+					formatter : function(value, row, index) {
+						return '<span title="'+value+'">' + value + '</span>';
+					}
+				}, {
+					field : 'd',
+					title : 'D选项',
+					width : 150,
+					align : 'center',
+					formatter : function(value, row, index) {
+						return '<span title="'+value+'">' + value + '</span>';
+					}
+				}, {
+					field : 'answer',
+					title : '正确选项',
+					width : 70,
+					align : 'center',
+				}, {
+					field : 'createDateTime',
+					title : '创建时间',
+					width : 150,
+					align : 'center',
+					sortable : true,
+					formatter : function(value, row, index) {
+						return '<span title="'+value+'">' + value + '</span>';
+					}
+				}, {
+					field : 'status',
+					title : '状态',
+					width : 50,
+					align : 'center',
+					formatter : function(value, row, index) {
+						if (value == true) {
+							return '已审核';
+						} else {
+							return '未审核';
+						}
+					},
+				} ] ],
+				toolbar : [ {
+					text : '添加',
+					iconCls : 'icon-add',
+					handler : function() {
+						tkAppend();
+					}
+				}, '-', {
+					text : '删除',
+					iconCls : 'icon-remove',
+					handler : function() {
+						tkRemove();
+					}
+				}, '-', {
+					text : '修改',
+					iconCls : 'icon-edit',
+					handler : function() {
+						tkEditFun();
+					}
+				}, '-', {
+					text : '通过审核',
+					iconCls : 'icon-ok',
+					handler : function() {
+						tkPass();
+					}
+				}, '-', {
+					text : '批量导入',
+					iconCls : 'icon-edit',
+					handler : function() {
+						tkImport();
+					}
+				}, '-', {
+					text : '返回',
+					iconCls : 'icon-back',
+					handler : function() {
+						tkInit();
+					}
+				} ]
+			});
+			
 			$('#admin_tkgl_tkgl_datagrid').datagrid('load', serializeObject($('#admin_tkgl_tkgl_searchForm')));
 		}
 
@@ -429,8 +555,7 @@
 	<div id="admin_tkgl_tkgl_layout" class="easyui-layout" data-options="fit:true,border:false">
 		<div data-options="region:'north',title:'查询条件',border:false" style="height: 100px;">
 			<form id="admin_tkgl_tkgl_searchForm">
-				检索题目(可模糊查询):<input name="name" /> </a> <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="tkSearchFun()">查询</a> <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-back'" onclick="tkClearFun()">清空</a>
-
+				检索题目(可模糊查询):<input name="name"/> </a> <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="tkSearchFun()">查询</a> <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-back'" onclick="tkClearFun()">清空</a>
 			</form>
 			<br> <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="tkUnAudit()">查看未审核</a>
 		</div>

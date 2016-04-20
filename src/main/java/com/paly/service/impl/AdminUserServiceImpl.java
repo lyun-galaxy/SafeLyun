@@ -16,15 +16,21 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.paly.domain.Classes;
 import com.paly.domain.Department;
+import com.paly.domain.Score;
 import com.paly.domain.Specialty;
 import com.paly.domain.Student;
+import com.paly.domain.User;
 import com.paly.mapper.BaseMapper;
 import com.paly.mapper.ClassesMapper;
+import com.paly.mapper.DatadicItemsMapper;
 import com.paly.mapper.DepartmentMapper;
+import com.paly.mapper.ScoreMapper;
 import com.paly.mapper.SpecialtyMapper;
 import com.paly.mapper.StudentMapper;
 import com.paly.mapper.UserMapper;
@@ -33,6 +39,8 @@ import com.paly.service.AdminUserService;
 @Service
 public class AdminUserServiceImpl extends BaseServiceImpl<Student> implements AdminUserService{
 
+	private final Logger logger = LoggerFactory.getLogger(AdminUserServiceImpl.class);
+	
 	@Resource
 	StudentMapper studentMapper;
 	@Resource
@@ -43,6 +51,10 @@ public class AdminUserServiceImpl extends BaseServiceImpl<Student> implements Ad
 	SpecialtyMapper specialtyMapper;
     @Resource
     DepartmentMapper departmentMapper;
+	@Resource
+	DatadicItemsMapper datadicItemsMapper;
+    @Resource
+    ScoreMapper scoreMapper;
 	
 	@Override
 	public void importStudentBaseMSG(String path) {
@@ -65,24 +77,35 @@ public class AdminUserServiceImpl extends BaseServiceImpl<Student> implements Ad
 				msgList.add(msg);
 			}
 			
-			for (int i = 0; i < msgList.size(); i++) {
-			
+			for (int i = 0; i < msgList.size(); i++) {			
+			    String studentNumber = msgList.get(i).get(0).toString();
+			    //解析学号，获取年级，专业，院系，班级
+			    String grade = studentNumber.substring(0, 4);
+//			    String college = studentNumber.substring(4, 5);
+//			    int departmentId = Integer.valueOf(college);
+//			    String special = studentNumber.substring(4, 6);
+//			    int specialId = Integer.valueOf(special);
+			    String clasz = studentNumber.substring(4, 8);
+			    int claszId = Integer.valueOf(clasz);
+				//先存储外键
+			    User user = new User(msgList.get(i).get(0).toString(),msgList.get(i).get(0).toString());
+			    user.setUserId(Integer.valueOf(studentNumber));
+			    userMapper.insert(user);
+			    //保存学生信息
 				Student student = new Student();
-                //student.setStudentId(Integer.valueOf(msgList.get(i).get(0).toString()));
 				student.setStudentNumber(msgList.get(i).get(0).toString());
 				student.setStudentName(msgList.get(i).get(1).toString());
-				student.setUser(userMapper.selectByPrimaryKey(1));
-				student.setClasses(classesMapper.selectByPrimaryKey(1));
+				student.setGrade(grade);
+				student.setClasses(classesMapper.selectByPrimaryKey(claszId));
+				student.setUser(userMapper.selectByPrimaryKey(Integer.valueOf(studentNumber)));
 				super.save(student);
-				//获取学号
-			    //String studentNumber = msgList.get(i).get(0).toString();
-			    //通过数据字典解析学号，获取年级，专业，院系，班级
-			    //String grade = studentNumber.substring(0, 3);
-			    //String college = studentNumber.substring(4, 5);
-			    //String special_class = studentNumber.substring(6, 7);
-			     
-				//先存储外键
-				//存储数据
+				//存储默认成绩
+				Score score = new Score(0f,0,studentMapper.selectByStudentNumber(studentNumber));
+				score.setScoreId(Integer.valueOf(studentNumber));
+				scoreMapper.insert(score);
+				//设置学生默认成绩
+				Student myStudent = studentMapper.selectByStudentNumber(studentNumber);
+				myStudent.setScore(scoreMapper.selectByPrimaryKey(Integer.valueOf(studentNumber)));
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block

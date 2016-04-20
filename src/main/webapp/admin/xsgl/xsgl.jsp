@@ -62,23 +62,33 @@
 				msg : '导出成功！',
 			});*/
 		//	var garde = $('#admin_xsgl_xsgl_grade').combobox('getText');
-			alert("1");
-			$.ajax({
+		
+		/*	$.ajax({
 				type: "POST",
 				url : "${pageContext.request.contextPath}/reportPrint/ClassStudent.action",
-				dataType : 'json',
-				success : function(d) {
-					alert('hjk');
-					$.messager.show({
-						"title" : '提示',
-						"msg" : d.msg
-					});
+				
+				success : function() {
+					alert("导出成功")
 				},
 				error:function(){
-					alert("11");
+					alert("导出失败");
 				}
-				});
-			alert("2");
+				});*/
+				
+				var form=$("<form>");//定义一个form表单
+				form.attr("style","display:none");
+				form.attr("target","_self");
+				form.attr("method","post");
+				form.attr("action","${pageContext.request.contextPath}/reportPrint/AllStudent.action");
+				var input1=$("<input>");
+				input1.attr("type","hidden");
+				input1.attr("name","exportData");
+				input1.attr("value",(new Date()).getMilliseconds());
+				$("body").append(form);//将表单放置在web中
+				form.append(input1);
+
+				form.submit();//表单提交 
+			
 		}
 
 		function setSwitch() {
@@ -224,11 +234,21 @@
 						},
 					} ] ],
 					toolbar : [ {
-						text : '打印',
-						iconCls : 'icon-print',
+						text : '导出所有未通过考试学生的成绩',
+						iconCls : 'icon-redo',
 						handler : function() {
-							var str = $('#admin_xsgl_xsgl_grade').combobox('getValue') + '级未通过学生信息';
-							CreateFormPage(str, $('#admin_xsgl_xsgl_Datagrid'));
+							var form=$("<form>");//定义一个form表单
+							form.attr("style","display:none");
+							form.attr("target","_self");
+							form.attr("method","post");
+							form.attr("action","${pageContext.request.contextPath}/reportPrint/AllNoPassStudent.action");
+							var input1=$("<input>");
+							input1.attr("type","hidden");
+							input1.attr("name","exportData");
+							input1.attr("value",(new Date()).getMilliseconds());
+							$("body").append(form);//将表单放置在web中
+							form.append(input1);
+							form.submit();//表单提交 
 						}
 					} ]
 				});

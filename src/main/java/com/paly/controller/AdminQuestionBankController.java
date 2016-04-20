@@ -49,7 +49,15 @@ public class AdminQuestionBankController extends AdminBaseController{
 			super.writeJson(dg,response);
 			System.out.println("更新未经过验证题目");
 		}
-	
+		
+		@RequestMapping("/questionbank/vaguedatagrid.action")
+		public void vagueDatagrid(Question question,HttpServletResponse response) {
+			logger.info("datagrid");
+			logger.info(question.getName());
+			Datagrid dg = adminQuestionService.vagueDatagrid(question);  
+			super.writeJson(dg,response);
+			System.out.println("更新未经过验证题目");
+		}
 
 	
 	//添加题目

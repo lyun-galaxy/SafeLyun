@@ -43,7 +43,7 @@
 					width : 80,
 					align : 'center',
 					formatter : function(value, row, index) {
-						if (value == 1) {
+						if (value == true) {
 							return '已审核';
 						} else {
 							return '未审核';
@@ -105,7 +105,7 @@
 					width : 80,
 					align : 'center',
 					formatter : function(value, row, index) {
-						if (value == 1) {
+						if (value == true) {
 							return '已审核';
 						} else {
 							return '未审核';

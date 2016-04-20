@@ -20,6 +20,7 @@ public class Question extends BaseModel {
 	private Date createDateTime;
     private Boolean status;
 	private File file;
+	private String name;
 
 	public Question() {
 		super();
@@ -115,6 +116,14 @@ public class Question extends BaseModel {
 
 	public void setStatus(Boolean status) {
 		this.status = status;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }

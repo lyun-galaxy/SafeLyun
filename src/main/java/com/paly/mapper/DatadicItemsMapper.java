@@ -9,7 +9,7 @@ import com.paly.domain.DatadicItems;
  * @author linyu
  *
  */
-public interface DatadicItemsMapper extends BaseMapper<DatadicItems> {
+public interface DatadicItemsMapper extends BaseMapper<DatadicItems>{
  
 	/**
 	 * 根据数据字典分组编码获取其关联的数据字典项列表
@@ -17,4 +17,6 @@ public interface DatadicItemsMapper extends BaseMapper<DatadicItems> {
 	 * @return 返回指定数据字典分组下的数据字典项列表
 	 */
 	List<DatadicItems> getByGroupCode(String groupCode);
+	
+	public DatadicItems selectByPrimaryKey(String id);
 }

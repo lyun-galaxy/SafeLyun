@@ -33,8 +33,8 @@
   </select>
   
   <!-- 根据数据字典分组编码获取其关联的数据字典项列表 -->
-  <select id="getByGroupCode" resultMap="BaseResultMap" parameterType="int">
-  	select i.* from datadic_items i
-  		left join datadic_groups g on g.group_code=#{groupCode}
+  <select id="getByGroupCode" resultMap="BaseResultMap" parameterType="String">
+      select i.* from datadic_items i
+  		    where datadic_groups_group_code=#{groupCode}   
   </select>
 </mapper>

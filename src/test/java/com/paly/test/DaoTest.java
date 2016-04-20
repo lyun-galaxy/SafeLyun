@@ -20,6 +20,7 @@ import com.paly.domain.DatadicGroups;
 import com.paly.domain.DatadicItems;
 import com.paly.domain.Department;
 import com.paly.domain.Examswitch;
+import com.paly.domain.Itempool;
 import com.paly.domain.Menu;
 import com.paly.domain.Role;
 import com.paly.domain.Score;
@@ -30,6 +31,7 @@ import com.paly.mapper.ClassesMapper;
 import com.paly.mapper.DatadicGroupsMapper;
 import com.paly.mapper.DepartmentMapper;
 import com.paly.mapper.ExamswitchMapper;
+import com.paly.mapper.ItempoolMapper;
 import com.paly.mapper.MenuMapper;
 import com.paly.mapper.RoleMapper;
 import com.paly.mapper.ScoreMapper;
@@ -412,6 +414,14 @@ public class DaoTest {
 		dgm.batchAddItemsOfGroup(itemsOfGroup);
 		
 		sqlSession.commit();
+	}
+	
+	@Test
+	public void testItemPool() throws Exception {
+		SqlSession sqlSession = MyBatisDAOUtil.getSqlSessionFactory().openSession();
+		ItempoolMapper im = sqlSession.getMapper(ItempoolMapper.class);
+		List<Itempool> ip = im.queryByVagueQuestion("s");
+		log.debug("testItemPool ip:" + ip.size());
 	}
 	
 }

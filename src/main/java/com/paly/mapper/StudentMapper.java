@@ -3,6 +3,7 @@ package com.paly.mapper;
 import java.util.List;
 
 import com.paly.domain.Student;
+import com.paly.vo.StudentScore;
 
 /**
  * 学生Dao接口
@@ -30,12 +31,12 @@ public interface StudentMapper extends BaseMapper<Student> {
 	 * @param grade 年级
 	 * @return 返回学生的成绩，学号，姓名，专业，班级，院系
 	 */
-	List<Object> queryScoreByGrade(String grade);
+	List<StudentScore> queryScoreByGrade(String grade);
 	
 	/**
 	 * 查看同一年级下所有未通过学生成绩	
 	 * @param grade 年级
 	 * @return 返回未通过学生的成绩，学号，姓名，专业，班级，院系
 	 */
-	List<Object> queryFailScoreByGrade(String grade);
+	List<StudentScore> queryFailScoreByGrade(String grade);
 }

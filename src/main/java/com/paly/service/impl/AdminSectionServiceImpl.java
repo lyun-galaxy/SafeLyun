@@ -102,6 +102,7 @@ public class AdminSectionServiceImpl implements AdminSectionService{
 			mysection.setName(subSections.get(i).getSubsectionName());	
 			mysection.setMinutes(subSections.get(i).getSubsectionTime());
 			mysection.setContext(subSections.get(i).getSubsectionContent());
+			mysection.setStatus(subSections.get(i).getSubsectionChecked());
 			sections.add(mysection);
 		}
 		Datagrid datagrid = new Datagrid();
