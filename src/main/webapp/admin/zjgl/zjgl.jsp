@@ -285,6 +285,63 @@
 			//	$('#admin_zjgl_zjgl_datagrid').datagrid('load', {
 			//		name : $('#admin_zjgl_zjgl_layout input[name=name]').val()
 			//	});
+			
+			$('#admin_zjgl_zjgl_datagrid').datagrid({
+				url : '${pageContext.request.contextPath}/chapter/vaguedatagrid.action',
+				fit : true,
+				pagination : true,
+				idField : 'sectionId',
+				checkOnSelect : false,
+				selectOnCheck : false,
+				fitColumns : true,
+				rownumbers : true,
+				frozenColumns : [ [ {
+					field : 'sectionId',
+					title : '编号',
+					width : 150,
+					align : 'center',
+					//hidden : true,
+					checkbox : true
+				}, {
+					field : 'sectionName',
+					title : '章节名称',
+					width : 150,
+					align : 'center',
+				}, {
+					field : 'sectionChecked',
+					title : '状态',
+					width : 150,
+					align : 'center',
+					formatter : function(value, row, index) {
+						if (value == true) {
+							return '已审核';
+						} else {
+							return '未审核';
+						}
+					},
+				} ] ],
+				toolbar : [ {
+					text : '删除',
+					iconCls : 'icon-remove',
+					handler : function() {
+						zjRemove();
+					}
+				}, '-', {
+					text : '修改',
+					iconCls : 'icon-edit',
+					handler : function() {
+						zjEditFun();
+					}
+				}, '-', {
+					text : '对该章节的小节管理',
+					iconCls : 'icon-edit',
+					handler : function() {
+						zjManager();
+					}
+				} ]
+			});
+
+			
 			$('#admin_zjgl_zjgl_datagrid').datagrid('load', serializeObject($('#admin_zjgl_zjgl_searchForm')));
 		}
 

@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -87,8 +89,19 @@ public class AdminUserServiceImpl extends BaseServiceImpl<Student> implements Ad
 //			    int specialId = Integer.valueOf(special);
 			    String clasz = studentNumber.substring(4, 8);
 			    int claszId = Integer.valueOf(clasz);
-				//先存储外键
-			    User user = new User(msgList.get(i).get(0).toString(),msgList.get(i).get(0).toString());
+				//设置默认帐号密码,采用MD5加密
+			    String userPassword =  msgList.get(i).get(0).toString();
+			    String userPasswordMD5 = null;
+			    try {
+					MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+					messageDigest.update(userPassword.getBytes());
+					userPasswordMD5 = messageDigest.digest().toString();
+				} catch (NoSuchAlgorithmException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			    
+			    User user = new User(msgList.get(i).get(0).toString(),userPasswordMD5);
 			    user.setUserId(Integer.valueOf(studentNumber));
 			    userMapper.insert(user);
 			    //保存学生信息

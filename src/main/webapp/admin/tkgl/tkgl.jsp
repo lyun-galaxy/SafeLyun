@@ -71,16 +71,7 @@
 					title : '正确选项',
 					width : 70,
 					align : 'center',
-				}, {
-					field : 'createDateTime',
-					title : '创建时间',
-					width : 150,
-					align : 'center',
-					sortable : true,
-					formatter : function(value, row, index) {
-						return '<span title="'+value+'">' + value + '</span>';
-					}
-				}, {
+				},  {
 					field : 'status',
 					title : '状态',
 					width : 50,
@@ -175,16 +166,7 @@
 					title : '正确选项',
 					width : 70,
 					align : 'center',
-				}, {
-					field : 'createDateTime',
-					title : '创建时间',
-					width : 150,
-					align : 'center',
-					sortable : true,
-					formatter : function(value, row, index) {
-						return '<span title="'+value+'">' + value + '</span>';
-					}
-				}, {
+				},  {
 					field : 'status',
 					title : '状态',
 					width : 50,
@@ -442,16 +424,7 @@
 					title : '正确选项',
 					width : 70,
 					align : 'center',
-				}, {
-					field : 'createDateTime',
-					title : '创建时间',
-					width : 150,
-					align : 'center',
-					sortable : true,
-					formatter : function(value, row, index) {
-						return '<span title="'+value+'">' + value + '</span>';
-					}
-				}, {
+				},  {
 					field : 'status',
 					title : '状态',
 					width : 50,

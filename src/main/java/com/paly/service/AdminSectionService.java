@@ -11,6 +11,8 @@ public interface AdminSectionService {
 	public Datagrid datagridAudit(Section section, String name,HttpServletRequest request);
 	
 	public Datagrid datagridUnaudit(Section section, String name,HttpServletRequest request);
+	
+	public Datagrid vaguedatagrid(Section section, String name,HttpServletRequest request);
 
 	public int remove(String ids);
 

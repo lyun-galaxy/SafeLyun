@@ -60,6 +60,14 @@ public class AdminChapterController extends AdminBaseController{
 		super.writeJson(dg,response);
 		System.out.println(chapter.getRows()+"|"+chapter.getPage()+"=========");
 	}
+	
+	@RequestMapping("/chapter/vaguedatagrid.action")
+	public void vaguedatagrid(Chapter chapter,HttpServletResponse response) {
+		logger.info("datagrid");
+ 		Datagrid dg = adminChapterService.vaguedatagrid(chapter);
+		super.writeJson(dg,response);
+		System.out.println(chapter.getRows()+"|"+chapter.getPage()+"=========");
+	}
 
 	@RequestMapping("/chapter/remove.action")
 	public void remove(String ids,HttpServletResponse response) {

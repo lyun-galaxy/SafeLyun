@@ -44,7 +44,7 @@
 					error : function(data, status, e) {
 						$.messager.show({
 							title : '提示',
-							msg : '服务中断或连接超时导致通信失败！' + e,
+							msg : '服务中断或连接超时导致通信失败！' ,
 						});
 					}
 				});

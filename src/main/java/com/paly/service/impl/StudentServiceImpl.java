@@ -10,6 +10,7 @@ import com.paly.domain.Student;
 import com.paly.mapper.BaseMapper;
 import com.paly.mapper.StudentMapper;
 import com.paly.service.StudentService;
+import com.paly.vo.StudentScore;
 
 /**
  * 学生Service实现
@@ -36,12 +37,12 @@ public class StudentServiceImpl extends BaseServiceImpl<Student> implements Stud
 	}
 
 	@Override
-	public List<Object> queryScoreByGrade(String grade) {
-		return studentMapper.queryScoreByGrade(grade);
+	public List<StudentScore> queryScoreByGrade(String grade) {
+		return studentMapper.queryFailScoreByGrade(grade);
 	}
 
 	@Override
-	public List<Object> queryFailScoreByGrade(String grade) {
+	public List<StudentScore> queryFailScoreByGrade(String grade) {
 		return studentMapper.queryFailScoreByGrade(grade);
 	}
 

@@ -58,6 +58,14 @@ public class AdminSectionController extends AdminBaseController{
  		super.writeJson(datagrid,response);
 	}
     
+    @RequestMapping("/sectionController/vaguedatagrid.action")
+	public void vaguedatagrid(Section section,HttpServletRequest request,HttpServletResponse response) {
+		logger.info("datagridAudit");
+		
+		Datagrid datagrid = adminSectionService.vaguedatagrid(section, COOKIENAME, request);
+ 		super.writeJson(datagrid,response);
+	}
+    
     @RequestMapping("/sectionController/datagridUnaudit.action")
  	public void datagridUnaudit(Section section,HttpServletRequest request,HttpServletResponse response) {
  		logger.info("datagridUnaudit");

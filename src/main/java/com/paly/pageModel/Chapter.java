@@ -10,6 +10,7 @@ public class Chapter extends BaseModel{
 
 	private String id;
 	private String name;
+	private String sectionName;
 	private boolean status;
 
 	public Chapter() {
@@ -44,6 +45,14 @@ public class Chapter extends BaseModel{
 
 	public void setStatus(boolean status) {
 		this.status = status;
+	}
+
+	public String getSectionName() {
+		return sectionName;
+	}
+
+	public void setSectionName(String sectionName) {
+		this.sectionName = sectionName;
 	}
 
 

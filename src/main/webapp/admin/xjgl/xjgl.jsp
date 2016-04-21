@@ -282,6 +282,66 @@
 			//	$('#admin_xjgl_xjgl_datagrid').datagrid('load', {
 			//		name : $('#admin_xjgl_xjgl_layout input[name=name]').val()
 			//	});
+			
+			$('#admin_xjgl_xjgl_datagrid').datagrid({
+				url : '${pageContext.request.contextPath}/sectionController/vaguedatagrid.action',
+				fit : true,
+				pagination : true,
+				idField : 'id',
+				checkOnSelect : false,
+				selectOnCheck : false,
+				fitColumns : true,
+				rownumbers : true,
+				frozenColumns : [ [ {
+					field : 'id',
+					title : '编号',
+					width : 150,
+					align : 'center',
+					//hidden : true,
+					checkbox : true
+				}, {
+					field : 'name',
+					title : '小节名称',
+					width : 150,
+					align : 'center',
+				}, {
+					field : 'context',
+					title : '内容',
+					width : 600,
+					align : 'center',
+				}, {
+					field : 'minutes',
+					title : '时长（分钟）',
+					width : 80,
+					align : 'center',
+				}, {
+					field : 'status',
+					title : '状态',
+					width : 80,
+					align : 'center',
+					formatter : function(value, row, index) {
+						if (value == true) {
+							return '已审核';
+						} else {
+							return '未审核';
+						}
+					},
+				} ] ],
+				toolbar : [ {
+					text : '删除',
+					iconCls : 'icon-remove',
+					handler : function() {
+						xjRemove();
+					}
+				}, '-', {
+					text : '修改',
+					iconCls : 'icon-edit',
+					handler : function() {
+						xjEditFun();
+					}
+				} ]
+			});
+			
 			$('#admin_xjgl_xjgl_datagrid').datagrid('load', serializeObject($('#admin_xjgl_xjgl_searchForm')));
 		}
 
@@ -294,7 +354,7 @@
 	<div id="admin_xjgl_xjgl_layout" class="easyui-layout" data-options="fit:true,border:false">
 		<div data-options="region:'north',title:'查询条件',border:false" style="height: 100px;">
 			<form id="admin_xjgl_xjgl_searchForm">
-				检索小节名称(可模糊查询):<input name="name" /> </a> <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="xjSearchFun()">查询</a> <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-back',plain:true" onclick="zjClearFun()">清空</a>
+				检索小节名称(可模糊查询):<input name="subSectionName" /> </a> <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="xjSearchFun()">查询</a> <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-back',plain:true" onclick="zjClearFun()">清空</a>
 			</form>
 			<br> <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" onclick="xjUnAudit()">查看未审核</a>
 		</div>

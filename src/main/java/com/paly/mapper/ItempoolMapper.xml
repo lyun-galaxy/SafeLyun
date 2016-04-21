@@ -59,6 +59,6 @@
   <!-- 模糊查找题目 -->
   <select id="queryByVagueQuestion" resultMap="BaseResultMap" parameterType="String">
   	select * from itempool
-  		where itempoolQuestion like '%${question}%'
+  		where itempoolQuestion like concat(concat('%', #{question}, '%'))
   </select>
 </mapper>

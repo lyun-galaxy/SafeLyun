@@ -64,6 +64,18 @@ public class AdminChapterServiceImpl extends BaseServiceImpl<Section> implements
 	}
 	
 	@Override
+	public Datagrid vaguedatagrid(Chapter chapter) {
+		// TODO Auto-generated method stub
+		PageHelper.startPage(chapter.getPage(), chapter.getRows());
+		List<Section> sections = sectionMapper.fuzzySearchSection(chapter.getSectionName());
+		PageInfo<Section> page = new PageInfo<Section>(sections);		
+		Datagrid datagrid = new Datagrid();
+		datagrid.setRows(sections);
+		datagrid.setTotal(page.getTotal());
+		return datagrid;
+	}
+	
+	@Override
 	public int remove(String ids) {
 		// TODO Auto-generated method stub
 	    String[] nids = ids.split(",");

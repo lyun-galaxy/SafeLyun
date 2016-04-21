@@ -59,5 +59,5 @@ public interface SubsectionMapper extends BaseMapper<Subsection> {
 	 * @param subsectionName
 	 * @return 返回
 	 */
-	List<Subsection> fuzzySearchSubSection(@Param("section")Section section, @Param("subsectionName")String subsectionName);
+	List<Subsection> fuzzySearchSubSection(@Param("sectionId")int sectionId, @Param("subsectionName")String subsectionName);
 }

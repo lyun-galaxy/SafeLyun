@@ -20,4 +20,6 @@ public interface AdminChapterService extends BaseService<Section>{
 	public String getSectionIdByCookieName(String name);
 	
 	public void audit(String ids);
+	
+	public Datagrid vaguedatagrid(Chapter chapter);
 }

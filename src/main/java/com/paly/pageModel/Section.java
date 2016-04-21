@@ -1,6 +1,6 @@
 package com.paly.pageModel;
 
-import java.util.Date;
+
 
 public class Section extends BaseModel {
 
@@ -10,6 +10,7 @@ public class Section extends BaseModel {
 	private String context;
     private int minutes;
     private boolean status;
+    private String subSectionName;
 	public boolean getStatus() {
 		return status;
 	}
@@ -68,6 +69,14 @@ public class Section extends BaseModel {
 
 	public void setMinutes(int minutes) {
 		this.minutes = minutes;
+	}
+
+	public String getSubSectionName() {
+		return subSectionName;
+	}
+
+	public void setSubSectionName(String subSectionName) {
+		this.subSectionName = subSectionName;
 	}
 
 	

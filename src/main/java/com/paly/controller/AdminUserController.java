@@ -43,7 +43,7 @@ public class AdminUserController extends AdminBaseController{
 			json.setSuccess(true);
 			json.setMsg("导入成功！");
 		} catch (Exception e) {
-			json.setMsg(e.getMessage());
+			json.setMsg("导入失败！请勿导入重复的学生信息，请检查文件后再进行导入");
 		}
 		
 	    super.writeJson(json,response);
