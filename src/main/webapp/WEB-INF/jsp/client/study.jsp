@@ -21,11 +21,14 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/offcanvas.css"
 	rel="stylesheet">
+<style>
+
+</style>
 <script
 	src="${pageContext.request.contextPath}/bootstrap-3.3.5-dist/js/jquery.min.js"></script>
 <script
 	src="${pageContext.request.contextPath}/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
-<script src="${pageContext.request.contextPath}/js/study.js"></script>
+
 <title>Insert title here</title>
 
 </head>
@@ -45,10 +48,13 @@
 		</div>
 		<div id="navbar" class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
-				<li><a href="${pageContext.request.contextPath }/client_home/toHomePage.action">主页</a></li>
+				<li><a
+					href="${pageContext.request.contextPath }/client_home/toHomePage.action">主页</a></li>
 				<li class="active"><a href="#">在线学习</a></li>
-				<li><a href="${pageContext.request.contextPath}/client_exam/toExamPage.action">在线考试</a></li>
-				<li><a href="${pageContext.request.contextPath}/client_score/toScoreUI.action">查看成绩</a></li>
+				<li><a
+					href="${pageContext.request.contextPath}/client_exam/toExamPage.action">在线考试</a></li>
+				<li><a
+					href="${pageContext.request.contextPath}/client_score/toScoreUI.action">查看成绩</a></li>
 			</ul>
 		</div>
 		<!-- /.nav-collapse -->
@@ -58,17 +64,21 @@
 
 	<div class="container">
 
-		<div class="row row-offcanvas row-offcanvas-right">
+		<div class="row row-offcanvas row-offcanvas-right" style="height:700px">
 
 			<div class="col-xs-12 col-sm-9">
 				<p class="pull-right visible-xs">
 					<button type="button" class="btn btn-primary btn-xs"
 						data-toggle="offcanvas">Toggle nav</button>
 				</p>
-				<div class="row">
-				<div class="jumbotron"><h1>${subsection.subsectionName }</h1></div>
-				<div class="row" id="content">${subsection.subsectionContent }</div>
-				<!--/row-->
+				<div class="row" >
+					<div class="jumbotron">
+						<h1>${subsection.subsectionName }</h1>
+					</div>
+					<div class="row" id="content" > ${subsection.subsectionContent }<br>
+						
+					</div>
+					<!--/row-->
 				</div>
 			</div>
 			<!--/.col-xs-12.col-sm-9-->
@@ -76,7 +86,8 @@
 			<div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
 
 				<ul id="accordion" class="accordion">
-					<c:forEach items="${sectionList }" var="section" varStatus="status" step="1" begin="0">
+					<c:forEach items="${sectionList }" var="section" varStatus="status"
+						step="1" begin="0">
 						<li>
 							<div class="link">
 								<i class="fa fa-paint-brush"></i>${section.sectionName }<i
@@ -92,19 +103,31 @@
 
 						</li>
 					</c:forEach>
-					
+					<div class="hold hold1" >
+						<div class="pie pie1"></div>
+					</div>
+					<div class="hold hold2">
+						<div class="pie pie2"></div>
+					</div>
+					<div class="bg"></div>
+					<div class="time">
+						<span></span><em></em>
+					</div>
 				</ul>
-
+				
 			</div>
-			<!--/.sidebar-offcanvas-->
+			
+
 		</div>
-		<!--/row-->
+		<!--/.sidebar-offcanvas-->
+	</div>
+	<!--/row-->
 
 
-		<hr>
-		<footer>
-		<p>&copy; 龙岩学院保卫处 & GALAXY团队</p>
-		</footer>
+	<hr>
+	<footer>
+	<p>&copy; 龙岩学院保卫处 & GALAXY团队</p>
+	</footer>
 
 	</div>
 	<!--/.container-->
@@ -113,31 +136,9 @@
 <script src="${pageContext.request.contextPath}/js/offcanvas.js"></script>
 <script
 	src="${pageContext.request.contextPath}/js/ie10-viewport-bug-workaround.js"></script>
+<script src="${pageContext.request.contextPath}/js/study.js"></script>
 
 <script type="text/javascript">
-	$("#accordion").pin({
-		padding : {
-			top : 45,
-			bottom : 10
-		},
-		minWidth : 940
-	});
-	function getSubsectionContent(url) {
-		$.ajax({
-			type : 'get',
-			url : url,
-			dataType : 'json',
-			cache : false,
-			success : function(data) {
-				$(".jumbotron").empty().append(
-						"<h1>" + data.subsectionName + "</h1>");
-				$("#content").empty().append(data.subsectionContent);
-			},
-			error : function() {
-				alert('error');
-			}
-		});
-	}
 	//getSubsectionContent('${pageContext.request.contextPath}/client_study/getSubsection/1.action');
 </script>
 </html>
