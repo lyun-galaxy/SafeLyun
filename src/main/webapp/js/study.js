@@ -86,14 +86,19 @@ function getSubsectionContent(url) {
 }
 var i = 0;
 var j = 0;
-var t1,t2,s;
-var MM = 0;
-var SS = 10;
-var MS = 9;
-var a = MM*60*10+SS*10+MS;
-a = 180/(a/2);
-var totle = (MM+1)*600;
-var MM = "0" + MM;
+var t1,t2,s,MM,SS,MS,a,totle; 
+
+function initTime(m,s) {
+	MM = m;
+	SS = s;
+	MS = 9;
+	i = 0;
+	j = 0;
+	a = MM*60*10+SS*10+MS;
+	a = 180/(a/2);
+	totle = (MM+1)*600;
+	MM = "0" + MM;
+}
 function showTime(){
 	totle = totle - 1;
 	if(totle==0){
