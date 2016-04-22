@@ -1,15 +1,10 @@
 package com.paly.test;
 
-import static org.junit.Assert.*;
-
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import javax.crypto.ExemptionMechanism;
-
-import org.apache.ibatis.binding.BindingException;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 import org.slf4j.Logger;

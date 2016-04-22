@@ -3,7 +3,6 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.paly.domain.Section;
 import com.paly.domain.Subsection;
 
 /**

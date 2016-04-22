@@ -28,7 +28,11 @@
 	src="${pageContext.request.contextPath}/bootstrap-3.3.5-dist/js/jquery.min.js"></script>
 <script
 	src="${pageContext.request.contextPath}/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
-
+<script type="text/javascript">
+$(function(){
+	getSubsectionContent('${pageContext.request.contextPath}/client_study/getSubsectionByUser.action');	
+});
+</script>
 <title>Insert title here</title>
 
 </head>
@@ -44,7 +48,7 @@
 					class="icon-bar"></span>
 			</button>
 			<a class="navbar-brand"
-				href="${pageContext.request.contextPath}/main.jsp">平安龙院</a>
+				href="${pageContext.request.contextPath }/client_home/toHomePage.action">平安龙院</a>
 		</div>
 		<div id="navbar" class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
@@ -138,7 +142,4 @@
 	src="${pageContext.request.contextPath}/js/ie10-viewport-bug-workaround.js"></script>
 <script src="${pageContext.request.contextPath}/js/study.js"></script>
 
-<script type="text/javascript">
-	//getSubsectionContent('${pageContext.request.contextPath}/client_study/getSubsection/1.action');
-</script>
 </html>

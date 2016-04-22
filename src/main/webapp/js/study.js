@@ -48,7 +48,7 @@ $("#accordion").pin({
 function getSubsectionContent(url) {
 	$.ajax({
 		type : 'get',
-		url : 'http://localhost:8080/SafeLyun/score.json',
+		url : url,
 		dataType : 'json',
 		cache : false,
 		success : function(data) {
@@ -64,7 +64,7 @@ function getSubsectionContent(url) {
 			$(".pie1").css("-o-transform","rotate(0deg)");
 			$(".pie1").css("-moz-transform","rotate(0deg)");
 			$(".pie1").css("-webkit-transform","rotate(0deg)");
-			initTime(data.mm,data.ss);
+			initTime(data.subsectionTime,0);
 			
 			s = setInterval("showTime()",100);
 			t1 = setInterval("start1()",100);

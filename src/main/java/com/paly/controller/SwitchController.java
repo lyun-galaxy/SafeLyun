@@ -6,8 +6,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.paly.domain.Examswitch;
-import com.paly.mapper.ExamswitchMapper;
 import com.paly.service.AdminExamSwichService;
 import com.paly.vo.Json;
 

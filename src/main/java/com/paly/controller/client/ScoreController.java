@@ -20,8 +20,6 @@ import com.paly.domain.User;
 import com.paly.service.StudentService;
 import com.paly.vo.StudentScore;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
-
 /**
  * 成绩界面Controller
  * 
@@ -65,7 +63,6 @@ public class ScoreController {
 		Map<String, List<StudentScore>> map = new HashMap<String, List<StudentScore>>();
 		List<StudentScore> studentScores = new ArrayList<StudentScore>();
 		List<Student> students = getClassesStudentList(session);
-		System.out.println(students.size());
 		for (int i = 0; students != null && i < students.size(); i++) {
 			Student student = students.get(i);
 			// 通过学生信息封装学生成绩视图包装对象

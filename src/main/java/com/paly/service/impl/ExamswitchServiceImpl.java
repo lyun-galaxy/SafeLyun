@@ -28,6 +28,9 @@ public class ExamswitchServiceImpl extends BaseServiceImpl<Examswitch> implement
 	@Override
 	public Examswitch getExamswitch() {
 		List<Examswitch> list = examswitchMapper.selectAll();
-		return list.get(0);
+		if(list!=null && list.size()>0){
+			return list.get(0);
+		}
+		return null;
 	}
 }
