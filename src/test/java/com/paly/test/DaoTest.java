@@ -2,6 +2,7 @@ package com.paly.test;
 
 import java.security.MessageDigest;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -46,7 +47,7 @@ public class DaoTest {
 		MessageDigest md = MessageDigest.getInstance("MD5");
 		for (int i = 0; i < 5; i++) {
 			byte[] pass = md.digest((i+"pass").getBytes());
-			User u = new User("user"+i, pass.toString());
+			User u = new User("user"+i, Arrays.toString(pass));
 			userMapper.insert(u);
 		}
 		sqlSession.commit();
