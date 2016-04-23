@@ -1,15 +1,11 @@
 package com.paly.test;
 
-import static org.junit.Assert.*;
-
 import java.security.MessageDigest;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-import javax.crypto.ExemptionMechanism;
-
-import org.apache.ibatis.binding.BindingException;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -51,7 +47,7 @@ public class DaoTest {
 		MessageDigest md = MessageDigest.getInstance("MD5");
 		for (int i = 0; i < 5; i++) {
 			byte[] pass = md.digest((i+"pass").getBytes());
-			User u = new User("user"+i, pass.toString());
+			User u = new User("user"+i, Arrays.toString(pass));
 			userMapper.insert(u);
 		}
 		sqlSession.commit();

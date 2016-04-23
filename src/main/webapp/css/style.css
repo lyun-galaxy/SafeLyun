@@ -135,4 +135,84 @@ h1 a {
  	background: #b63b4d;
  	color: #FFF;
  }
+.pie {
+	width: 200px;
+	height: 200px;
+	background-color: #d9d9d9;
+	border-radius: 100px;
+	position: absolute;
+}
 
+.pie1 {
+	clip: rect(0px, 200px, 200px, 100px);
+	-o-transform: rotate(0deg);
+	-moz-transform: rotate(0deg);
+	-webkit-transform: rotate(0deg);
+	background: -moz-radial-gradient(20% 50% 0deg, #333, #d9d9d9);
+	background: -webkit-gradient(radial, 100 100, 0, 100 100, 110, from(#000),
+		to(#d9d9d9));
+}
+
+.pie2 {
+	clip: rect(0px, 100px, 200px, 0px);
+	-o-transform: rotate(0deg);
+	-moz-transform: rotate(0deg);
+	-webkit-transform: rotate(0deg);
+	background: -moz-radial-gradient(80% 50% 0deg, #333, #d9d9d9);
+	background: -webkit-gradient(radial, 100 100, 0, 100 100, 110, from(#000),
+		to(#d9d9d9));
+}
+
+.hold {
+	width: 200px;
+	height: 200px;
+	position: absolute;
+	z-index: 1;
+}
+
+.hold1 {
+	clip: rect(0px, 200px, 200px, 100px);
+}
+
+.hold2 {
+	clip: rect(0px, 100px, 200px, 0px);
+}
+
+.bg {
+	width: 200px;
+	height: 200px;
+	background-color: red;
+	border-radius: 100px;
+	position: absolute;
+	box-shadow: 0px 0px 8px #333;
+	background: -moz-radial-gradient(0% 50% 0deg, #900, #b63b4d);
+	background: -webkit-gradient(radial, 100 100, 0, 100 100, 110, from(#900),
+		to(#b63b4d));
+}
+
+.time {
+	width: 160px;
+	height: 160px;
+	margin: 20px 0 0 20px;
+	background-color: #fff;
+	border-radius: 100px;
+	position: absolute;
+	z-index: 1;
+	box-shadow: 0px 0px 8px #333 inset;
+	text-align: center;
+	line-height: 160px;
+	font-family: "Book Antiqua", Palatino, serif;
+	font-size: 35px;
+	font-weight: bold;
+	text-shadow: 1px 1px 3px #333;
+}
+
+.time em {
+	background: #fff;
+	position: absolute;
+	top: 62px;
+	left: 12px;
+	height: 18px;
+	width: 140px;
+	opacity: 0.4;
+}

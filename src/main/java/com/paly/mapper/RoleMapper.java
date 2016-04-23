@@ -1,9 +1,10 @@
 package com.paly.mapper;
 
-import com.paly.domain.Role;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+
+import com.paly.domain.Role;
 
 /**
  * 角色Dao接口

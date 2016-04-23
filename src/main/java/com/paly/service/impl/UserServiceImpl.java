@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
 
 import com.paly.domain.User;
 import com.paly.mapper.BaseMapper;
@@ -28,10 +29,18 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 	}
 
 	@Override
+	public void save(User entity) {
+		// 密码md5加密
+		String password = entity.getUserPassword();
+		password = DigestUtils.md5DigestAsHex(password.getBytes());
+		entity.setUserPassword(password);
+		super.save(entity);
+	}
+
+	@Override
 	public void setUserHasRole(int userId, int roleId) {
 		userMapper.setUserHasRole(userId, roleId);
 	}
-
 	@Override
 	public List<User> getByRoleId(int roleId) {
 		return userMapper.getByRoleId(roleId);
@@ -44,7 +53,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 
 	@Override
 	public User getByUsernameAndPassword(String username, String password) {
-		// TODO 根据用户名和密码获取用户
+		password = DigestUtils.md5DigestAsHex(password.getBytes());
 		return userMapper.queryByNameAndPasswd(username, password);
 	}
 }

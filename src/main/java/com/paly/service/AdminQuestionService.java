@@ -1,7 +1,5 @@
 package com.paly.service;
 
-import java.util.List;
-
 import com.paly.domain.Itempool;
 import com.paly.pageModel.Datagrid;
 import com.paly.pageModel.Question;

@@ -3,8 +3,6 @@ package com.paly.domain;
 import java.io.Serializable;
 import java.util.List;
 
-import com.alibaba.fastjson.annotation.JSONField;
-
 /**
  * 章节
  * @author linyu
