@@ -34,7 +34,7 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="${pageContext.request.contextPath}/main.jsp">平安龙院</a>
+			<a class="navbar-brand" href="${pageContext.request.contextPath }/client_home/toHomePage.action">平安龙院</a>
 		</div>
 		<div id="navbar" class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">

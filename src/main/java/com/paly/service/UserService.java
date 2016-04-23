@@ -2,8 +2,6 @@ package com.paly.service;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
-
 import com.paly.domain.User;
 
 /**

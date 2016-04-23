@@ -8,7 +8,6 @@ import com.paly.domain.Examswitch;
 import com.paly.mapper.BaseMapper;
 import com.paly.mapper.ExamswitchMapper;
 import com.paly.service.AdminExamSwichService;
-import com.paly.service.AdminExamSwichService;
 
 @Service
 public class AdminExamSwichServiceImpl extends BaseServiceImpl<Examswitch> implements AdminExamSwichService {

@@ -14,6 +14,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.util.DigestUtils;
 import org.springframework.util.ResourceUtils;
 
 import com.paly.domain.Classes;
@@ -184,8 +185,8 @@ public class ServiceTest {
 			score.setScoreMakeupNum(0);
 			score.setScoreMark((float) 0);
 			userService.save(user);
-			user = userService.getByUsernameAndPassword(user.getUserName(), user.getUserPassword());
-			student.setUser(user);
+			user = userService.getByUsernameAndPassword(user.getUserName(), "123456");
+ 			student.setUser(user);
 			studentService.save(student);
 			student = studentService.selectByStudentNumber(student.getStudentNumber());
 			score.setStudent(student);

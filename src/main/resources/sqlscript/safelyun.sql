@@ -170,7 +170,7 @@ DEFAULT CHARACTER SET = utf8;
 CREATE TABLE IF NOT EXISTS `safelyun`.`user` (
   `userId` INT(11) NOT NULL AUTO_INCREMENT,
   `userName` VARCHAR(25) NOT NULL,
-  `userPassword` VARCHAR(25) NOT NULL,
+  `userPassword` VARCHAR(35) NOT NULL,
   PRIMARY KEY (`userId`),
   UNIQUE INDEX `id_user_UNIQUE` (`userId` ASC),
   UNIQUE INDEX `userName_UNIQUE` (`userName` ASC))
