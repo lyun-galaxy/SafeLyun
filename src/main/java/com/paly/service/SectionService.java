@@ -17,4 +17,10 @@ public interface SectionService extends BaseService<Section> {
 	 * @return 返回指定子章节所属的章节信息
 	 */
 	Section getBySubsectionId(int subsectionId);
+
+	/**
+	 * 获取第一章
+	 * @return
+	 */
+	Section getFirst();
 }

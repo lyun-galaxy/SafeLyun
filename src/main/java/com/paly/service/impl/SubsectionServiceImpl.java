@@ -13,6 +13,7 @@ import com.paly.service.SubsectionService;
 
 /**
  * 子章节Service实现
+ * 
  * @author luohuaming
  *
  */
@@ -25,6 +26,7 @@ public class SubsectionServiceImpl extends BaseServiceImpl<Subsection> implement
 	public BaseMapper<Subsection> getBaseMapper() {
 		return subsectionMapper;
 	}
+
 	@Override
 	public List<Subsection> getBySectionId(int sectionId) {
 		return subsectionMapper.getBySectionId(sectionId);
@@ -33,5 +35,14 @@ public class SubsectionServiceImpl extends BaseServiceImpl<Subsection> implement
 	@Override
 	public Subsection getByStudyscheduleId(int studyscheduleId) {
 		return subsectionMapper.getByStudyscheduleId(studyscheduleId);
+	}
+
+	@Override
+	public Subsection getFirstBySectionId(int sectionId) {
+		List<Subsection> list = subsectionMapper.getBySectionId(sectionId);
+		if (!list.isEmpty()) {
+			return subsectionMapper.getBySectionId(sectionId).get(0);
+		}
+		return null;
 	}
 }

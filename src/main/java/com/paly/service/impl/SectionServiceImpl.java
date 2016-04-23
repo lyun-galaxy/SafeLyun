@@ -1,5 +1,7 @@
 package com.paly.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -27,5 +29,14 @@ public class SectionServiceImpl extends BaseServiceImpl<Section> implements Sect
 	@Override
 	public Section getBySubsectionId(int subsectionId) {
 		return sectionMapper.getBySubsectionId(subsectionId);
+	}
+
+	@Override
+	public Section getFirst() {
+		List<Section> list = sectionMapper.selectAll();
+		if(!list.isEmpty()){
+			return list.get(0);
+		}
+		return null;
 	}
 }

@@ -152,9 +152,12 @@ public class StudyController extends BaseController {
 		if (studyschedule == null) {
 			// 如果学习进度为空，返回第一章的第一小节，并保存学习进度
 			// TODO 获取第一章的第一小节
-			Subsection subsection = subsectionService.getById(1);
-			studyschedule = new Studyschedule(0, subsection, student);
-			studyscheduleService.save(studyschedule);
+			Section section = sectionService.getFirst();
+			if (section != null) {
+				Subsection subsection = subsectionService.getFirstBySectionId(section.getSectionId());
+				studyschedule = new Studyschedule(0, subsection, student);
+				studyscheduleService.save(studyschedule);
+			}
 		}
 		// 返回当前学习的小节
 		return studyschedule.getSubsection();

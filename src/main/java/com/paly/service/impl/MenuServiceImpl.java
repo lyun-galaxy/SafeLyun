@@ -1,5 +1,6 @@
 package com.paly.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -31,5 +32,22 @@ public class MenuServiceImpl extends BaseServiceImpl<Menu> implements MenuServic
 	public BaseMapper<Menu> getBaseMapper() {
 		return menuMapper;
 	}
+
+	@Override
+	public List<Menu> getTop() {
+		//TODO 获取所有顶级菜单
+		return null;
+	}
+
+	@Override
+	public List<String> getMenuUrls() {
+		List<Menu> list = menuMapper.selectAll();
+		List<String> urls = new ArrayList<String>();
+		for(Menu menu : list){
+			urls.add(menu.getMenuUrl());
+		}
+		return urls;
+	}
+	
 
 }

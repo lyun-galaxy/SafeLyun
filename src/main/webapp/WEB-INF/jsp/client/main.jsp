@@ -117,7 +117,7 @@
 					</button>
 					<div class="caption">
 						<h3>当前进度</h3>
-						<p>${studyschedule.subsection.subsectoinName }</p>
+						<p>${studyschedule.subsection.subsectionName }</p>
 						<p>
 							<button class="button button-3d button-primary button-pill"
 								onclick="study()">开始学习</button>

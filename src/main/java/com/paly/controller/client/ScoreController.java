@@ -114,7 +114,6 @@ public class ScoreController {
 			if (student != null) {
 				// 获取当前学生所在班级下的学生列表
 				students = studentService.getByClassesId(student.getClasses().getClassesId());
-				System.out.println("getStudentClasses");
 			}
 		}
 		return students;
