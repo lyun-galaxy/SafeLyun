@@ -136,16 +136,10 @@
 					</button>
 					<div class="caption">
 						<h3>考试系统</h3>
-						<c:if test="${examswitch.switchOnOrOff }">
-						<p>考试系统开放</p>
 						<p>
 							<button class="button button-3d button-royal button-pill"
 								onclick="exam()">进入考试</button>
 						</p>
-						</c:if> 
-						<c:if test="${!examswitch.switchOnOrOff }">
-						<p>考试系统未开放</p>
-						</c:if>
 					</div>
 
 				</div>

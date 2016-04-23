@@ -28,15 +28,22 @@ $(document).ready(function(){
 		dataType:'json',
 	     success:function(data){  
 	    	 var html = '';
-	    	 $.each(data,function(i,item){
-	    		 //choiceList.push(i+"");
-	    		  html +='<strong>[&nbsp;'+(i+1)+'&nbsp;]&nbsp;'+item.itempoolQuestion+'</strong><br/><br/>';
-	    		 html +='<label class="radio"> <input type="radio" name="choiceList['+i+'].itempoolCorrect"  value="A"/>'+item.a+'</label>';
-	    		 html +='<label class="radio"> <input type="radio" name="choiceList['+i+'].itempoolCorrect" value="B"/>'+item.b+'</label>';
-	    		 html +='<label class="radio"> <input type="radio" name="choiceList['+i+'].itempoolCorrect" value="C"/>'+item.c+'</label>';
-	    		 html +='<label class="radio"> <input type="radio" name="choiceList['+i+'].itempoolCorrect" value="D"/>'+item.d+'</label>';
-		     });
-	    	 $("#exam").append(html);
+	    	 var check = data.check;
+	    	 if(check){
+		    	 $.each(data.choiceList,function(i,item){
+		    		 //choiceList.push(i+"");
+		    		  html +='<strong>[&nbsp;'+(i+1)+'&nbsp;]&nbsp;'+item.itempoolQuestion+'</strong><br/><br/>';
+		    		 html +='<label class="radio"> <input type="radio" name="choiceList['+i+'].itempoolCorrect"  value="A"/>'+item.a+'</label>';
+		    		 html +='<label class="radio"> <input type="radio" name="choiceList['+i+'].itempoolCorrect" value="B"/>'+item.b+'</label>';
+		    		 html +='<label class="radio"> <input type="radio" name="choiceList['+i+'].itempoolCorrect" value="C"/>'+item.c+'</label>';
+		    		 html +='<label class="radio"> <input type="radio" name="choiceList['+i+'].itempoolCorrect" value="D"/>'+item.d+'</label>';
+			     });
+		    	 $("#exam").append(html);
+	    	 }else{
+	    		 html +="当前不是考试时间";
+	    		 $(".data_list").empty().append(html);
+	    	 }
+	    	 
 	     }
 	});
 });

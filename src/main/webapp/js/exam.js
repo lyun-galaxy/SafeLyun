@@ -34,7 +34,7 @@ var examTime=20*60;
 	//禁止页面回退
 	javascript: window.history.forward(1);
 	var UnloadConfirm = {};
-	UnloadConfirm.MSG_UNLOAD = "数据尚未保存，离开后可能会导致试卷自动提交\n\n您确定要离开吗？";
+	UnloadConfirm.MSG_UNLOAD = "数据尚未保存\n\n您确定要离开吗？";
 	UnloadConfirm.set = function(a) {
 	    window.onbeforeunload = function(b) {
 	        b = b || window.event;

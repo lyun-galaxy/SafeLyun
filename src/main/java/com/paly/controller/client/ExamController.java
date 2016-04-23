@@ -1,6 +1,8 @@
 package com.paly.controller.client;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
@@ -11,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.paly.controller.BaseController;
+import com.paly.domain.Examswitch;
 import com.paly.domain.Itempool;
 import com.paly.domain.Score;
 import com.paly.domain.Student;
 import com.paly.domain.User;
+import com.paly.service.ExamswitchService;
 import com.paly.service.ItempoolService;
 import com.paly.service.ScoreService;
 import com.paly.service.StudentService;
@@ -35,6 +39,8 @@ public class ExamController extends BaseController {
 	private StudentService studentService;
 	@Resource
 	private ScoreService scoreService;
+	@Resource
+	private ExamswitchService examswitchService;
 
 	/**
 	 * 跳转到考试界面
@@ -54,10 +60,17 @@ public class ExamController extends BaseController {
 	 */
 	@RequestMapping("/getEpaper")
 	public void getEpaper(HttpServletResponse response, HttpSession session) {
-		List<Itempool> choiceList = itempoolService.randomCreateChoiceExams(10);
-		// 将考题存入session域中
-		session.setAttribute("correctexams", choiceList);
-		writeJson(choiceList, response);
+		Examswitch examswitch = examswitchService.getExamswitch();
+		Map<String, Object> map = new HashMap<String, Object>();
+		if (examswitch != null && examswitch.getSwitchOnOrOff()) {
+			// 如果考试开关为true
+			List<Itempool> choiceList = itempoolService.randomCreateChoiceExams(10);
+			// 将考题存入session域中
+			session.setAttribute("correctexams", choiceList);
+			map.put("choiceList", choiceList);
+		}
+		map.put("check", examswitch == null ? false : examswitch.getSwitchOnOrOff());
+		writeJson(map, response);
 	}
 
 	/**
