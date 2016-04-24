@@ -57,26 +57,30 @@ public class AdminUserServiceImpl extends BaseServiceImpl<Student> implements Ad
 	@Override
 	public void importStudentBaseMSG(String path) {
 		// TODO Auto-generated method stub
+		logger.info("exe");
 		try {
+			logger.info("exe1");
 			Workbook wk = new HSSFWorkbook(new FileInputStream(new File(path)));
 			Sheet sheet = wk.getSheetAt(0);
 			int rowNo = sheet.getLastRowNum() - sheet.getFirstRowNum();
 
 			List<Map<Integer, String>> msgList = new ArrayList<Map<Integer, String>>();
-			for (int i = 1; i < rowNo; i++) {
+			for (int i = 1; i < rowNo+1; i++) {
 				Row row = sheet.getRow(i);
 				int cellNo = row.getLastCellNum() - row.getFirstCellNum();
-				Map<Integer, String> msg = new HashMap<Integer, String>();
+				Map<Integer, String> msg = new HashMap<Integer, String>();;
 				for (int j = 0; j < cellNo; j++) {
 					Cell cell = row.getCell(j);
 					cell.setCellType(Cell.CELL_TYPE_STRING);
-					msg.put(j, cell.getStringCellValue().toString());
+					msg.put(j, cell.getStringCellValue().toString());	
+					logger.info(cell.getStringCellValue().toString());
 				}
 				msgList.add(msg);
 			}
 
 			for (int i = 0; i < msgList.size(); i++) {
 				String studentNumber = msgList.get(i).get(0).toString();
+				logger.info(studentNumber);
 				// 解析学号，获取年级，专业，院系，班级
 				String grade = studentNumber.substring(0, 4);
 				// String college = studentNumber.substring(4, 5);
@@ -86,7 +90,7 @@ public class AdminUserServiceImpl extends BaseServiceImpl<Student> implements Ad
 				String clasz = studentNumber.substring(4, 8);
 				int claszId = Integer.valueOf(clasz);
 				// 设置默认帐号密码,采用MD5加密
-				String userPassword = msgList.get(i).get(0).toString();
+				String userPassword = "123456";
 				String userPasswordMD5 = DigestUtils.md5DigestAsHex(userPassword.getBytes());
 
 				User user = new User(msgList.get(i).get(0).toString(), userPasswordMD5);
@@ -100,6 +104,7 @@ public class AdminUserServiceImpl extends BaseServiceImpl<Student> implements Ad
 				student.setClasses(classesMapper.selectByPrimaryKey(claszId));
 				student.setUser(userMapper.selectByPrimaryKey(Integer.valueOf(studentNumber)));
 				super.save(student);
+				logger.info("sava");
 				// 存储默认成绩
 				Score score = new Score(0f, 0, studentMapper.selectByStudentNumber(studentNumber));
 				score.setScoreId(Integer.valueOf(studentNumber));
@@ -111,9 +116,11 @@ public class AdminUserServiceImpl extends BaseServiceImpl<Student> implements Ad
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			logger.info("exe2");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			logger.info("exe3");
 		}
 	}
 

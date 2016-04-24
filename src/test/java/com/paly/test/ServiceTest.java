@@ -207,4 +207,10 @@ public class ServiceTest {
 		examswitch.setSwitchOnOrOff(!examswitch.getSwitchOnOrOff());
 		examswitchService.update(examswitch);
 	}
+	@Test
+	public void md5Test(){
+		String password = "123456";
+		password = DigestUtils.md5DigestAsHex(password.getBytes());
+		System.out.println(password);
+	}
 }
