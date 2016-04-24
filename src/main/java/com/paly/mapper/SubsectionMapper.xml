@@ -4,9 +4,10 @@
   <resultMap id="BaseResultMap" type="com.paly.domain.Subsection" >
     <id column="subsectionId" property="subsectionId" jdbcType="INTEGER" />
     <result column="subsectionName" property="subsectionName" jdbcType="VARCHAR" />
+     <result column="subsectionContent" property="subsectionContent" jdbcType="LONGVARCHAR" />
     <result column="subsectionTime" property="subsectionTime" jdbcType="INTEGER" />
     <result column="subsectionChecked" property="subsectionChecked" jdbcType="BIT" />    
-    <result column="subsectionContent" property="subsectionContent" jdbcType="LONGVARCHAR" />
+   <result column="subsectionCode" property="subsectionCode" jdbcType="INTEGER" />
     <association property="section" javaType="Section" select="com.paly.mapper.SectionMapper.getBySubsectionId" column="subsectionId">
     </association>
   </resultMap>
@@ -16,11 +17,11 @@
   </delete>
   <insert id="insert" parameterType="com.paly.domain.Subsection" >
     insert into subsection (subsectionId, subsectionName, subsectionTime, 
-      subsectionChecked, section_sectionId, subsectionContent
+      subsectionChecked, section_sectionId, subsectionContent,subsectionCode
       )
     values (#{subsectionId,jdbcType=INTEGER}, #{subsectionName,jdbcType=VARCHAR}, #{subsectionTime,jdbcType=INTEGER}, 
       #{subsectionChecked,jdbcType=BIT}, #{section.sectionId,jdbcType=INTEGER}, #{subsectionContent,jdbcType=LONGVARCHAR}
-      )
+      #{subsectionCode,jdbcType=INTEGER})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.paly.domain.Subsection" >
     update subsection
@@ -28,7 +29,8 @@
       subsectionTime = #{subsectionTime,jdbcType=INTEGER},
       subsectionChecked = #{subsectionChecked,jdbcType=BIT},
       section_sectionId = #{section.sectionId,jdbcType=INTEGER},
-      subsectionContent = #{subsectionContent,jdbcType=LONGVARCHAR}
+      subsectionContent = #{subsectionContent,jdbcType=LONGVARCHAR},
+      subsectionCode =  #{subsectionCode,jdbcType=INTEGER})
     where subsectionId = #{subsectionId,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >

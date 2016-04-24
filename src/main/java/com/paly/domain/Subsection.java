@@ -32,6 +32,11 @@ public class Subsection implements Serializable{
     private String subsectionContent;
     
     /**
+     * 子章节编号
+     */
+    private int subsectionCode;
+    
+    /**
      * 该子章节是否被审核
      */
     private Boolean subsectionChecked;
@@ -54,15 +59,17 @@ public class Subsection implements Serializable{
      * @param subsectionTime 子章节时间
      * @param subsectionContent 子章节内容
      * @param subsectionChecked 子章节是否被审核
+     * @param subsectionCode 子章节编号
      * @param section 所属的章节
      */
     public Subsection(String subsectionName, int subsectionTime, String subsectionContent, Boolean subsectionChecked,
-			Section section) {
+			int subsectionCode, Section section) {
 		super();
 		this.subsectionName = subsectionName;
 		this.subsectionTime = subsectionTime;
 		this.subsectionContent = subsectionContent;
 		this.subsectionChecked = subsectionChecked;
+		this.subsectionCode = subsectionCode;
 		this.section = section;
 	}
 
@@ -182,5 +189,13 @@ public class Subsection implements Serializable{
 
 	public void setSection(Section section) {
 		this.section = section;
+	}
+
+	public int getSubsectionCode() {
+		return subsectionCode;
+	}
+
+	public void setSubsectionCode(int subsectionCode) {
+		this.subsectionCode = subsectionCode;
 	}
 }

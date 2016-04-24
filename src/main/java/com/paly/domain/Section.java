@@ -23,6 +23,11 @@ public class Section implements Serializable {
      * 该章节是否被审核
      */
     private Boolean sectionChecked;
+        
+    /**
+     * 章节编号
+     */
+    private int sectionCode;
     
     /**
      * 与子章节关联，拥有多个子章节
@@ -36,10 +41,11 @@ public class Section implements Serializable {
 		super();
 	}
 
-	public Section(String sectionName, Boolean sectionChecked) {
+	public Section(String sectionName, Boolean sectionChecked, int sectionCode) {
 		super();
 		this.sectionName = sectionName;
 		this.sectionChecked = sectionChecked;
+		this.sectionCode = sectionCode;
 	}
 
 	public List<Subsection> getSubsections() {
@@ -121,4 +127,12 @@ public class Section implements Serializable {
     public void setSectionChecked(Boolean sectionChecked) {
         this.sectionChecked = sectionChecked;
     }
+
+	public int getSectionCode() {
+		return sectionCode;
+	}
+
+	public void setSectionCode(int sectionCode) {
+		this.sectionCode = sectionCode;
+	}
 }
