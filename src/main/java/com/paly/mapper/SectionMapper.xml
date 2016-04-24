@@ -5,7 +5,7 @@
     <id column="sectionId" property="sectionId" jdbcType="INTEGER" />
     <result column="sectionName" property="sectionName" jdbcType="VARCHAR" />
     <result column="sectionChecked" property="sectionChecked" jdbcType="BIT" />    
-    <result column="sectionCode" property="sectionCode" jdbcType="Integer"/>
+    <result column="sectionCode" property="sectionCode" jdbcType="INTEGER"/>
     <collection property="subsections" ofType="Subsection" select="com.paly.mapper.SubsectionMapper.getBySectionId" column="sectionId">
     </collection>
   </resultMap>
