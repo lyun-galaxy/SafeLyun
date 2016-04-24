@@ -40,8 +40,8 @@ public class LoginInterceptor implements HandlerInterceptor {
 			// 身份存在，放行
 			return true;
 		}
-		// 执行这里表示用户身份需要认证，跳转登陆页面
-		request.getRequestDispatcher("/login.html").forward(request, response);
+		// 执行这里表示用户身份需要认证，重定向到登陆页面
+		response.sendRedirect(request.getContextPath()+"/login.html");
 		// return false表示拦截，不向下执行
 		// return true表示放行
 		return false;
