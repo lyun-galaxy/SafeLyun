@@ -3,6 +3,7 @@ package com.paly.service;
 import java.util.List;
 
 import com.paly.domain.Subsection;
+import com.paly.domain.User;
 
 /**
  * 子章节Service接口
@@ -37,4 +38,11 @@ public interface SubsectionService extends BaseService<Subsection> {
 	 * @return 小节信息
 	 */
 	Subsection getFirstBySectionId(int sectionId);
+	
+	/**
+	 * 获取用户正在学习的章节
+	 * @param user 用户
+	 * @return 用户正在学习的章节
+	 */
+	Subsection getUserSubsection(User user);
 }

@@ -140,26 +140,6 @@ public class StudyController extends BaseController {
 	 */
 	private Subsection getUserSubsection(HttpSession session) {
 		User user = (User) session.getAttribute("user");
-		Studyschedule studyschedule = new Studyschedule();
-		Student student = null;
-		if (user != null) {
-			// 获取用户所属的学生
-			student = studentService.selectByStudentNumber(user.getUserName());
-			if (student != null)
-				// 获取学生的学习进度
-				studyschedule = studyscheduleService.getByStudentId(student.getStudentId());
-		}
-		if (studyschedule == null) {
-			// 如果学习进度为空，返回第一章的第一小节，并保存学习进度
-			// TODO 获取第一章的第一小节
-			Section section = sectionService.getFirst();
-			if (section != null) {
-				Subsection subsection = subsectionService.getFirstBySectionId(section.getSectionId());
-				studyschedule = new Studyschedule(0, subsection, student);
-				studyscheduleService.save(studyschedule);
-			}
-		}
-		// 返回当前学习的小节
-		return studyschedule.getSubsection();
+		return subsectionService.getUserSubsection(user);
 	}
 }

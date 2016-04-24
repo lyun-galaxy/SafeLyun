@@ -14,13 +14,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.util.DigestUtils;
 import org.springframework.util.ResourceUtils;
 
 import com.paly.domain.Classes;
 import com.paly.domain.Department;
 import com.paly.domain.Examswitch;
 import com.paly.domain.Itempool;
+import com.paly.domain.Menu;
+import com.paly.domain.Role;
 import com.paly.domain.Score;
 import com.paly.domain.Section;
 import com.paly.domain.Specialty;
@@ -31,6 +32,8 @@ import com.paly.service.ClassesService;
 import com.paly.service.DepartmentService;
 import com.paly.service.ExamswitchService;
 import com.paly.service.ItempoolService;
+import com.paly.service.MenuService;
+import com.paly.service.RoleService;
 import com.paly.service.ScoreService;
 import com.paly.service.SectionService;
 import com.paly.service.SpecialtyService;
@@ -61,7 +64,10 @@ public class ServiceTest {
 	private ExamswitchService examswitchService;
 	@Resource
 	private ScoreService scoreService;
-
+	@Resource
+	private RoleService roleService;
+	@Resource
+	private MenuService menuService;
 	@Test
 	public void test() {
 		User user = new User();
@@ -208,9 +214,93 @@ public class ServiceTest {
 		examswitchService.update(examswitch);
 	}
 	@Test
-	public void md5Test(){
-		String password = "123456";
-		password = DigestUtils.md5DigestAsHex(password.getBytes());
-		System.out.println(password);
+	public void saveAdminRoleMenu(){
+		Menu menu, menu1, menu2, menu3;
+		menu = new Menu();
+		menu.setMenuId(1);
+		menu.setMenuName("学生信息");
+		menu.setMenuUrl("admin/xsgl/xsgl.jsp");
+		
+		menu1 = new Menu();
+		menu.setMenuId(2);
+		menu1.setMenuName("章节管理");
+		menu1.setMenuUrl("admin/zjgl/zjgl.jsp");
+		
+		menu2 = new Menu();
+		menu.setMenuId(3);
+		menu2.setMenuName("题库管理");
+		menu2.setMenuUrl("admin/tkgl/tkgl.jsp");
+		
+		menu3 = new Menu();
+		menu.setMenuId(4);
+		menu3.setMenuName("报表查看");
+		menu3.setMenuUrl("admin/bbgl/bbgl.jsp");
+		
+		List<Menu> list = new ArrayList<Menu>();
+		list.add(menu);
+		list.add(menu1);
+		list.add(menu2);
+		list.add(menu3);
+		
+		menuService.save(menu);
+		menuService.save(menu1);
+		menuService.save(menu2);
+		menuService.save(menu3);
+		
+		Role role = new Role();
+		role.setRoleName("超级管理员");
+		role.setRoleId(1);
+		role.setMenus(list);
+		
+		
+		List<Menu> normal = new ArrayList<Menu>();
+		normal.add(menu);
+		normal.add(menu1);
+		normal.add(menu2);
+		normal.add(menu3);
+		Role role1 = new Role();
+		role1.setRoleId(2);
+		role1.setRoleName("普通管理员");
+		role1.setMenus(normal);
+
+		
+		
+		List<Menu> instructor = new ArrayList<Menu>();
+		instructor.add(menu3);
+		Role role2 = new Role();
+		role1.setRoleId(3);
+		role2.setRoleName("辅导员");
+		role2.setMenus(instructor);
+		
+		
+		roleService.save(role);
+		roleService.save(role1);
+		roleService.save(role2);
+		
+		//超级管理员
+		User admin = new User();
+		List<Role> adminRole = new ArrayList<Role>();
+		adminRole.add(role);
+		admin.setRoles(adminRole);
+		admin.setUserName("2013034589");
+		admin.setUserPassword("123456");
+		
+		//普通管理员
+		User admin1 = new User();
+		List<Role> adminRole1 = new ArrayList<Role>();
+		adminRole1.add(role1);
+		admin1.setRoles(adminRole1);
+		admin1.setUserName("2013034590");
+		admin1.setUserPassword("123456");
+		
+//		List<Classes> classes = classesService.
+		//辅导员
+		User admin3 = new User();
+		List<Role> admin3Role = new ArrayList<Role>();
+		admin3Role.add(role2);
+		admin3.setRoles(admin3Role);
+		admin3.setUserName("2013034591");
+		admin3.setUserPassword("123456");
+		
 	}
 }
