@@ -59,5 +59,8 @@
   		select sec.*from section sec where sec.sectionName like concat(concat('%', #{sectionName}, '%'))
   </select>
   
-  
+  <!-- 根据编号查找章节 -->
+  <select id="querySectionByCode" resultType="Section" parameterType="int">
+  	select sec.* from section sec where sec.sectionCode=#{sectionCode}
+  </select>
 </mapper>

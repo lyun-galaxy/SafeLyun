@@ -86,4 +86,9 @@
   		join section sec on sub.section_sectionId=sec.sectionId and sec.sectionId='1' and
         sub.subsectionName like concat(concat('%', #{subsectionName}, '%'))
   </select>
+  
+  <!-- 根据编号查找子章节 -->
+  <select id="querySubsectionByCode" resultType="Subsection" parameterType="int">
+  	select sub.* from subsection sub where sub.subsectionCode=#{subsectionCode}
+  </select>
 </mapper>
