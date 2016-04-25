@@ -47,12 +47,11 @@ public interface SubsectionService extends BaseService<Subsection> {
 	Subsection getUserSubsection(User user);
 	
 	/**
-	 * 通过章节和子章节编号获取子章节
-	 * @param sectionId 章节编号
+	 * 通过子章节编号获取子章节
 	 * @param code 子章节编号
 	 * @return 子章节信息
 	 */
-	Subsection getBySectionAndSubsectionCode(Integer sectionId, int code);
+	Subsection getBySubsectionCode(int code);
 	
 	/**
 	 * 查询经过审核的子章节

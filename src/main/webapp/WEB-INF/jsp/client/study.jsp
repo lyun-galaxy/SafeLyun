@@ -100,8 +100,10 @@ $(function(){
 
 							<ul class="submenu">
 								<c:forEach items="${section.subsections }" var="subsection">
+									<c:if test="${subsection.subsectionChecked}">
 									<li><a href="javascript:void(0)"
 										onclick="getSubsectionContent('${pageContext.request.contextPath}/client_study/getSubsection/${subsection.subsectionId}.action')">${subsection.subsectionName}</a></li>
+									</c:if>
 								</c:forEach>
 							</ul>
 

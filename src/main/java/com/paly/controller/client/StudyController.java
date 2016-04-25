@@ -1,7 +1,9 @@
 package com.paly.controller.client;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
@@ -14,6 +16,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.paly.controller.BaseController;
 import com.paly.domain.Section;
+import com.paly.domain.Student;
+import com.paly.domain.Studyschedule;
 import com.paly.domain.Subsection;
 import com.paly.domain.User;
 import com.paly.service.SectionService;
@@ -78,8 +82,52 @@ public class StudyController extends BaseController {
 	@RequestMapping("getSubsection/{subsectionId}")
 	public void getSubsection(@PathVariable("subsectionId") Integer subsectionId, HttpServletResponse response,
 			HttpSession session) {
+		// TODO 重构
+		Map<String, Object> map = new HashMap<String, Object>();
+		// 获取想要学习的小节
 		Subsection subsection = subsectionService.getById(subsectionId);
-		writeJson(subsection, response);
+		int code = subsection.getSubsectionCode();
+		User user = (User) session.getAttribute("user");
+		Student student = studentService.selectByStudentNumber(user.getUserName());
+		Studyschedule studyschedule = studyscheduleService.getByStudentId(student.getStudentId());
+		int num = studyschedule.getStudyscheduleHasNum();
+		if (code != (num + 1)) {
+			// 不能学习
+			map.put("status", 2);
+			writeJson(map, response);
+			return;
+		}
+		// 当前时间
+		long currentTime = System.currentTimeMillis();
+		// 获取用户当前正在学习的小节
+		Subsection studySubsection = getSubsectionBySession(session);
+		long startStudyTime;
+		if (session.getAttribute("startStudyTime") == null || studySubsection == null) {
+			// 开始学习时间为空 或者正在学习的小节为空 非法访问
+			map.put("status", 3);
+		} else {
+			startStudyTime = (long) session.getAttribute("startStudyTime");
+			// 计算时间差 分钟
+			long differenceTime = (currentTime - startStudyTime) / (1000 * 60);
+			// 获取学习小节所需时间
+			int needTime = studySubsection.getSubsectionTime();
+			if ((int) differenceTime >= needTime) {
+				// 如果完成学时
+				map.put("status", 1);
+				session.setAttribute("study_subsection", subsection);
+				session.setAttribute("startStudyTime", System.currentTimeMillis());
+				map.put("subsection", subsection);
+			}
+		}
+		writeJson(map, response);
+	}
+
+	/**
+	 * 判断是否学习完成
+	 */
+	@RequestMapping("isLearningFinish")
+	public void isLearningFinish() {
+		//TODO 判断是否学习完成
 	}
 
 	/**
@@ -100,8 +148,13 @@ public class StudyController extends BaseController {
 	@RequestMapping("/studyUI")
 	public ModelAndView studyUI(HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
-		//获取所有通过审核的章节列表
+		// 获取所有通过审核的章节列表
 		List<Section> sectionList = sectionService.queryIsChecked();
+		long startStudyTime;
+		if (session.getAttribute("startStudyTime") == null) {
+			startStudyTime = System.currentTimeMillis();
+			session.setAttribute("startStudyTime", startStudyTime);
+		}
 		Subsection subsection = getSubsectionBySession(session);
 		// 将章节列表添加到界面
 		modelAndView.addObject("sectionList", sectionList);
@@ -119,11 +172,11 @@ public class StudyController extends BaseController {
 	 */
 	private Subsection getSubsectionBySession(HttpSession session) {
 		Subsection subsection;
-		if (session.getAttribute("user_subsection") == null) {
+		if (session.getAttribute("study_subsection") == null) {
 			subsection = getUserSubsection(session);
-			session.setAttribute("user_subsection", subsection);
+			session.setAttribute("study_subsection", subsection);
 		} else {
-			subsection = (Subsection) session.getAttribute("user_subsection");
+			subsection = (Subsection) session.getAttribute("study_subsection");
 		}
 		return subsection;
 	}
