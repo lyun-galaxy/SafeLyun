@@ -20,7 +20,7 @@
       subsectionChecked, section_sectionId, subsectionContent,subsectionCode
       )
     values (#{subsectionId,jdbcType=INTEGER}, #{subsectionName,jdbcType=VARCHAR}, #{subsectionTime,jdbcType=INTEGER}, 
-      #{subsectionChecked,jdbcType=BIT}, #{section.sectionId,jdbcType=INTEGER}, #{subsectionContent,jdbcType=LONGVARCHAR}
+      #{subsectionChecked,jdbcType=BIT}, #{section.sectionId,jdbcType=INTEGER}, #{subsectionContent,jdbcType=LONGVARCHAR},
       #{subsectionCode,jdbcType=INTEGER})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.paly.domain.Subsection" >
@@ -30,17 +30,17 @@
       subsectionChecked = #{subsectionChecked,jdbcType=BIT},
       section_sectionId = #{section.sectionId,jdbcType=INTEGER},
       subsectionContent = #{subsectionContent,jdbcType=LONGVARCHAR},
-      subsectionCode =  #{subsectionCode,jdbcType=INTEGER})
+      subsectionCode =  #{subsectionCode,jdbcType=INTEGER}
     where subsectionId = #{subsectionId,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select subsectionId, subsectionName, subsectionTime, subsectionChecked, section_sectionId, 
+    select subsectionId, subsectionName, subsectionTime, subsectionChecked, section_sectionId, subsectionCode,
     subsectionContent
     from subsection
     where subsectionId = #{subsectionId,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select subsectionId, subsectionName, subsectionTime, subsectionChecked, section_sectionId, 
+    select subsectionId, subsectionName, subsectionTime, subsectionChecked, section_sectionId,  subsectionCode,
     subsectionContent
     from subsection
   </select>

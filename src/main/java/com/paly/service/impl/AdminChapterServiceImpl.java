@@ -32,7 +32,9 @@ public class AdminChapterServiceImpl extends BaseServiceImpl<Section> implements
 		// TODO Auto-generated method stub
 		Section section = new Section();
 		section.setSectionName(chapter.getName());
+		section.setSectionCode(chapter.getCode());
 		section.setSectionChecked(false);
+		
 		super.save(section);
 		
 	}

@@ -13,6 +13,7 @@ import com.paly.service.SectionService;
 
 /**
  * 章节Service实现
+ * 
  * @author luohuaming
  *
  */
@@ -32,11 +33,23 @@ public class SectionServiceImpl extends BaseServiceImpl<Section> implements Sect
 	}
 
 	@Override
-	public Section getFirst() {
-		List<Section> list = sectionMapper.selectAll();
-		if(!list.isEmpty()){
-			return list.get(0);
-		}
+	public Section getBySectionCode(int code) {
+		// TODO 通过章节编号获取章节
 		return null;
+	}
+
+	@Override
+	public List<Section> queryIsChecked() {
+		return sectionMapper.queryIsChecked();
+	}
+
+	@Override
+	public List<Section> queryIsNotChecked() {
+		return sectionMapper.queryIsNotChecked();
+	}
+
+	@Override
+	public List<Section> fuzzySearchSection(String sectionName) {
+		return sectionMapper.fuzzySearchSection(sectionName);
 	}
 }

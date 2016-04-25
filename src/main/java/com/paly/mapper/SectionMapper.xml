@@ -22,17 +22,17 @@
   <update id="updateByPrimaryKey" parameterType="com.paly.domain.Section" >
     update section
     set sectionName = #{sectionName,jdbcType=VARCHAR},
-      sectionChecked = #{sectionChecked,jdbcType=BIT}
+      sectionChecked = #{sectionChecked,jdbcType=BIT},
       sectionCode = #{sectionCode,jdbcType=INTEGER}
     where sectionId = #{sectionId,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select sectionId, sectionName, sectionChecked
+    select sectionId, sectionName, sectionChecked,sectionCode
     from section
     where sectionId = #{sectionId,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select sectionId, sectionName, sectionChecked
+    select sectionId, sectionName, sectionChecked,sectionCode
     from section
   </select>
   

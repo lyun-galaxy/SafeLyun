@@ -9,6 +9,7 @@ public class Section extends BaseModel {
 	private String name;
 	private String context;
     private int minutes;
+    private int code;
     private boolean status;
     private String subSectionName;
 	public boolean getStatus() {
@@ -77,6 +78,14 @@ public class Section extends BaseModel {
 
 	public void setSubSectionName(String subSectionName) {
 		this.subSectionName = subSectionName;
+	}
+
+	public int getCode() {
+		return code;
+	}
+
+	public void setCode(int code) {
+		this.code = code;
 	}
 
 	

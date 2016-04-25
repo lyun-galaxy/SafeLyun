@@ -35,6 +35,7 @@ public class AdminSectionServiceImpl implements AdminSectionService{
 		Subsection subsection = new Subsection();
 		subsection.setSubsectionName(section.getName());
 	    subsection.setSubsectionTime(section.getMinutes());
+	    subsection.setSubsectionCode(section.getCode());
 		String myid = null;
 		Cookie[] cookies = request.getCookies(); 
 		for (Cookie cookie : cookies) {
@@ -69,6 +70,7 @@ public class AdminSectionServiceImpl implements AdminSectionService{
 		subsection.setSubsectionContent(section.getContext());
 		subsection.setSubsectionTime(section.getMinutes());
 		subsection.setSubsectionChecked(section.getStatus());
+		subsection.setSubsectionCode(section.getCode());
 		subsectionMapper.updateByPrimaryKey(subsection);
 		return null;
 	}
@@ -96,6 +98,8 @@ public class AdminSectionServiceImpl implements AdminSectionService{
 			mysection.setMinutes(subSections.get(i).getSubsectionTime());
 			mysection.setContext(subSections.get(i).getSubsectionContent());
 			mysection.setStatus(subSections.get(i).getSubsectionChecked());
+			mysection.setCode(subSections.get(i).getSubsectionCode());
+			
 			sections.add(mysection);
 		}
 		Datagrid datagrid = new Datagrid();
@@ -128,6 +132,7 @@ public class AdminSectionServiceImpl implements AdminSectionService{
 			mysection.setMinutes(subSections.get(i).getSubsectionTime());
 			mysection.setContext(subSections.get(i).getSubsectionContent());
 	     	mysection.setStatus(subSections.get(i).getSubsectionChecked());
+	     	mysection.setCode(subSections.get(i).getSubsectionCode());
 			sections.add(mysection);
 		}
 		Datagrid datagrid = new Datagrid();
@@ -174,6 +179,7 @@ public class AdminSectionServiceImpl implements AdminSectionService{
 			mysection.setMinutes(subSections.get(i).getSubsectionTime());
 			mysection.setContext(subSections.get(i).getSubsectionContent());
 			mysection.setStatus(subSections.get(i).getSubsectionChecked());
+			mysection.setCode(subSections.get(i).getSubsectionCode());
 			sections.add(mysection);
 		}
 		Datagrid datagrid = new Datagrid();
