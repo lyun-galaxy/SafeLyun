@@ -1,6 +1,7 @@
 package com.paly.controller.client;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -11,7 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.paly.domain.Role;
 import com.paly.domain.User;
+import com.paly.service.RoleService;
 import com.paly.service.UserService;
 
 /**
@@ -25,6 +28,8 @@ import com.paly.service.UserService;
 public class LoginController {
 	@Resource
 	private UserService userService;
+	@Resource
+	private RoleService roleService;
 
 	@RequestMapping("/login")
 	@ResponseBody
@@ -35,20 +40,35 @@ public class LoginController {
 			map.put("check", false);
 		} else {
 			map.put("check", true);
-			map.put("url", "client_login/toHomePage.action");
+			List<Role> roles = roleService.getByUserId(u.getUserId());
+			if (roles == null || roles.size() == 0) {
+				map.put("url", "client_login/toClientHomePage.action");
+			} else {
+				map.put("url", "client_login/toManagerHomePage.action");
+			}
 			session.setAttribute("user", u);
 		}
 		return map;
 	}
 
 	/**
-	 * 跳转到主界面
+	 * 重定向 到客户端主界面
 	 * 
 	 * @return
 	 */
-	@RequestMapping("toHomePage")
-	public String toHomePage() {
+	@RequestMapping("toClientHomePage")
+	public String toClientHomePage() {
 		return "redirect:/client_home/toHomePage.action";
+	}
+
+	/**
+	 * 重定向到后台管理界面
+	 * 
+	 * @return
+	 */
+	@RequestMapping("toManagerHomePage")
+	public String toManagerHomePage() {
+		return "redirect:/index.jsp";
 	}
 
 	@RequestMapping("logout")

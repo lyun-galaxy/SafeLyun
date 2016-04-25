@@ -40,7 +40,7 @@ $(document).ready(function(){
 			     });
 		    	 $("#exam").append(html);
 	    	 }else{
-	    		 html +="当前不是考试时间";
+	    		 html +="<div class='bg'><div class='cont'><div class='c1'><img src='/SafeLyun/images/01.png' class='img1' /></div><h2>哎呀…现在不是考试时间</h2></div></div>";
 	    		 $(".data_list").empty().append(html);
 	    	 }
 	    	 

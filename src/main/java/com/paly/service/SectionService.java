@@ -1,5 +1,7 @@
 package com.paly.service;
 
+import java.util.List;
+
 import com.paly.domain.Section;
 
 /**
@@ -18,9 +20,30 @@ public interface SectionService extends BaseService<Section> {
 	 */
 	Section getBySubsectionId(int subsectionId);
 
+
 	/**
-	 * 获取第一章
-	 * @return
+	 * 通过章节编号获取章节
+	 * @param code 章节编号
+	 * @return 章节信息
 	 */
-	Section getFirst();
+	Section getBySectionCode(int code);
+	
+	/**
+	 * 查询经过审核的章节 
+	 * @return 返回经过审核的章节列表
+	 */
+	List<Section> queryIsChecked();
+	
+	/**
+	 * 查询未经过审核的章节 
+	 * @return 返回未经过审核的章节列表
+	 */
+	List<Section> queryIsNotChecked();
+	
+	/**
+	 * 模糊查找章节
+	 * @param sectionName 章节名
+	 * @return 返回查找章节到得章节列表
+	 */
+	List<Section> fuzzySearchSection(String sectionName);
 }
