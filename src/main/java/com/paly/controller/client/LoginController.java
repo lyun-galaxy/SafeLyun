@@ -30,6 +30,7 @@ public class LoginController {
 	private UserService userService;
 	@Resource
 	private RoleService roleService;
+
 	@RequestMapping("/login")
 	@ResponseBody
 	public Map<String, Object> login(HttpSession session, User user) {
@@ -39,10 +40,10 @@ public class LoginController {
 			map.put("check", false);
 		} else {
 			map.put("check", true);
-			List<Role> roles = roleService.getByUserId(user.getUserId());
-			if(roles.isEmpty()){
+			List<Role> roles = roleService.getByUserId(u.getUserId());
+			if (roles == null || roles.size() == 0) {
 				map.put("url", "client_login/toClientHomePage.action");
-			}else{
+			} else {
 				map.put("url", "client_login/toManagerHomePage.action");
 			}
 			session.setAttribute("user", u);
@@ -51,7 +52,7 @@ public class LoginController {
 	}
 
 	/**
-	 *重定向 到客户端主界面
+	 * 重定向 到客户端主界面
 	 * 
 	 * @return
 	 */
@@ -59,15 +60,17 @@ public class LoginController {
 	public String toClientHomePage() {
 		return "redirect:/client_home/toHomePage.action";
 	}
+
 	/**
 	 * 重定向到后台管理界面
+	 * 
 	 * @return
 	 */
 	@RequestMapping("toManagerHomePage")
-	public String toManagerHomePage(){
+	public String toManagerHomePage() {
 		return "redirect:/index.jsp";
 	}
-	
+
 	@RequestMapping("logout")
 	public String logout(HttpSession session, HttpServletRequest request) {
 		session.invalidate();

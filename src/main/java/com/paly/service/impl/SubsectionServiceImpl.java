@@ -74,9 +74,9 @@ public class SubsectionServiceImpl extends BaseServiceImpl<Subsection> implement
 		if (studyschedule == null) {
 			// 如果学习进度为空，返回第一章的第一小节，并保存学习进度
 			// TODO 获取第一章的第一小节
-			Section section = sectionService.getFirst();
+			Section section = sectionService.getBySectionCode(1);
 			if (section != null) {
-				Subsection subsection = getFirstBySectionId(section.getSectionId());
+				Subsection subsection = getBySectionAndSubsectionCode(section.getSectionId(), 1);
 				studyschedule = new Studyschedule(0, subsection, student);
 				studyscheduleMapper.insert(studyschedule);
 				return studyschedule.getSubsection();
@@ -86,5 +86,31 @@ public class SubsectionServiceImpl extends BaseServiceImpl<Subsection> implement
 			// 返回当前学习的小节
 			return studyschedule.getSubsection();
 		}
+	}
+
+	@Override
+	public Subsection getBySectionAndSubsectionCode(Integer sectionId, int code) {
+		// TODO 通过章节和子章节编号获取子章节
+		return null;
+	}
+
+	@Override
+	public List<Subsection> queryIsChecked() {
+		return subsectionMapper.queryIsChecked();
+	}
+
+	@Override
+	public List<Subsection> queryIsNotChecked() {
+		return subsectionMapper.queryIsNotChecked();
+	}
+
+	@Override
+	public List<Subsection> queryIsNotCheckedBySecId(int sectionId) {
+		return subsectionMapper.queryIsNotCheckedBySecId(sectionId);
+	}
+
+	@Override
+	public List<Subsection> queryIsCheckedBySecId(int sectionId) {
+		return subsectionMapper.queryIsCheckedBySecId(sectionId);
 	}
 }

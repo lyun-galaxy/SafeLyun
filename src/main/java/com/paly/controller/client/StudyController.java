@@ -1,9 +1,7 @@
 package com.paly.controller.client;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
@@ -16,8 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.paly.controller.BaseController;
 import com.paly.domain.Section;
-import com.paly.domain.Student;
-import com.paly.domain.Studyschedule;
 import com.paly.domain.Subsection;
 import com.paly.domain.User;
 import com.paly.service.SectionService;
@@ -104,7 +100,8 @@ public class StudyController extends BaseController {
 	@RequestMapping("/studyUI")
 	public ModelAndView studyUI(HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
-		List<Section> sectionList = sectionService.findAll();
+		//获取所有通过审核的章节列表
+		List<Section> sectionList = sectionService.queryIsChecked();
 		Subsection subsection = getSubsectionBySession(session);
 		// 将章节列表添加到界面
 		modelAndView.addObject("sectionList", sectionList);
@@ -122,7 +119,6 @@ public class StudyController extends BaseController {
 	 */
 	private Subsection getSubsectionBySession(HttpSession session) {
 		Subsection subsection;
-
 		if (session.getAttribute("user_subsection") == null) {
 			subsection = getUserSubsection(session);
 			session.setAttribute("user_subsection", subsection);
