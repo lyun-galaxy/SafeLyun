@@ -41,3 +41,14 @@
 	text-align:center;
 	margin: 0px;
 }
+body{font-family:"Î¢ÈíÑÅºÚ";background:#DAD9D7}
+img{border:none}
+.cf:after{content: ".";display: block;height: 0;font-size: 0;clear:both;visibility: hidden;}
+.cf{zoom: 1;clear:both}
+
+.bg{width:100%;background:url("../images/01.jpg") no-repeat center top #DAD9D7;position:absolute;top:0;left:0;height:600px;overflow:hidden}
+.cont{margin:0 auto;width:500px;line-height:20px;}
+.c1{height:360px;text-align:center}
+.c1 .img1{margin-top:180px}
+.c1 .img2{margin-top:165px}
+.cont h2{text-align:center;color:#555;font-size:18px;font-weight:normal;height:35px}
