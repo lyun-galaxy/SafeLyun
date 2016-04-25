@@ -152,7 +152,7 @@
 			if (rows.length > 0) {
 				$.messager.confirm('确认', '您是否要授权当前选中的选项？', function(r) {
 					if (r) {
-						for ( var i = 0; i < rows.length; i++) {
+						for (var i = 0; i < rows.length; i++) {
 							ids.push(rows[i].id);
 						}
 						$.ajax({
@@ -189,8 +189,8 @@
 			var rows = $('#admin_xjgl_xjgl_datagrid').datagrid('getChecked');
 			if (rows.length == 1) {
 				var d = $('<div/>').dialog({
-					width : 270,
-					height : 200,
+					width : 950,
+					height : 700,
 					href : '${pageContext.request.contextPath}/admin/xjgl/xjglEdit.jsp',
 					modal : true,
 					align : 'center',
@@ -239,7 +239,7 @@
 			if (rows.length > 0) {
 				$.messager.confirm('确认', '您是否要删除当前选中的选项？', function(r) {
 					if (r) {
-						for ( var i = 0; i < rows.length; i++) {
+						for (var i = 0; i < rows.length; i++) {
 							ids.push(rows[i].id);
 						}
 						$.ajax({
@@ -282,7 +282,7 @@
 			//	$('#admin_xjgl_xjgl_datagrid').datagrid('load', {
 			//		name : $('#admin_xjgl_xjgl_layout input[name=name]').val()
 			//	});
-			
+
 			$('#admin_xjgl_xjgl_datagrid').datagrid({
 				url : '${pageContext.request.contextPath}/sectionController/vaguedatagrid.action',
 				fit : true,
@@ -341,7 +341,7 @@
 					}
 				} ]
 			});
-			
+
 			$('#admin_xjgl_xjgl_datagrid').datagrid('load', serializeObject($('#admin_xjgl_xjgl_searchForm')));
 		}
 
@@ -387,23 +387,23 @@
 								});
 							}
 					});
-					}}]" style="width: 270px;height: 200px;" align="center">
+					}}]" style="width: 950px; height: 700px;" align="center">
 		<form id="admin_xjgl_xjgl_addForm" method="post">
 			<table>
 				<tr>
 					<th>小节名称</th>
-					<td><input name="name" class="easyui-validatebox" data-options="required:true" />
-					</td>
+					<td><input name="name" class="easyui-validatebox" data-options="required:true" /></td>
 				</tr>
 				<tr>
 					<th>内容</th>
-					<td><input type="text" name="context" class="easyui-validatebox" data-options="required:true" />
-					</td>
+					<td><textarea id="context" name="context" required="required" style="width: 800px; height: 400px; margin: 0 auto;">
+    </textarea> <script type="text/javascript">
+					var ue = UE.getEditor("context");
+				</script></td>
 				</tr>
 				<tr>
 					<th>时长</th>
-					<td><input name="minutes" class="easyui-numberspinner" style="width:60px;" required="required" data-options="min:1,max:120,editable:true">(分钟)
-					</td>
+					<td><input name="minutes" class="easyui-numberspinner" style="width: 60px;" required="required" data-options="min:1,max:120,editable:true">(分钟)</td>
 				</tr>
 			</table>
 		</form>
