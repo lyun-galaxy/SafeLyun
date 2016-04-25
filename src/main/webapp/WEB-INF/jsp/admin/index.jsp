@@ -16,28 +16,30 @@
 <script type="text/javascript" src="jslib/ajaxfileupload.js"></script>
 <link rel="stylesheet" href="jslib/jquery-easyui-1.4.4/themes/default/easyui.css" type="text/css"></link>
 <link rel="stylesheet" href="jslib/jquery-easyui-1.4.4/themes/icon.css" type="text/css"></link>
-
+<script type="text/javascript" src="ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="ueditor/ueditor.all.js"></script>
+<link rel="stylesheet" href="ueditor/themes/default/css/ueditor.css">
 </head>
 
 <body class="easyui-layout">
-	<div data-options="region:'north'" style="height:100px;">
+	<div data-options="region:'north'" style="height: 100px;">
 		<div align="center">
-		<img alt="" src="images/admin_title.png" >
+			<img alt="" src="images/admin_title.png">
 		</div>
 	</div>
-	<div data-options="region:'south'" style="height:30px;">
+	<div data-options="region:'south'" style="height: 30px;">
 		<div align="center">
-			
-		<p>&copy; 龙岩学院保卫处 & GALAXY团队</p>
+
+			<p>&copy; 龙岩学院保卫处 & GALAXY团队</p>
 		</div>
 	</div>
-	<div data-options="region:'east',title:'日历'" style="width:180px;">
+	<div data-options="region:'east',title:'日历'" style="width: 180px;">
 		<jsp:include page="admin/index/east.jsp"></jsp:include>
 	</div>
-	<div data-options="region:'west',title:'菜单'" style="width:200px;">
+	<div data-options="region:'west',title:'菜单'" style="width: 200px;">
 		<jsp:include page="admin/index/west.jsp"></jsp:include>
 	</div>
-	<div data-options="region:'center'" style="background:#eee;">
+	<div data-options="region:'center'" style="background: #eee;">
 		<jsp:include page="admin/index/center.jsp"></jsp:include>
 	</div>
 </body>
