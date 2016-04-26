@@ -67,5 +67,7 @@
 	<aop:config>
 		<aop:advisor advice-ref="druid-stat-interceptor" pointcut-ref="druid-stat-pointcut" />
 	</aop:config>
+	<!-- <context:annotation-config />  
+    <aop:aspectj-autoproxy proxy-target-class="true" />  --> 
 
 </beans>

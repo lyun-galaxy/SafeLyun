@@ -47,7 +47,7 @@ $("#accordion").pin({
 function studyEnd() {
 	$.ajax({
 		type:'get',
-		url:'',
+		url:'client_study/isLearningFinish.action',
 		dataType:'json',
 		cache:false,
 		success: function(data){

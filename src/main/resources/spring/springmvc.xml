@@ -11,7 +11,7 @@
 		http://www.springframework.org/schema/aop 
 		http://www.springframework.org/schema/aop/spring-aop-3.2.xsd 
 		http://www.springframework.org/schema/tx 
-		http://www.springframework.org/schema/tx/spring-tx-3.2.xsd ">
+		http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
 	<!-- 注解方式 springmvc control层，不能包含其他层，否则会产生错误 -->
 	<context:component-scan base-package="com.paly.controller" />
 	<!-- 静态资源解析 包括 ：js、css、img、.. -->
@@ -51,13 +51,16 @@
 			</list>
 		</property>
 	</bean>
-	 <!--拦截器 -->
+	<!--拦截器 -->
 	<mvc:interceptors>
 		<!-- 多个拦截器,顺序执行 登陆认证拦截器 -->
 		<mvc:interceptor>
 			<mvc:mapping path="/**" />
 			<bean class="com.paly.interceptor.LoginInterceptor"></bean>
 		</mvc:interceptor>
+		<!-- <mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<bean class="com.paly.interceptor.MethodCacheInterceptor"></bean>
+		</mvc:interceptor> -->
 	</mvc:interceptors>
-   
 </beans>
