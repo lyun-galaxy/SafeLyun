@@ -44,7 +44,21 @@ $("#accordion").pin({
 	},
 	minWidth : 940
 });
-
+function studyEnd() {
+	$.ajax({
+		type:'get',
+		url:'',
+		dataType:'json',
+		cache:false,
+		success: function(data){
+			
+		},
+		error: function() {
+			$(".modal-body").empty().append("请求超时");
+			$("#mymodal").modal("show");
+		}
+	});
+}
 function getSubsectionContent(url) {
 	$.ajax({
 		type : 'get',
@@ -52,26 +66,39 @@ function getSubsectionContent(url) {
 		dataType : 'json',
 		cache : false,
 		success : function(data) {
-			$(".jumbotron").empty().append(
-					"<h1>" + data.subsectionName + "</h1>");
-			$("#content").empty().append(data.subsectionContent);
-			clearInterval(s);
-			clearInterval(t1);
-			clearInterval(t2);
-			$(".pie2").css("-o-transform","rotate(0deg)");
-			$(".pie2").css("-moz-transform","rotate(0deg)");
-			$(".pie2").css("-webkit-transform","rotate(0deg)");
-			$(".pie1").css("-o-transform","rotate(0deg)");
-			$(".pie1").css("-moz-transform","rotate(0deg)");
-			$(".pie1").css("-webkit-transform","rotate(0deg)");
-			initTime(data.subsectionTime,0);
+			if(data.status == 1){
+				$(".jumbotron").empty().append(
+						"<h1>" + data.subsection.subsectionName + "</h1>");
+				
+				$("#content").empty().append(data.subsection.subsectionContent);
+				clearInterval(s);
+				clearInterval(t1);
+				clearInterval(t2);
+				$(".pie2").css("-o-transform","rotate(0deg)");
+				$(".pie2").css("-moz-transform","rotate(0deg)");
+				$(".pie2").css("-webkit-transform","rotate(0deg)");
+				$(".pie1").css("-o-transform","rotate(0deg)");
+				$(".pie1").css("-moz-transform","rotate(0deg)");
+				$(".pie1").css("-webkit-transform","rotate(0deg)");
+				initTime(data.subsection.subsectionTime,0);
+				
+				s = setInterval("showTime()",100);
+				t1 = setInterval("start1()",100);
+				accordion();
+			}
+			else if(data.status == 2){
+				$(".modal-body").empty().append("请按顺序进行学习");
+				$("#mymodal").modal("show");
+			}
+			else {
+				$(".modal-body").empty().append("不要非法访问哦！");
+				$("#mymodal").modal("show");
+			}
 			
-			s = setInterval("showTime()",100);
-			t1 = setInterval("start1()",100);
-			accordion();
 		},
 		error : function() {
-			alert('error');
+			$(".modal-body").empty().append("请求超时");
+			$("#mymodal").modal("show");
 		}
 	});
 	
@@ -100,6 +127,7 @@ function showTime(){
 		$(".pie2").css("-o-transform","rotate(" + d + "deg)");
 		$(".pie2").css("-moz-transform","rotate(" + d + "deg)");
 		$(".pie2").css("-webkit-transform","rotate(" + d + "deg)");
+		studyEnd();
 	}else{
 		if(totle>0 && MS>0){
 			MS = MS - 1;
@@ -144,3 +172,4 @@ function start2(){
 	$(".pie2").css("-webkit-transform","rotate(" + j + "deg)");
 };
 t1 = setInterval("start1()",100);
+

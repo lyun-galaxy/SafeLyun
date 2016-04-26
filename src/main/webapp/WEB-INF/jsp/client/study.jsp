@@ -137,6 +137,25 @@ $(function(){
 
 	</div>
 	<!--/.container-->
+	<div class="modal fade bs-example-modal-sm" id="mymodal" tabindex="-1"
+		role="dialog" aria-labelledby="mySmallModalLabel">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="gridSystemModalLabel">提示</h4>
+				</div>
+				<div class="modal-body">....</div>
+				<div class="modal-footer">
+
+					<button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 <script src="${pageContext.request.contextPath}/js/jquery.pin.js"></script>
 <script src="${pageContext.request.contextPath}/js/offcanvas.js"></script>
