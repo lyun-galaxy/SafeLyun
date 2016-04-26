@@ -59,7 +59,8 @@ function studyEnd() {
 		}
 	});
 }
-function getSubsectionContent(url) {
+function getAjaxSubsectionContent(url) {
+	
 	$.ajax({
 		type : 'get',
 		url : url,
@@ -85,6 +86,7 @@ function getSubsectionContent(url) {
 				s = setInterval("showTime()",100);
 				t1 = setInterval("start1()",100);
 				accordion();
+				skip = false;
 			}
 			else if(data.status == 2){
 				$(".modal-body").empty().append("请按顺序进行学习");
@@ -101,12 +103,27 @@ function getSubsectionContent(url) {
 			$("#mymodal").modal("show");
 		}
 	});
+}
+function getSubsectionContent(url) {
+	
+	if(totle > 0) {
+		skip = url;
+		$(".modal-body").empty().append("当前还未完成所需的学习时间（如若刷新将重新计时），是否跳到下一个页面？");
+		$("#mymodal2").modal("show");
+	}else {
+		getAjaxSubsectionContent(url);
+	}
+	
 	
 }
+function YesSkip() {
+	getAjaxSubsectionContent(skip);
+}
+
 var i = 0;
 var j = 0;
 var t1,t2,s,MM,SS,MS,a,totle; 
-
+var skip;
 function initTime(m,s) {
 	MM = m;
 	SS = s;
@@ -115,7 +132,7 @@ function initTime(m,s) {
 	j = 0;
 	a = MM*60*10+SS*10+MS;
 	a = 180/(a/2);
-	totle = (MM+1)*600;
+	totle = MM*600+SS*10+10;
 	MM = "0" + MM;
 }
 function showTime(){
@@ -124,9 +141,9 @@ function showTime(){
 		clearInterval(s);
 		clearInterval(t1);
 		clearInterval(t2);
-		$(".pie2").css("-o-transform","rotate(" + d + "deg)");
-		$(".pie2").css("-moz-transform","rotate(" + d + "deg)");
-		$(".pie2").css("-webkit-transform","rotate(" + d + "deg)");
+		$(".pie2").css("-o-transform","rotate(" + 180 + "deg)");
+		$(".pie2").css("-moz-transform","rotate(" + 180 + "deg)");
+		$(".pie2").css("-webkit-transform","rotate(" + 180 + "deg)");
 		studyEnd();
 	}else{
 		if(totle>0 && MS>0){
