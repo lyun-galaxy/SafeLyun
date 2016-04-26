@@ -107,7 +107,12 @@ public class AdminChapterServiceImpl extends BaseServiceImpl<Section> implements
 		for (int i = 0; i < nids.length; i++) {
 			int id = Integer.valueOf(nids[i]);
 			Section section = sectionMapper.selectByPrimaryKey(id);
+			Boolean flag = section.getSectionChecked();
+			if(flag == false){
 			section.setSectionChecked(true);
+			}else{
+				section.setSectionChecked(false);
+			}
 			sectionMapper.updateByPrimaryKey(section);
 		}
 	}

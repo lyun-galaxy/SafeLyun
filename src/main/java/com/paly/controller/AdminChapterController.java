@@ -96,7 +96,7 @@ public class AdminChapterController extends AdminBaseController{
 			json.setMsg("修改成功！");
 			json.setObj(chapter2);
 		} catch (Exception e) {
-			json.setMsg(e.getMessage());
+			json.setMsg("警告！此章节下还有小章节，请先处理小章节，再对大章节进行操作！");
 		}
 		super.writeJson(json,response);
 	}

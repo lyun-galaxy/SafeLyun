@@ -28,6 +28,11 @@
 					width : 150,
 					align : 'center',
 				}, {
+					field : 'sectionCode',
+					title : '章节编号',
+					width : 150,
+					align : 'center',
+				},{
 					field : 'sectionChecked',
 					title : '状态',
 					width : 150,
@@ -51,6 +56,12 @@
 					iconCls : 'icon-edit',
 					handler : function() {
 						zjEditFun();
+					}
+				},'-', {
+					text : '重置审核状态',
+					iconCls : 'icon-edit',
+					handler : function() {
+						zjPass();
 					}
 				}, '-', {
 					text : '对该章节的小节管理',
@@ -85,7 +96,12 @@
 					title : '章节名称',
 					width : 150,
 					align : 'center',
-				}, {
+				},  {
+					field : 'sectionCode',
+					title : '章节编号',
+					width : 150,
+					align : 'center',
+				},{
 					field : 'sectionChecked',
 					title : '状态',
 					width : 150,
@@ -137,7 +153,7 @@
 			var rows = $('#admin_zjgl_zjgl_datagrid').datagrid('getChecked');
 			var ids = [];
 			if (rows.length > 0) {
-				$.messager.confirm('确认', '您是否要授权当前选中的选项？', function(r) {
+				$.messager.confirm('确认', '您是否要修改当前选中的选项的授权状态？', function(r) {
 					if (r) {
 						for ( var i = 0; i < rows.length; i++) {
 							ids.push(rows[i].sectionId);
@@ -282,10 +298,7 @@
 		}
 
 		function zjSearchFun() {
-			//	$('#admin_zjgl_zjgl_datagrid').datagrid('load', {
-			//		name : $('#admin_zjgl_zjgl_layout input[name=name]').val()
-			//	});
-			
+				
 			$('#admin_zjgl_zjgl_datagrid').datagrid({
 				url : '${pageContext.request.contextPath}/chapter/vaguedatagrid.action',
 				fit : true,
@@ -295,6 +308,9 @@
 				selectOnCheck : false,
 				fitColumns : true,
 				rownumbers : true,
+				queryParams: {
+					sectionName: $("input[name$='sectionName']").val()
+				},
 				frozenColumns : [ [ {
 					field : 'sectionId',
 					title : '编号',
@@ -307,7 +323,12 @@
 					title : '章节名称',
 					width : 150,
 					align : 'center',
-				}, {
+				},  {
+					field : 'sectionCode',
+					title : '章节编号',
+					width : 150,
+					align : 'center',
+				},{
 					field : 'sectionChecked',
 					title : '状态',
 					width : 150,
@@ -342,7 +363,7 @@
 			});
 
 			
-			$('#admin_zjgl_zjgl_datagrid').datagrid('load', serializeObject($('#admin_zjgl_zjgl_searchForm')));
+			//$('#admin_zjgl_zjgl_datagrid').datagrid('load', serializeObject($('#admin_zjgl_zjgl_searchForm')));
 		}
 
 		function zjClearFun() {
@@ -395,7 +416,11 @@
 					<th>章节名称</th>
 					<td><input name="name" class="easyui-validatebox" data-options="required:true" /></td>
 				</tr>
-
+                <tr>
+					<th>章节编码</th>
+					<td>第<input name="code" class="easyui-numberspinner" style="width:60px;" required="required" data-options="min:1,max:120,editable:true">章
+					</td>
+				</tr>
 			</table>
 		</form>
 	</div>

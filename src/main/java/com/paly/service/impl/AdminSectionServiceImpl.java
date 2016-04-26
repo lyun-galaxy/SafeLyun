@@ -148,7 +148,12 @@ public class AdminSectionServiceImpl implements AdminSectionService{
 		for (int i = 0; i < nids.length; i++) {
 			int id = Integer.valueOf(nids[i]);
 			Subsection subsection = subsectionMapper.selectByPrimaryKey(id);
-			subsection.setSubsectionChecked(true);
+			Boolean flag = subsection.getSubsectionChecked();
+			if(flag == false){
+			   subsection.setSubsectionChecked(true);
+			}else{
+			   subsection.setSubsectionChecked(false);
+			}
 			subsectionMapper.updateByPrimaryKey(subsection);
 		}
 		return nids.length;

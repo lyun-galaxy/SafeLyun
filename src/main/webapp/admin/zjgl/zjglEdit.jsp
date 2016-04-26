@@ -10,6 +10,6 @@
 		</tr>
 		
 		<th>编号 </th>
-		<td>第<input name="code" class="easyui-numberspinner" style="width:60px;"  data-options="min:1,max:120,editable:true">(小节)</td>
+		<td>第<input name="sectionCode" class="easyui-numberspinner" style="width:60px;"  data-options="min:1,max:120,editable:true">(小节)</td>
 	</table>
 </form>
