@@ -59,7 +59,7 @@ public class SubsectionServiceImpl extends BaseServiceImpl<Subsection> implement
 	}
 
 	@Override
-	public Subsection getLearnFinishSubsectionByUser(User user) {
+	public Subsection getStudySubsectionByUser(User user) {
 		Studyschedule studyschedule = new Studyschedule();
 		Student student = null;
 		if (user != null) {
@@ -71,7 +71,9 @@ public class SubsectionServiceImpl extends BaseServiceImpl<Subsection> implement
 			}
 		}
 		if (studyschedule == null) {
-			studyschedule = new Studyschedule(0, null, student);
+			//获取第一小节
+			Subsection subsection = subsectionMapper.querySubsectionByCode(1);
+			studyschedule = new Studyschedule(0, subsection, student);
 			studyscheduleMapper.insert(studyschedule);
 			return studyschedule.getSubsection();
 		} else {

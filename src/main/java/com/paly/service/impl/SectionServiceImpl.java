@@ -34,8 +34,7 @@ public class SectionServiceImpl extends BaseServiceImpl<Section> implements Sect
 
 	@Override
 	public Section getBySectionCode(int code) {
-		// TODO 通过章节编号获取章节
-		return null;
+		return sectionMapper.querySectionByCode(code);
 	}
 
 	@Override

@@ -90,18 +90,20 @@ public class StudyController extends BaseController {
 		Studyschedule studyschedule = getUserStudyschedule(session);
 		int num = studyschedule.getStudyscheduleHasNum();
 		if (code > (num + 2)) {
-			// 不能学习 前端显示不能学习
+			//用户不能跨越多个章节学习 不能学习 前端显示不能学习
 			map.put("status", 2);
 			writeJson(map, response);
 			return;
-		} else if (code <= num) {
-			// 如果想要学习的章节是用户之前学过的 用户可以随意学习已经学过的章节
+		} else if (code <= (num+1)) {
+			// 如果想要学习的章节是用户之前学过的和正在学习的 用户可以随意学习已经学过的章节
 			// 更新session中的数据
+			map.put("status", 1);
 			session.setAttribute("study_subsection", wantSubsection);
 			session.setAttribute("startStudyTime", System.currentTimeMillis());
 			map.put("subsection", wantSubsection);
-		} else if (code >= (num + 1)) {
-			// 如果当前章节是用户正要学习的
+		} else if (code == (num+2)) {
+			// 如果当前章节是用户正在学习的下一下节
+			
 			// 获取用户当前正在学习的小节
 			Subsection studySubsection = getStudySubsectionBySession(session);
 			if (session.getAttribute("startStudyTime") == null || studySubsection == null) {
@@ -122,10 +124,14 @@ public class StudyController extends BaseController {
 					// 更新session中的数据
 					session.setAttribute("study_subsection", wantSubsection);
 					session.setAttribute("startStudyTime", System.currentTimeMillis());
-					// 更新学习进度
-					studyschedule.setStudyscheduleHasNum(studyschedule.getStudyscheduleHasNum() + 1);
-					studyschedule.setSubsection(studySubsection);
-					studyscheduleService.update(studyschedule);
+					Subsection nextSubsection = subsectionService.getBySubsectionCode(studySubsection.getSubsectionCode()+1);
+					if(nextSubsection != null){
+						//表示未学习完所有的课程
+						studyschedule.setSubsection(nextSubsection);
+						// 更新学习进度
+						studyschedule.setStudyscheduleHasNum(studyschedule.getStudyscheduleHasNum() + 1);
+						studyscheduleService.update(studyschedule);
+					}
 					map.put("subsection", wantSubsection);
 				} else {
 					// 还没学习完
@@ -181,10 +187,14 @@ public class StudyController extends BaseController {
 		// 获取学习小节所需时间
 		int needTime = studySubsection.getSubsectionTime();
 		if ((int) differenceTime >= needTime) {
-			// 更新学习进度
-			studyschedule.setStudyscheduleHasNum(studyschedule.getStudyscheduleHasNum() + 1);
-			studyschedule.setSubsection(studySubsection);
-			studyscheduleService.update(studyschedule);
+			Subsection nextSubsection = subsectionService.getBySubsectionCode(studySubsection.getSubsectionCode()+1);
+			if(nextSubsection != null){
+				//表示未学习完所有的课程
+				studyschedule.setSubsection(nextSubsection);
+				// 更新学习进度
+				studyschedule.setStudyscheduleHasNum(studyschedule.getStudyscheduleHasNum() + 1);
+				studyscheduleService.update(studyschedule);
+			}
 		}
 	}
 
@@ -193,10 +203,15 @@ public class StudyController extends BaseController {
 	 */
 	@RequestMapping("getSubsectionByUser")
 	public void getSubsectionByUser(HttpServletResponse response, HttpSession session) {
+		Map<String,Object> map = new HashMap<String,Object>();
 		// 获取当前用户正在学习的章节
 		Subsection studySubsection = getStudySubsectionBySession(session);
+		map.put("status", 1);
+		// 更新session中的数据
+		session.setAttribute("study_subsection", studySubsection);
 		session.setAttribute("startStudyTime", System.currentTimeMillis());
-		writeJson(studySubsection, response);
+		map.put("subsection", studySubsection);
+		writeJson(map, response);
 	}
 
 	/**
@@ -232,19 +247,7 @@ public class StudyController extends BaseController {
 	private Subsection getStudySubsectionBySession(HttpSession session) {
 		Subsection subsection;
 		if (session.getAttribute("study_subsection") == null) {
-			subsection = getStudyFinishSubsectionByDB(session);
-			if (subsection == null) {
-				// 当前用户还未开始学习
-				// 获取第一个小节
-				subsection = subsectionService.getBySubsectionCode(1);
-			} else {
-				// 获取下一个小节
-				Subsection nextSubsection = subsectionService.getBySubsectionCode(subsection.getSubsectionCode() + 1);
-				if (nextSubsection != null) {
-					// 如果下一个小节为空，表示用户已经学习完所有的章节
-					subsection = subsectionService.getBySubsectionCode(subsection.getSubsectionCode() + 1);
-				}
-			}
+			subsection = getStudySubsectionByDB(session);
 			session.setAttribute("study_subsection", subsection);
 		} else {
 			subsection = (Subsection) session.getAttribute("study_subsection");
@@ -253,13 +256,13 @@ public class StudyController extends BaseController {
 	}
 
 	/**
-	 * 从数据库中获取用户已经学习完的小节
+	 * 从数据库中获取用户正在的小节
 	 * 
 	 * @param session
 	 * @return 正在学习的小节
 	 */
-	private Subsection getStudyFinishSubsectionByDB(HttpSession session) {
+	private Subsection getStudySubsectionByDB(HttpSession session) {
 		User user = (User) session.getAttribute("user");
-		return subsectionService.getLearnFinishSubsectionByUser(user);
+		return subsectionService.getStudySubsectionByUser(user);
 	}
 }
