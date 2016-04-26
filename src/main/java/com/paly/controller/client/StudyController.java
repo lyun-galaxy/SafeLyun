@@ -156,6 +156,7 @@ public class StudyController extends BaseController {
 			Student student = studentService.selectByStudentNumber(user.getUserName());
 			studyschedule = studyscheduleService.getByStudentId(student.getStudentId());
 			session.setAttribute("studyschedule", studyschedule);
+			session.setAttribute("startStudyTime", System.currentTimeMillis());
 		} else {
 			studyschedule = (Studyschedule) session.getAttribute("studyschedule");
 		}
@@ -197,6 +198,7 @@ public class StudyController extends BaseController {
 			}
 		}
 	}
+	
 
 	/**
 	 * 获取用户当前正在学习的小节

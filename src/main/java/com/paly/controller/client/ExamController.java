@@ -133,7 +133,7 @@ public class ExamController extends BaseController {
 		float fration = 0;
 		// 从session域中获取正确考题
 		List<Itempool> correctexams = (List<Itempool>) session.getAttribute("correctexams");
-		for (int i = 0; i < correctexams.size(); i++) {
+		for (int i = 0;myChoices!=null && i<myChoices.size() && i < correctexams.size(); i++) {
 			Itempool correct = correctexams.get(i);
 			Itempool myChoice = myChoices.get(i);
 			if (correct.getItempoolCorrect().equalsIgnoreCase(myChoice.getItempoolCorrect())) {
