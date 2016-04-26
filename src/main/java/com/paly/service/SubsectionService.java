@@ -40,11 +40,11 @@ public interface SubsectionService extends BaseService<Subsection> {
 	Subsection getFirstBySectionId(int sectionId);
 	
 	/**
-	 * 获取用户正在学习的章节
+	 * 获取用户已经学习完的章节,如果用户没有学习进度，则插入一条学习进度，学习完的章节为null
 	 * @param user 用户
-	 * @return 用户正在学习的章节
+	 * @return 用户已经学习完的章节
 	 */
-	Subsection getUserSubsection(User user);
+	Subsection getLearnFinishSubsectionByUser(User user);
 	
 	/**
 	 * 通过子章节编号获取子章节

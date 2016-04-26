@@ -298,7 +298,6 @@ public class ServiceTest {
 		admin.setRoles(adminRole);
 		admin.setUserName("2013034589");
 		admin.setUserPassword("123456");
-
 		// 普通管理员
 		User admin1 = new User();
 		List<Role> adminRole1 = new ArrayList<Role>();
@@ -316,5 +315,8 @@ public class ServiceTest {
 		admin3.setUserName("2013034591");
 		admin3.setUserPassword("123456");
 
+		userService.save(admin);
+		userService.save(admin1);
+		userService.save(admin3);
 	}
 }

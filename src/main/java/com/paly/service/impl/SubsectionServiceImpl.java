@@ -6,7 +6,6 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.paly.domain.Section;
 import com.paly.domain.Student;
 import com.paly.domain.Studyschedule;
 import com.paly.domain.Subsection;
@@ -60,7 +59,7 @@ public class SubsectionServiceImpl extends BaseServiceImpl<Subsection> implement
 	}
 
 	@Override
-	public Subsection getUserSubsection(User user) {
+	public Subsection getLearnFinishSubsectionByUser(User user) {
 		Studyschedule studyschedule = new Studyschedule();
 		Student student = null;
 		if (user != null) {
@@ -72,9 +71,7 @@ public class SubsectionServiceImpl extends BaseServiceImpl<Subsection> implement
 			}
 		}
 		if (studyschedule == null) {
-			// 如果学习进度为空，返回第一章的第一小节，并保存学习进度
-			Subsection subsection = getBySubsectionCode(1);
-			studyschedule = new Studyschedule(0, subsection, student);
+			studyschedule = new Studyschedule(0, null, student);
 			studyscheduleMapper.insert(studyschedule);
 			return studyschedule.getSubsection();
 		} else {
