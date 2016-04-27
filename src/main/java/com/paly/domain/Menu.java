@@ -25,6 +25,11 @@ public class Menu implements Serializable {
     private String menuUrl;    
     
     /**
+     * 指向父菜单
+     */
+    private Menu parentMenu;
+    
+    /**
      * 属于多个角色
      */
     private List<Role> roles;
@@ -34,7 +39,13 @@ public class Menu implements Serializable {
 		super();
 	}
     
-	public Menu(String menuName, String menuUrl) {
+    /**
+     * 带参构造菜单
+     * @param menuName 菜单名
+     * @param menuUrl 菜单地址
+     * @param parentMenu 指向父菜单，若为空，则其为顶级菜单
+     */
+	public Menu(String menuName, String menuUrl, Menu parentMenu) {
 		this.menuName = menuName;
 		this.menuUrl = menuUrl;
 	}
@@ -118,5 +129,13 @@ public class Menu implements Serializable {
 
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
+	}
+
+	public Menu getMenu() {
+		return parentMenu;
+	}
+
+	public void setMenu(Menu parentMenu) {
+		this.parentMenu = parentMenu;
 	}
 }
