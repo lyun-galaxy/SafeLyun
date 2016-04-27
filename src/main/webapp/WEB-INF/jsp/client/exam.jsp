@@ -29,7 +29,7 @@ $(document).ready(function(){
 	     success:function(data){  
 	    	 var html = '';
 	    	 var check = data.check;
-	    	 if(check){
+	    	 if(data.status == 1){
 		    	 $.each(data.choiceList,function(i,item){
 		    		 //choiceList.push(i+"");
 		    		  html +='<strong>[&nbsp;'+(i+1)+'&nbsp;]&nbsp;'+item.itempoolQuestion+'</strong><br/><br/>';
@@ -39,8 +39,14 @@ $(document).ready(function(){
 		    		 html +='<label class="radio"> <input type="radio" name="choiceList['+i+'].itempoolCorrect" value="D"/>'+item.d+'</label>';
 			     });
 		    	 $("#exam").append(html);
-	    	 }else{
+	    	 }else if(data.status == 0){
 	    		 html +="<div class='bg'><div class='cont'><div class='c1'><img src='/SafeLyun/images/01.png' class='img1' /></div><h2>哎呀…现在不是考试时间</h2></div></div>";
+	    		 $(".data_list").empty().append(html);
+	    	 }else if(data.status == 2){
+	    		 html +="<div class='bg'><div class='cont'><div class='c1'><img src='/SafeLyun/images/01.png' class='img1' /></div><h2>已通过，不能再进行考</h2></div></div>";
+	    		 $(".data_list").empty().append(html);
+	    	 }else if(data.status == 3){
+	    		 html +="<div class='bg'><div class='cont'><div class='c1'><img src='/SafeLyun/images/01.png' class='img1' /></div><h2>哎呀…不好意思！没有补考次数了！！</h2></div></div>";
 	    		 $(".data_list").empty().append(html);
 	    	 }
 	    	 
