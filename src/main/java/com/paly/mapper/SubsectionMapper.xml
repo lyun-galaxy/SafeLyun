@@ -83,7 +83,7 @@
   <!-- 模糊查找章节下的子章节 -->
   <select id="fuzzySearchSubSection" resultMap="BaseResultMap">
   		select sub.* from subsection sub
-  		join section sec on sub.section_sectionId=sec.sectionId and sec.sectionId='1' and
+  		join section sec on sub.section_sectionId=sec.sectionId and sec.sectionId=#{sectionId} and
         sub.subsectionName like concat(concat('%', #{subsectionName}, '%'))
   </select>
   
