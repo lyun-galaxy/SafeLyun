@@ -133,7 +133,6 @@
 		});
 	}
 	function make_up_test(){
-		alert('${pageContext.request.contextPath}/client_score/makeUPExam.action');
 		$.ajax({
 			type : 'get',
 			url : '${pageContext.request.contextPath}/client_score/makeUPExam.action',

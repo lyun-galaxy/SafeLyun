@@ -8,9 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author root
  *
  */
-@Controller("/manager_home")
+@Controller
+@RequestMapping("/manager_home")
 public class AdminHomeController {
-	@RequestMapping("toHomePage")
+	@RequestMapping("/toHomePage")
 	public String toHomePage(){
 		return "admin/index.jsp";
 	}

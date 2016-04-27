@@ -45,9 +45,9 @@
 		<property name="advice" ref="methodCacheAfterAdvice" />
 		<property name="patterns">
 			<list>
-				<value>com.paly.service.*.Mapper.*.update.*</value>
-				<value>com.paly.service.*.Mapper.*.insert.*</value>
-				<value>com.paly.service.*.Mapper.*.delete.*</value>
+				<value>com.paly.mapper.*.Mapper.*.update.*</value>
+				<value>com.paly.mapper.*.Mapper.*.insert.*</value>
+				<value>com.paly.mapper.*.Mapper.*.delete.*</value>
 			</list>
 		</property>
 	</bean>
