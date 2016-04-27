@@ -47,7 +47,7 @@
   
   <!-- 根据章节Id获取其下的子章节列表 -->  
   <select id="getBySectionId" resultMap="BaseResultMap" parameterType="int">
-  	select sub.* from subsection sub where sub.section_sectionId=#{sectionId}
+  	select sub.* from subsection sub where sub.section_sectionId=#{sectionId}  order by sub.subsectionCode
   </select>
   
   <!-- 根据学习进度id获取其关联的子章节 -->
