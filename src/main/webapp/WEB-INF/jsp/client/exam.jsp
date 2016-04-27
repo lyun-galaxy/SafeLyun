@@ -29,6 +29,7 @@ $(document).ready(function(){
 	     success:function(data){  
 	    	 var html = '';
 	    	 var check = data.check;
+	    	 console.info(data.status);
 	    	 if(data.status == 1){
 		    	 $.each(data.choiceList,function(i,item){
 		    		 //choiceList.push(i+"");
