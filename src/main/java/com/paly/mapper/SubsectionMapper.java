@@ -27,6 +27,13 @@ public interface SubsectionMapper extends BaseMapper<Subsection> {
 	Subsection getByStudyscheduleId(int studyscheduleId);
 	
 	/**
+	 * 根据编号查找子章节
+	 * @param subsectionCode 子章节编号
+	 * @return 返回指定编号得子章节
+	 */
+	Subsection querySubsectionByCode(int subsectionCode);
+	
+	/**
 	 * 查询经过审核的子章节
 	 * @return 返回已审核的子章节列表
 	 */

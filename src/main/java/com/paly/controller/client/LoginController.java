@@ -68,7 +68,7 @@ public class LoginController {
 	 */
 	@RequestMapping("toManagerHomePage")
 	public String toManagerHomePage() {
-		return "redirect:/index.jsp";
+		return "admin/index.jsp";
 	}
 
 	@RequestMapping("logout")

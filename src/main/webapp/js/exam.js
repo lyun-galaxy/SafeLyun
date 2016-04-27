@@ -1,4 +1,4 @@
-var examTime=20*60;
+var examTime=1*60;
 	var useTime=0,remainTime=examTime;
 	
 	function showCount(){
@@ -31,22 +31,7 @@ var examTime=20*60;
 	
 	window.setInterval("showCount()", 1000);
 	
-	//禁止页面回退
-	javascript: window.history.forward(1);
-	var UnloadConfirm = {};
-	UnloadConfirm.MSG_UNLOAD = "数据尚未保存\n\n您确定要离开吗？";
-	UnloadConfirm.set = function(a) {
-	    window.onbeforeunload = function(b) {
-	        b = b || window.event;
-	        b.returnValue = a;
-	        return a
-	    }
-	};
-	UnloadConfirm.clear = function() {
-	    fckDraft.delDraftById();
-	    window.onbeforeunload = function() {}
-	};
-	UnloadConfirm.set(UnloadConfirm.MSG_UNLOAD);
+	
 		function keydown() {
 			if (event.keyCode == 8) {
 				event.keyCode = 0;

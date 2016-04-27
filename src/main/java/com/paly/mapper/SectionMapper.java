@@ -18,6 +18,13 @@ public interface SectionMapper extends BaseMapper<Section> {
 	Section getBySubsectionId(int subsectionId);
 	
 	/**
+	 * 根据编号查找章节
+	 * @param sectionCode 章节编号
+	 * @return 返回指定编号得章节
+	 */
+	Section querySectionByCode(int sectionCode);
+	
+	/**
 	 * 查询经过审核的章节 
 	 * @return 返回经过审核的章节列表
 	 */
