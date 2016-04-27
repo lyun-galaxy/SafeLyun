@@ -9,6 +9,10 @@
 	<configs>
 	</configs>
 	<autoconfigs>
+		<config>src/main/resources/spring/applicationContext-service.xml</config>
+		<config>src/main/resources/spring/applicationContext-transaction.xml</config>
+		<config>src/main/resources/spring/applicationContext-dao.xml</config>
+		<config>src/main/resources/spring/springmvc.xml</config>
 	</autoconfigs>
 	<configSets>
 	</configSets>

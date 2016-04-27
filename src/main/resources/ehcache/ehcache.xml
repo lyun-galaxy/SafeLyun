@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+    xsi:noNamespaceSchemaLocation="ehcache.xsd" updateCheck="true"  
+    monitoring="autodetect">   
+    <diskStore path="java.io.tmpdir" />  
+      
+    <defaultCache eternal="false"   
+        maxElementsInMemory="1000"  
+        overflowToDisk="false"   
+        diskPersistent="false"   
+        timeToIdleSeconds="0"  
+        timeToLiveSeconds="600"   
+        memoryStoreEvictionPolicy="LFU" />  
+  
+    <cache name="baseCache"   
+        eternal="false"   
+        maxElementsInMemory="500"  
+        overflowToDisk="false"   
+        diskPersistent="false"   
+        timeToIdleSeconds="0"  
+        timeToLiveSeconds="300"   
+        memoryStoreEvictionPolicy="LFU" /> 
+        
+        <cache name="SimplePageCachingFilter" 
+        maxElementsInMemory="10000" 
+        eternal="false"
+        overflowToDisk="false" 
+        timeToIdleSeconds="900" 
+        timeToLiveSeconds="1800"
+        memoryStoreEvictionPolicy="LFU" /> 
+        
+        
+        <cache name="mobileCache"
+        maxElementsInMemory="10000"
+        eternal="false"
+        overflowToDisk="true"
+        timeToIdleSeconds="1800"
+        timeToLiveSeconds="3600"
+        memoryStoreEvictionPolicy="LFU" />
+  
+</ehcache>  

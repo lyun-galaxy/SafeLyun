@@ -34,6 +34,7 @@
 		</div>
 	</div>
 	<div data-options="region:'east',title:'日历'" style="width: 180px;">
+<<<<<<< HEAD
 		<jsp:include page="${pageContext.request.contextPath}/admin/index/east.jsp"></jsp:include>
 	</div>
 	<div data-options="region:'west',title:'菜单'" style="width: 200px;">
@@ -41,6 +42,15 @@
 	</div>
 	<div data-options="region:'center'" style="background: #eee;">
 		<jsp:include page="${pageContext.request.contextPath}/admin/index/center.jsp"></jsp:include>
+=======
+		<jsp:include page="/admin/index/east.jsp"></jsp:include>
+	</div>
+	<div data-options="region:'west',title:'菜单'" style="width: 200px;">
+		<jsp:include page="/admin/index/west.jsp"></jsp:include>
+	</div>
+	<div data-options="region:'center'" style="background: #eee;">
+		<jsp:include page="/admin/index/center.jsp"></jsp:include>
+>>>>>>> branch 'master' of https://github.com/lyun-galaxy/SafeLyun.git
 	</div>
 </body>
 </html>
