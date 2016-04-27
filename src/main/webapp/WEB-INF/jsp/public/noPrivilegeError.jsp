@@ -5,6 +5,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/exam.css" media="screen"
+	type="text/css" />
 </head>
 <body>
 	<div class='bg'>
@@ -14,9 +16,7 @@
 			</div>
 			<h2>对不起，您没有权限访问</h2>
 			 <!-- 操作 -->
-        <DIV ID="InputDetailBar">
             <A HREF="javascript:history.go(-1);"><IMG SRC="${pageContext.request.contextPath}/images/goBack.png"/></A>
-        </DIV>
 		</div>
 	</div>
 </body>

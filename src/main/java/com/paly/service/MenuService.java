@@ -39,4 +39,11 @@ public interface MenuService extends BaseService<Menu> {
 	 * @return 顶级菜单列表
 	 */
 	List<Menu> getMenuListTopByUser(User user);
+	
+	/**
+	 * 获取管理员能访问的所有URL
+	 * @param user 用户
+	 * @return URL列表
+	 */
+	List<String> getMenuListByUser(User user);
 }

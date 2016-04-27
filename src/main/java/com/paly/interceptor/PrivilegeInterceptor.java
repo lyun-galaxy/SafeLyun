@@ -1,6 +1,8 @@
 package com.paly.interceptor;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -49,23 +51,22 @@ public class PrivilegeInterceptor implements HandlerInterceptor {
 					return true;
 				// 不能访问前台
 				if (matchesClientURL(url)) {
-					response.sendRedirect(request.getContextPath()+"/WEB-INF/jsp/public/noPrivilegeError.jsp");
+					request.getRequestDispatcher("/WEB-INF/jsp/public/noPrivilegeError.jsp").forward(request, response);
 					return false;
 				}
-				for (Role role : user.getRoles()) {
-					List<Menu> menus = menuService.getByRoleId(role.getRoleId());
-					for (Menu menu : menus) {
-						String menuUrl = menu.getMenuUrl();
-						if (!url.contains(menuUrl)) {
-							response.sendRedirect(request.getContextPath()+"/WEB-INF/jsp/public/noPrivilegeError.jsp");
-							return false;
-						}
+				List<String> urls = menuService.getMenuListByUser(user);
+				for(String menuUrl : urls){
+					System.out.println(menuUrl+"--------"+url);
+					if (url.contains(menuUrl)) {
+						return true;
 					}
 				}
+				request.getRequestDispatcher("/WEB-INF/jsp/public/noPrivilegeError.jsp").forward(request, response);
+				return false;
 			} else {
 				// 如果该用户是学生 不能访问后台
 				if (matchesManagerUrl(url)) {
-					response.sendRedirect(request.getContextPath()+"/WEB-INF/jsp/public/noPrivilegeError.jsp");
+					request.getRequestDispatcher("/WEB-INF/jsp/public/noPrivilegeError.jsp").forward(request, response);
 					return false;
 				}
 			}

@@ -73,4 +73,23 @@ public class MenuServiceImpl extends BaseServiceImpl<Menu> implements MenuServic
 		}
 		return list;
 	}
+
+	@Override
+	public List<String> getMenuListByUser(User user) {
+		List<String> list = new ArrayList<String>();
+		Student student = studentService.selectByStudentNumber(user.getUserName());
+		if (student != null) {
+			// 当前用户为学生
+			return list;
+		}
+		for (Role role : user.getRoles()) {
+			List<Menu> menus = getByRoleId(role.getRoleId());
+			for (Menu menu : menus) {
+				if(menu.getMenu() != null){
+					list.add(menu.getMenuUrl());
+				}
+			}
+		}
+		return list;
+	}
 }
