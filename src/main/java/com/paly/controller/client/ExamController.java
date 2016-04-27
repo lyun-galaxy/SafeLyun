@@ -22,6 +22,7 @@ import com.paly.service.ExamswitchService;
 import com.paly.service.ItempoolService;
 import com.paly.service.ScoreService;
 import com.paly.service.StudentService;
+import com.paly.util.MyJSONUtils;
 import com.paly.vo.ItempoolCustom;
 
 /**
@@ -32,7 +33,7 @@ import com.paly.vo.ItempoolCustom;
  */
 @Controller
 @RequestMapping("/client_exam")
-public class ExamController extends BaseController {
+public class ExamController{
 	@Resource
 	private ItempoolService itempoolService;
 	@Resource
@@ -41,7 +42,6 @@ public class ExamController extends BaseController {
 	private ScoreService scoreService;
 	@Resource
 	private ExamswitchService examswitchService;
-
 	/**
 	 * 跳转到考试界面
 	 * 
@@ -60,19 +60,23 @@ public class ExamController extends BaseController {
 	 */
 	@RequestMapping("/getEpaper")
 	public void getEpaper(HttpServletResponse response, HttpSession session) {
-		Examswitch examswitch = examswitchService.getExamswitch();
 		Map<String, Object> map = new HashMap<String, Object>();
-		if (examswitch != null && examswitch.getSwitchOnOrOff()) {
-			// 如果考试开关为true
+		// 判断是否加载试题界面
+		boolean check = false;
+		User user = (User) session.getAttribute("user");
+		if(itempoolService.isCanExamByUser(user) == 1){
+			check = true;
 			List<Itempool> choiceList = itempoolService.randomCreateChoiceExams(10);
 			// 将考题存入session域中
 			session.setAttribute("correctexams", choiceList);
 			map.put("choiceList", choiceList);
 		}
-		map.put("check", examswitch == null ? false : examswitch.getSwitchOnOrOff());
-		writeJson(map, response);
+		map.put("check", check);
+		MyJSONUtils.writeJson(map, response);
 	}
-
+	
+	
+	
 	/**
 	 * 校验答案
 	 * 
@@ -106,12 +110,8 @@ public class ExamController extends BaseController {
 			if (student != null) {
 				// 保存学生成绩
 				Score score = student.getScore();
-				// 从session域获取补考次数
-				int scoreMakeupNum = 0;
-				if (session.getAttribute("scoreMakeupNum") != null) {
-					scoreMakeupNum = (int) session.getAttribute("scoreMakeupNum");
-				}
-				score.setScoreMakeupNum(scoreMakeupNum);
+				int scoreMakeupNum = score.getScoreMakeupNum();
+				score.setScoreMakeupNum(scoreMakeupNum+1);
 				score.setScoreMark(fration);
 				score.setStudent(student);
 				scoreService.update(score);
@@ -133,7 +133,7 @@ public class ExamController extends BaseController {
 		float fration = 0;
 		// 从session域中获取正确考题
 		List<Itempool> correctexams = (List<Itempool>) session.getAttribute("correctexams");
-		for (int i = 0;myChoices!=null && i<myChoices.size() && i < correctexams.size(); i++) {
+		for (int i = 0; myChoices != null && i < myChoices.size() && i < correctexams.size(); i++) {
 			Itempool correct = correctexams.get(i);
 			Itempool myChoice = myChoices.get(i);
 			if (correct.getItempoolCorrect().equalsIgnoreCase(myChoice.getItempoolCorrect())) {

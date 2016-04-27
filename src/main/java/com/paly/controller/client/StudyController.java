@@ -25,6 +25,7 @@ import com.paly.service.StudentService;
 import com.paly.service.StudyscheduleService;
 import com.paly.service.SubsectionService;
 import com.paly.service.UserService;
+import com.paly.util.MyJSONUtils;
 
 /**
  * 在线学习Controller
@@ -34,7 +35,7 @@ import com.paly.service.UserService;
  */
 @Controller
 @RequestMapping("/client_study")
-public class StudyController extends BaseController {
+public class StudyController{
 	@Resource
 	private SectionService sectionService;
 	@Resource
@@ -54,7 +55,7 @@ public class StudyController extends BaseController {
 	@RequestMapping("/getSectionList")
 	public void getSectionList(HttpServletResponse response) throws IOException {
 		List<Section> sectionList = sectionService.findAll();
-		writeJson(sectionList, response);
+		MyJSONUtils.writeJson(sectionList, response);
 	}
 
 	/**
@@ -68,7 +69,7 @@ public class StudyController extends BaseController {
 	@RequestMapping("getSubsectionList/{sectionId}")
 	public void getSubsectionList(@PathVariable("sectionId") Integer sectionId, HttpServletResponse response) {
 		List<Subsection> subsections = subsectionService.getBySectionId(sectionId);
-		writeJson(subsections, response);
+		MyJSONUtils.writeJson(subsections, response);
 	}
 
 	/**
@@ -92,7 +93,7 @@ public class StudyController extends BaseController {
 		if (code > (num + 2)) {
 			//用户不能跨越多个章节学习 不能学习 前端显示不能学习
 			map.put("status", 2);
-			writeJson(map, response);
+			MyJSONUtils.writeJson(map, response);
 			return;
 		} else if (code <= (num+1)) {
 			// 如果想要学习的章节是用户之前学过的和正在学习的 用户可以随意学习已经学过的章节
@@ -139,7 +140,7 @@ public class StudyController extends BaseController {
 				}
 			}
 		}
-		writeJson(map, response);
+		MyJSONUtils.writeJson(map, response);
 	}
 
 	/**
@@ -213,7 +214,7 @@ public class StudyController extends BaseController {
 		session.setAttribute("study_subsection", studySubsection);
 		session.setAttribute("startStudyTime", System.currentTimeMillis());
 		map.put("subsection", studySubsection);
-		writeJson(map, response);
+		MyJSONUtils.writeJson(map, response);
 	}
 
 	/**

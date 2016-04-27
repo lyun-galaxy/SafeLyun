@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -17,7 +18,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.paly.domain.Student;
 import com.paly.domain.User;
+import com.paly.service.ItempoolService;
 import com.paly.service.StudentService;
+import com.paly.util.MyJSONUtils;
 import com.paly.vo.StudentScore;
 
 /**
@@ -31,7 +34,8 @@ import com.paly.vo.StudentScore;
 public class ScoreController {
 	@Resource
 	private StudentService studentService;
-
+	@Resource
+	private ItempoolService itempoolService;
 	/**
 	 * 跳转到成绩界面
 	 * 
@@ -117,5 +121,31 @@ public class ScoreController {
 			}
 		}
 		return students;
+	}
+	
+	/**
+	 * 补考
+	 * @param response
+	 * @param session
+	 */
+	@RequestMapping("/makeUPExam")
+	public void makeUPExam(HttpServletResponse response,HttpSession session){
+		User user = (User) session.getAttribute("user");
+		int status = itempoolService.isCanExamByUser(user);
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("status", status);
+		if(status == 1){
+			map.put("url", "toExamPage.action");
+		}
+		MyJSONUtils.writeJson(map, response);
+	}
+	
+	/**
+	 * 重定向到考试界面
+	 * @return
+	 */
+	@RequestMapping("/toExamPage")
+	public String toExamPage(){
+		return "redirect:/client_exam/toExamPage.action";
 	}
 }

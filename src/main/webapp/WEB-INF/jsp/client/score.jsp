@@ -133,12 +133,14 @@
 		});
 	}
 	function make_up_test(){
+		alert('${pageContext.request.contextPath}/client_score/makeUPExam.action');
 		$.ajax({
 			type : 'get',
-			url : '',
+			url : '${pageContext.request.contextPath}/client_score/makeUPExam.action',
 			dataType : 'json',
 			cache : false,
 			success : function(data) {
+				console.info(data);
 				if(data.status == 1) {
 					window.location = data.url;
 				}

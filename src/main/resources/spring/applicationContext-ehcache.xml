@@ -32,11 +32,6 @@
 		<!-- 配置哪些方法参与缓存策略 -->
 		<property name="patterns">
 			<list>
-				<value>com.paly.service.*.Service.*.find.*</value>
-				<value>com.paly.service.*.Service.*.get.*</value>
-				<value>com.paly.service.*.Service.*.query.*</value>
-				<value>com.paly.service.*.Service.*.select.*</value>
-				
 				<value>com.paly.mapper.*.Mapper.*.find.*</value>
 				<value>com.paly.mapper.*.Mapper.*.get.*</value>
 				<value>com.paly.mapper.*.Mapper.*.query.*</value>
@@ -50,9 +45,9 @@
 		<property name="advice" ref="methodCacheAfterAdvice" />
 		<property name="patterns">
 			<list>
-				<value>com.paly.service.*.Service.*.update.*</value>
-				<value>com.paly.service.*.Service.*.save.*</value>
-				<value>com.paly.service.*.Service.*.delete.*</value>
+				<value>com.paly.service.*.Mapper.*.update.*</value>
+				<value>com.paly.service.*.Mapper.*.insert.*</value>
+				<value>com.paly.service.*.Mapper.*.delete.*</value>
 			</list>
 		</property>
 	</bean>

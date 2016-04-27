@@ -1,7 +1,6 @@
 package com.paly.controller.client;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -12,9 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.paly.domain.Role;
+import com.paly.domain.Student;
 import com.paly.domain.User;
 import com.paly.service.RoleService;
+import com.paly.service.StudentService;
 import com.paly.service.UserService;
 
 /**
@@ -30,6 +30,8 @@ public class LoginController {
 	private UserService userService;
 	@Resource
 	private RoleService roleService;
+	@Resource
+	private StudentService studentService;
 
 	@RequestMapping("/login")
 	@ResponseBody
@@ -40,8 +42,9 @@ public class LoginController {
 			map.put("check", false);
 		} else {
 			map.put("check", true);
-			List<Role> roles = roleService.getByUserId(u.getUserId());
-			if (roles == null || roles.size() == 0) {
+			Student student = studentService.selectByStudentNumber(u.getUserName());
+			if (student != null) {
+				//如果当前用户是学生
 				map.put("url", "client_login/toClientHomePage.action");
 			} else {
 				map.put("url", "client_login/toManagerHomePage.action");
@@ -68,7 +71,7 @@ public class LoginController {
 	 */
 	@RequestMapping("toManagerHomePage")
 	public String toManagerHomePage() {
-		return "admin/index.jsp";
+		return "redirect:/manager_home/toHomePage.action";
 	}
 
 	@RequestMapping("logout")
