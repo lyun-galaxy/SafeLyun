@@ -1,7 +1,9 @@
 package com.paly.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -65,8 +67,9 @@ public class MenuServiceImpl extends BaseServiceImpl<Menu> implements MenuServic
 		for (Role role : user.getRoles()) {
 			List<Menu> menus = getByRoleId(role.getRoleId());
 			for (Menu menu : menus) {
-				if(menu.getMenu() == null){
-					//添加顶级目录
+				System.out.println(menu.getParentMenu()+"-----");
+				if (menu.getParentMenu() == null) {
+					// 添加顶级目录
 					list.add(menu);
 				}
 			}
@@ -75,8 +78,8 @@ public class MenuServiceImpl extends BaseServiceImpl<Menu> implements MenuServic
 	}
 
 	@Override
-	public List<String> getMenuListByUser(User user) {
-		List<String> list = new ArrayList<String>();
+	public Set<String> getMenuListByUser(User user) {
+		Set<String> list = new HashSet<String>();
 		Student student = studentService.selectByStudentNumber(user.getUserName());
 		if (student != null) {
 			// 当前用户为学生
@@ -85,9 +88,7 @@ public class MenuServiceImpl extends BaseServiceImpl<Menu> implements MenuServic
 		for (Role role : user.getRoles()) {
 			List<Menu> menus = getByRoleId(role.getRoleId());
 			for (Menu menu : menus) {
-				if(menu.getMenu() != null){
-					list.add(menu.getMenuUrl());
-				}
+				list.add(menu.getMenuUrl());
 			}
 		}
 		return list;

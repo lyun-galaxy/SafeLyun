@@ -1,8 +1,7 @@
 package com.paly.interceptor;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -12,8 +11,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.paly.domain.Menu;
-import com.paly.domain.Role;
 import com.paly.domain.Student;
 import com.paly.domain.User;
 import com.paly.service.MenuService;
@@ -54,7 +51,7 @@ public class PrivilegeInterceptor implements HandlerInterceptor {
 					request.getRequestDispatcher("/WEB-INF/jsp/public/noPrivilegeError.jsp").forward(request, response);
 					return false;
 				}
-				List<String> urls = menuService.getMenuListByUser(user);
+				Set<String> urls = menuService.getMenuListByUser(user);
 				for(String menuUrl : urls){
 					System.out.println(menuUrl+"--------"+url);
 					if (url.contains(menuUrl)) {
@@ -92,8 +89,12 @@ public class PrivilegeInterceptor implements HandlerInterceptor {
 	 * @return
 	 */
 	private boolean matchesManagerUrl(String url) {
-		return url.matches(
-				".*((reportPrint)|(chapter)|(manager_home)|(questionbank)|(sectionController)|(adminuser)|(switchController)).*");
+		List<String> urls = menuService.getMenuUrls();
+		for(int i=0;urls!=null && i<urls.size();i++){
+			if(url.contains(urls.get(i)))
+				return true;
+		}
+		return false;
 	}
 
 	@Override
