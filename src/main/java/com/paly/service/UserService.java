@@ -2,6 +2,8 @@ package com.paly.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.paly.domain.User;
 
 /**
@@ -45,4 +47,11 @@ public interface UserService extends BaseService<User> {
 	 * @return 用户
 	 */
 	User getByUsernameAndPassword(String username,String password);
+	
+	/**
+     * 设置用户管理的班级
+     * @param userId 用户id
+     * @param classesId 将要管理的班级id
+     */
+    void setUserHasClasses(int userId,int classesId);
 }

@@ -62,16 +62,15 @@ public class ExamController{
 	public void getEpaper(HttpServletResponse response, HttpSession session) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		// 判断是否加载试题界面
-		boolean check = false;
 		User user = (User) session.getAttribute("user");
-		if(itempoolService.isCanExamByUser(user) == 1){
-			check = true;
+		int status =itempoolService.isCanExamByUser(user);
+		if(status == 1){
 			List<Itempool> choiceList = itempoolService.randomCreateChoiceExams(10);
 			// 将考题存入session域中
 			session.setAttribute("correctexams", choiceList);
 			map.put("choiceList", choiceList);
 		}
-		map.put("check", check);
+		map.put("status", status);
 		MyJSONUtils.writeJson(map, response);
 	}
 	

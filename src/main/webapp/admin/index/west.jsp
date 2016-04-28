@@ -2,16 +2,15 @@
 
 <script type="text/javascript">
 	$(function() {
-
 		$('#admin_index_west_tree').tree({
-			url : '${pageContext.request.contextPath}/admin/index/tree_data.json',
-			loadFilter : function(data) {
+			url : '${pageContext.request.contextPath}/manager_home/showMenuByUser.action',
+			 loadFilter : function(data) {
 				if (data.d) {
 					return data.d;
 				} else {
 					return data;
 				}
-			}
+			} 
 		});
 
 	});

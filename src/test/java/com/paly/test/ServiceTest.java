@@ -40,6 +40,7 @@ import com.paly.service.SpecialtyService;
 import com.paly.service.StudentService;
 import com.paly.service.SubsectionService;
 import com.paly.service.UserService;
+import com.paly.util.Common;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:spring/applicationContext-*.xml" })
@@ -140,8 +141,7 @@ public class ServiceTest {
 			subsectionService.save(subsection);
 		}
 	}
-	
-	
+
 	@Test
 	public void saveItemPoolTest() {
 		for (int i = 0; i < 100; i++) {
@@ -237,86 +237,93 @@ public class ServiceTest {
 		menu = new Menu();
 		menu.setMenuId(1);
 		menu.setMenuName("学生信息");
-		menu.setMenuUrl("admin/xsgl/xsgl.jsp");
-
+		menu.setMenuUrl("/admin/xsgl/xsgl.jsp");
+		
 		menu1 = new Menu();
-		menu.setMenuId(2);
+		menu1.setMenuId(2);
 		menu1.setMenuName("章节管理");
-		menu1.setMenuUrl("admin/zjgl/zjgl.jsp");
+		menu1.setMenuUrl("/admin/zjgl/zjgl.jsp");
 
 		menu2 = new Menu();
-		menu.setMenuId(3);
+		menu2.setMenuId(3);
 		menu2.setMenuName("题库管理");
-		menu2.setMenuUrl("admin/tkgl/tkgl.jsp");
+		menu2.setMenuUrl("/admin/tkgl/tkgl.jsp");
 
 		menu3 = new Menu();
-		menu.setMenuId(4);
+		menu3.setMenuId(4);
 		menu3.setMenuName("报表查看");
-		menu3.setMenuUrl("admin/bbgl/bbgl.jsp");
+		menu3.setMenuUrl("/admin/bbgl/bbgl.jsp");
 
-		List<Menu> list = new ArrayList<Menu>();
-		list.add(menu);
-		list.add(menu1);
-		list.add(menu2);
-		list.add(menu3);
-
+		
+		
 		menuService.save(menu);
 		menuService.save(menu1);
 		menuService.save(menu2);
 		menuService.save(menu3);
-
+		
+		
+		menuService.save(new Menu("chapterManager", "/chapter", menu1));
+		menuService.save(new Menu("sectionController", "/sectionController", menu1));
+		
+		menuService.save(new Menu("questionbankManager", "/questionbank", menu2));
+		
+		menuService.save(new Menu("reportManager", "/report", menu3));
+		menuService.save(new Menu("reportPrintManager", "/reportPrint", menu3));
+		
+		menuService.save(new Menu("adminuserManager", "/adminuser", menu));
+		
+		
 		Role role = new Role();
-		role.setRoleName("超级管理员");
+		role.setRoleName(Common.ROLE_NAME_ADMINISTRATORS);
 		role.setRoleId(1);
-		role.setMenus(list);
 
-		List<Menu> normal = new ArrayList<Menu>();
-		normal.add(menu);
-		normal.add(menu1);
-		normal.add(menu2);
-		normal.add(menu3);
-		Role role1 = new Role();
-		role1.setRoleId(2);
-		role1.setRoleName("普通管理员");
-		role1.setMenus(normal);
-
-		List<Menu> instructor = new ArrayList<Menu>();
-		instructor.add(menu3);
 		Role role2 = new Role();
-		role1.setRoleId(3);
-		role2.setRoleName("辅导员");
-		role2.setMenus(instructor);
+		role2.setRoleId(2);
+		role2.setRoleName(Common.ROLE_NAME_INSTRUCTOR);
 
 		roleService.save(role);
-		roleService.save(role1);
 		roleService.save(role2);
 
-		// 超级管理员
+		roleService.setRoleHasMenu(role.getRoleId(), menu.getMenuId());
+		roleService.setRoleHasMenu(role.getRoleId(), menu1.getMenuId());
+		roleService.setRoleHasMenu(role.getRoleId(), menu2.getMenuId());
+		roleService.setRoleHasMenu(role.getRoleId(), menu3.getMenuId());
+
+		roleService.setRoleHasMenu(role2.getRoleId(), menu3.getMenuId());
+
+		// 普通管理员
 		User admin = new User();
-		List<Role> adminRole = new ArrayList<Role>();
-		adminRole.add(role);
-		admin.setRoles(adminRole);
 		admin.setUserName("2013034589");
 		admin.setUserPassword("123456");
 		// 普通管理员
 		User admin1 = new User();
-		List<Role> adminRole1 = new ArrayList<Role>();
-		adminRole1.add(role1);
-		admin1.setRoles(adminRole1);
 		admin1.setUserName("2013034590");
 		admin1.setUserPassword("123456");
 
-		// List<Classes> classes = classesService.
+		List<Classes> classes = classesService.findAll();
 		// 辅导员
 		User admin3 = new User();
-		List<Role> admin3Role = new ArrayList<Role>();
-		admin3Role.add(role2);
-		admin3.setRoles(admin3Role);
 		admin3.setUserName("2013034591");
 		admin3.setUserPassword("123456");
 
 		userService.save(admin);
+		admin = userService.getByUsernameAndPassword(admin.getUserName(), "123456");
 		userService.save(admin1);
+		admin1 = userService.getByUsernameAndPassword(admin1.getUserName(), "123456");
 		userService.save(admin3);
+		admin3 = userService.getByUsernameAndPassword(admin3.getUserName(), "123456");
+
+		userService.setUserHasRole(admin.getUserId(), role.getRoleId());
+		userService.setUserHasRole(admin1.getUserId(), role.getRoleId());
+		userService.setUserHasRole(admin3.getUserId(), role2.getRoleId());
+
+		for (Classes c : classes) {
+			userService.setUserHasClasses(admin3.getUserId(), c.getClassesId());
+		}
+
+	}
+	@Test
+	public void StringTest(){
+		System.out.println("SafeLyun/manager_home/toHomePage.action".contains("manager_home"));
 	}
 }

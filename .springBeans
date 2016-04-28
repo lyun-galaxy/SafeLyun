@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beansProjectDescription>
 	<version>1</version>
-	<pluginVersion><![CDATA[3.7.3.201602250914-RELEASE]]></pluginVersion>
+	<pluginVersion><![CDATA[3.6.3.201411271034-RELEASE]]></pluginVersion>
 	<configSuffixes>
 		<configSuffix><![CDATA[xml]]></configSuffix>
 	</configSuffixes>
@@ -12,7 +12,7 @@
 		<config>src/main/resources/spring/applicationContext-service.xml</config>
 		<config>src/main/resources/spring/applicationContext-transaction.xml</config>
 		<config>src/main/resources/spring/applicationContext-dao.xml</config>
-		<config>src/main/resources/spring/springmvc.xml</config>
+		<config>src/main/resources/spring/applicationContext-ehcache.xml</config>
 	</autoconfigs>
 	<configSets>
 	</configSets>

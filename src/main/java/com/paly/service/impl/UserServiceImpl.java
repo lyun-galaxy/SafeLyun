@@ -56,4 +56,9 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 		password = DigestUtils.md5DigestAsHex(password.getBytes());
 		return userMapper.queryByNameAndPasswd(username, password);
 	}
+
+	@Override
+	public void setUserHasClasses(int userId, int classesId) {
+		userMapper.setUserHasClasses(userId, classesId);
+	}
 }

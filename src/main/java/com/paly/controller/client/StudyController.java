@@ -35,7 +35,7 @@ import com.paly.util.MyJSONUtils;
  */
 @Controller
 @RequestMapping("/client_study")
-public class StudyController{
+public class StudyController {
 	@Resource
 	private SectionService sectionService;
 	@Resource
@@ -83,7 +83,6 @@ public class StudyController{
 	@RequestMapping("getSubsection/{subsectionId}")
 	public void getSubsection(@PathVariable("subsectionId") Integer subsectionId, HttpServletResponse response,
 			HttpSession session) {
-		// TODO 重构
 		Map<String, Object> map = new HashMap<String, Object>();
 		// 获取想要学习的小节
 		Subsection wantSubsection = subsectionService.getById(subsectionId);
@@ -91,43 +90,36 @@ public class StudyController{
 		Studyschedule studyschedule = getUserStudyschedule(session);
 		int num = studyschedule.getStudyscheduleHasNum();
 		if (code > (num + 2)) {
-			//用户不能跨越多个章节学习 不能学习 前端显示不能学习
+			// 用户不能跨越多个章节学习 不能学习 前端显示不能学习
 			map.put("status", 2);
 			MyJSONUtils.writeJson(map, response);
 			return;
-		} else if (code <= (num+1)) {
+		} else if (code <= (num + 1)) {
 			// 如果想要学习的章节是用户之前学过的和正在学习的 用户可以随意学习已经学过的章节
 			// 更新session中的数据
 			map.put("status", 1);
 			session.setAttribute("study_subsection", wantSubsection);
 			session.setAttribute("startStudyTime", System.currentTimeMillis());
 			map.put("subsection", wantSubsection);
-		} else if (code == (num+2)) {
+		} else if (code == (num + 2)) {
 			// 如果当前章节是用户正在学习的下一下节
-			
+
 			// 获取用户当前正在学习的小节
 			Subsection studySubsection = getStudySubsectionBySession(session);
 			if (session.getAttribute("startStudyTime") == null || studySubsection == null) {
 				// 开始学习时间为空 或者正在学习的小节为空 非法访问
 				map.put("status", 3);
 			} else {
-				// 当前时间
-				long currentTime = System.currentTimeMillis();
-				// 获取当前小节学习时间
-				long startStudyTime = (long) session.getAttribute("startStudyTime");
-				// 计算时间差 分钟
-				long differenceTime = (currentTime - startStudyTime) / (1000 * 60);
-				// 获取学习小节所需时间
-				int needTime = studySubsection.getSubsectionTime();
-				if ((int) differenceTime >= needTime) {
+				if (isLearningFinish(studySubsection, session)) {
 					// 如果完成学时
 					map.put("status", 1);
 					// 更新session中的数据
 					session.setAttribute("study_subsection", wantSubsection);
 					session.setAttribute("startStudyTime", System.currentTimeMillis());
-					Subsection nextSubsection = subsectionService.getBySubsectionCode(studySubsection.getSubsectionCode()+1);
-					if(nextSubsection != null){
-						//表示未学习完所有的课程
+					Subsection nextSubsection = subsectionService
+							.getBySubsectionCode(studySubsection.getSubsectionCode() + 1);
+					if (nextSubsection != null) {
+						// 表示未学习完所有的课程
 						studyschedule.setSubsection(nextSubsection);
 						// 更新学习进度
 						studyschedule.setStudyscheduleHasNum(studyschedule.getStudyscheduleHasNum() + 1);
@@ -169,17 +161,36 @@ public class StudyController{
 	 */
 	@RequestMapping("isLearningFinish")
 	public void isLearningFinish(HttpSession session) {
-		// TODO 判断是否学习完成
 		// 获取用户当前正在学习的小节
 		Subsection studySubsection = getStudySubsectionBySession(session);
-		//获取当前用户的学习进度
+		// 获取当前用户的学习进度
 		Studyschedule studyschedule = getUserStudyschedule(session);
 		int code = studySubsection.getSubsectionCode();
 		int num = studyschedule.getStudyscheduleHasNum();
-		if(code != (num+1)){
-			//如果当前章节不是是用户正需要学习的章节， 返回
+		if (code != (num + 1)) {
+			// 如果当前章节不是是用户正需要学习的章节， 返回
 			return;
 		}
+		if (isLearningFinish(studySubsection, session)) {
+			Subsection nextSubsection = subsectionService.getBySubsectionCode(studySubsection.getSubsectionCode() + 1);
+			if (nextSubsection != null) {
+				// 表示未学习完所有的课程
+				studyschedule.setSubsection(nextSubsection);
+				// 更新学习进度
+				studyschedule.setStudyscheduleHasNum(studyschedule.getStudyscheduleHasNum() + 1);
+				studyscheduleService.update(studyschedule);
+			}
+		}
+	}
+
+	/**
+	 * 判断是否学习完成
+	 * 
+	 * @param studySubsection
+	 * @param session
+	 * @return true学习完成 false 未完成
+	 */
+	private boolean isLearningFinish(Subsection studySubsection, HttpSession session) {
 		// 当前时间
 		long currentTime = System.currentTimeMillis();
 		long startStudyTime = (long) session.getAttribute("startStudyTime");
@@ -188,25 +199,15 @@ public class StudyController{
 
 		// 获取学习小节所需时间
 		int needTime = studySubsection.getSubsectionTime();
-		if ((int) differenceTime >= needTime) {
-			Subsection nextSubsection = subsectionService.getBySubsectionCode(studySubsection.getSubsectionCode()+1);
-			if(nextSubsection != null){
-				//表示未学习完所有的课程
-				studyschedule.setSubsection(nextSubsection);
-				// 更新学习进度
-				studyschedule.setStudyscheduleHasNum(studyschedule.getStudyscheduleHasNum() + 1);
-				studyscheduleService.update(studyschedule);
-			}
-		}
+		return (int) differenceTime >= needTime;
 	}
-	
 
 	/**
 	 * 获取用户当前正在学习的小节
 	 */
 	@RequestMapping("getSubsectionByUser")
 	public void getSubsectionByUser(HttpServletResponse response, HttpSession session) {
-		Map<String,Object> map = new HashMap<String,Object>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		// 获取当前用户正在学习的章节
 		Subsection studySubsection = getStudySubsectionBySession(session);
 		map.put("status", 1);
