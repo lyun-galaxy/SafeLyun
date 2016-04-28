@@ -16,24 +16,25 @@
     where menuId = #{menuId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.paly.domain.Menu" >
-    insert into menu (menuId, menuName, menuUrl
+    insert into menu (menuId, menuName, menuUrl,parentMenuId
       )
-    values (#{menuId,jdbcType=INTEGER}, #{menuName,jdbcType=VARCHAR}, #{menuUrl,jdbcType=VARCHAR}
+    values (#{menuId,jdbcType=INTEGER}, #{menuName,jdbcType=VARCHAR}, #{menuUrl,jdbcType=VARCHAR},#{menu.menuId,jdbcType=INTEGER}
       )
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.paly.domain.Menu" >
     update menu
     set menuName = #{menuName,jdbcType=VARCHAR},
       menuUrl = #{menuUrl,jdbcType=VARCHAR}
+      parentMenuId = #{parentMenuId,jdbcType=INTEGER},
     where menuId = #{menuId,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select menuId, menuName, menuUrl
+    select menuId, menuName, menuUrl,parentMenuId
     from menu
     where menuId = #{menuId,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select menuId, menuName, menuUrl
+    select menuId, menuName, menuUrl,parentMenuId
     from menu
   </select>
 

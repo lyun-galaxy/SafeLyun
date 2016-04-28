@@ -42,6 +42,11 @@ public class Subsection implements Serializable{
     private Boolean subsectionChecked;
 
     /**
+     * 子章节上传者
+     */
+    private String subsectionUploader;
+    
+    /**
      * 子章节所属的章节
      */
   //解决延迟加载导致转换成json对象异常
@@ -60,16 +65,18 @@ public class Subsection implements Serializable{
      * @param subsectionContent 子章节内容
      * @param subsectionChecked 子章节是否被审核
      * @param subsectionCode 子章节编号
+     * @param subsectionCode 子章节上传者，不能为空
      * @param section 所属的章节
      */
     public Subsection(String subsectionName, int subsectionTime, String subsectionContent, Boolean subsectionChecked,
-			int subsectionCode, Section section) {
+			int subsectionCode, String subsectionUploader, Section section) {
 		super();
 		this.subsectionName = subsectionName;
 		this.subsectionTime = subsectionTime;
 		this.subsectionContent = subsectionContent;
 		this.subsectionChecked = subsectionChecked;
 		this.subsectionCode = subsectionCode;
+		this.subsectionUploader = subsectionUploader;
 		this.section = section;
 	}
 
@@ -197,5 +204,13 @@ public class Subsection implements Serializable{
 
 	public void setSubsectionCode(int subsectionCode) {
 		this.subsectionCode = subsectionCode;
+	}
+
+	public String getSubsectionUploader() {
+		return subsectionUploader;
+	}
+
+	public void setSubsectionUploader(String subsectionUploader) {
+		this.subsectionUploader = subsectionUploader;
 	}
 }

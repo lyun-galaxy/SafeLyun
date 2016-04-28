@@ -8,6 +8,7 @@
     <result column="subsectionTime" property="subsectionTime" jdbcType="INTEGER" />
     <result column="subsectionChecked" property="subsectionChecked" jdbcType="BIT" />    
    <result column="subsectionCode" property="subsectionCode" jdbcType="INTEGER" />
+   <result column="subsectionUploader" property="subsectionUploader" jdbcType="VARCHAR" />
     <association property="section" javaType="Section" select="com.paly.mapper.SectionMapper.getBySubsectionId" column="subsectionId">
     </association>
   </resultMap>
@@ -17,31 +18,32 @@
   </delete>
   <insert id="insert" parameterType="com.paly.domain.Subsection" >
     insert into subsection (subsectionId, subsectionName, subsectionTime, 
-      subsectionChecked, section_sectionId, subsectionContent,subsectionCode
+      subsectionChecked, subsectionContent,subsectionCode,subsectionUploader, section_sectionId
       )
     values (#{subsectionId,jdbcType=INTEGER}, #{subsectionName,jdbcType=VARCHAR}, #{subsectionTime,jdbcType=INTEGER}, 
-      #{subsectionChecked,jdbcType=BIT}, #{section.sectionId,jdbcType=INTEGER}, #{subsectionContent,jdbcType=LONGVARCHAR},
-      #{subsectionCode,jdbcType=INTEGER})
+      #{subsectionChecked,jdbcType=BIT}, #{subsectionContent,jdbcType=LONGVARCHAR},
+      #{subsectionCode,jdbcType=INTEGER},#{subsectionUploader,jdbcType=VARCHAR}, #{section.sectionId,jdbcType=INTEGER})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.paly.domain.Subsection" >
     update subsection
     set subsectionName = #{subsectionName,jdbcType=VARCHAR},
       subsectionTime = #{subsectionTime,jdbcType=INTEGER},
-      subsectionChecked = #{subsectionChecked,jdbcType=BIT},
-      section_sectionId = #{section.sectionId,jdbcType=INTEGER},
+      subsectionChecked = #{subsectionChecked,jdbcType=BIT},     
       subsectionContent = #{subsectionContent,jdbcType=LONGVARCHAR},
-      subsectionCode =  #{subsectionCode,jdbcType=INTEGER}
+      subsectionCode =  #{subsectionCode,jdbcType=INTEGER},
+      subsectionUploader = #{subsectionUploader,jdbcType=VARCHAR},
+      section_sectionId = #{section.sectionId,jdbcType=INTEGER}
     where subsectionId = #{subsectionId,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select subsectionId, subsectionName, subsectionTime, subsectionChecked, section_sectionId, subsectionCode,
-    subsectionContent
+    select subsectionId, subsectionName, subsectionTime, subsectionChecked, subsectionCode,
+    subsectionContent,subsectionUploader, section_sectionId
     from subsection
     where subsectionId = #{subsectionId,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select subsectionId, subsectionName, subsectionTime, subsectionChecked, section_sectionId,  subsectionCode,
-    subsectionContent
+    select subsectionId, subsectionName, subsectionTime, subsectionChecked,  subsectionCode,
+    subsectionContent,subsectionUploader, section_sectionId
     from subsection
   </select>
   

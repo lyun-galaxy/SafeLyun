@@ -6,6 +6,7 @@
     <result column="sectionName" property="sectionName" jdbcType="VARCHAR" />
     <result column="sectionChecked" property="sectionChecked" jdbcType="BIT" />    
     <result column="sectionCode" property="sectionCode" jdbcType="INTEGER"/>
+    <result column="sectionUploader" property="sectionUploader" jdbcType="VARCHAR" />
     <collection property="subsections" ofType="Subsection" select="com.paly.mapper.SubsectionMapper.getBySectionId" column="sectionId">
     </collection>
   </resultMap>
@@ -14,25 +15,27 @@
     where sectionId = #{sectionId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.paly.domain.Section" >
-    insert into section (sectionId, sectionName, sectionChecked,sectionCode
+    insert into section (sectionId, sectionName, sectionChecked,sectionCode,sectionUploader
       )
-    values (#{sectionId,jdbcType=INTEGER}, #{sectionName,jdbcType=VARCHAR}, #{sectionChecked,jdbcType=BIT},#{sectionCode,jdbcType=INTEGER}
+    values (#{sectionId,jdbcType=INTEGER}, #{sectionName,jdbcType=VARCHAR}, #{sectionChecked,jdbcType=BIT},
+    #{sectionCode,jdbcType=INTEGER},#{sectionUploader,jdbcType=VARCHAR}
       )
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.paly.domain.Section" >
     update section
     set sectionName = #{sectionName,jdbcType=VARCHAR},
       sectionChecked = #{sectionChecked,jdbcType=BIT},
-      sectionCode = #{sectionCode,jdbcType=INTEGER}
+      sectionCode = #{sectionCode,jdbcType=INTEGER},
+      sectionUploader = #{sectionUploader,jdbcType=VARCHAR}
     where sectionId = #{sectionId,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select sectionId, sectionName, sectionChecked,sectionCode
+    select sectionId, sectionName, sectionChecked,sectionCode,sectionUploader
     from section
     where sectionId = #{sectionId,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select sectionId, sectionName, sectionChecked,sectionCode
+    select sectionId, sectionName, sectionChecked,sectionCode,sectionUploader
     from section
   </select>
   

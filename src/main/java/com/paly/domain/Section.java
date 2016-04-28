@@ -30,6 +30,11 @@ public class Section implements Serializable {
     private int sectionCode;
     
     /**
+     * 章节的上传者
+     */
+    private String sectionUploader;    
+    
+    /**
      * 与子章节关联，拥有多个子章节
      */
   //解决延迟加载导致转换成json对象异常
@@ -41,11 +46,12 @@ public class Section implements Serializable {
 		super();
 	}
 
-	public Section(String sectionName, Boolean sectionChecked, int sectionCode) {
+	public Section(String sectionName, Boolean sectionChecked, int sectionCode, String sectionUploader) {
 		super();
 		this.sectionName = sectionName;
 		this.sectionChecked = sectionChecked;
 		this.sectionCode = sectionCode;
+		this.sectionUploader = sectionUploader;
 	}
 
 	public List<Subsection> getSubsections() {
@@ -134,5 +140,13 @@ public class Section implements Serializable {
 
 	public void setSectionCode(int sectionCode) {
 		this.sectionCode = sectionCode;
+	}
+
+	public String getSectionUploader() {
+		return sectionUploader;
+	}
+
+	public void setSectionUploader(String sectionUploader) {
+		this.sectionUploader = sectionUploader;
 	}
 }
