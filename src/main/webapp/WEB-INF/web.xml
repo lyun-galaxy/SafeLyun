@@ -120,7 +120,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 		<init-param>
 			<!-- 密码 -->
 			<param-name>loginPassword</param-name>
-			<param-value>druid</param-value>
+			<param-value>Druid12345</param-value>
 		</init-param>
 	</servlet>
 	<servlet-mapping>
