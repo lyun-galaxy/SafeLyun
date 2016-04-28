@@ -1,6 +1,7 @@
 package com.paly.service;
 
 import java.util.List;
+import java.util.Set;
 
 import com.paly.domain.Menu;
 import com.paly.domain.User;
@@ -45,5 +46,5 @@ public interface MenuService extends BaseService<Menu> {
 	 * @param user 用户
 	 * @return URL列表
 	 */
-	List<String> getMenuListByUser(User user);
+	Set<String> getMenuListByUser(User user);
 }

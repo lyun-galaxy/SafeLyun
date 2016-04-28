@@ -5,7 +5,7 @@
     <id column="menuId" property="menuId" jdbcType="INTEGER" />
     <result column="menuName" property="menuName" jdbcType="VARCHAR" />
     <result column="menuUrl" property="menuUrl" jdbcType="VARCHAR" />
-    <association property="parentMenu" column="parentMenuId"  javaType="Menu" 
+    <association column="menuId" property="parentMenu" javaType="Menu" 
     select="getParentMenuById"></association>
     
     <collection property="roles" ofType="Role" select="com.paly.mapper.RoleMapper.getByMenuId" column="menuId">
