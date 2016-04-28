@@ -51,7 +51,7 @@
 			</list>
 		</property>
 	</bean>
-<mvc:interceptors>
+	<mvc:interceptors>
 		<!-- 多个拦截器,顺序执行 登陆认证拦截器 -->
 		<mvc:interceptor>
 			<mvc:mapping path="/**" />
@@ -61,6 +61,7 @@
 			<mvc:mapping path="/**" />
 			<bean class="com.paly.interceptor.PrivilegeInterceptor"></bean>
 		</mvc:interceptor>
-		
+
 	</mvc:interceptors>
+	
 </beans>

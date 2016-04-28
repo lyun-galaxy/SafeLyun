@@ -1,9 +1,10 @@
+=\=\=\=\=\=\=
+<<<<<<<=HEAD
+>>>>>>>=branch 'master' of https\://github.com/lyun-galaxy/SafeLyun.git
 eclipse.preferences.version=1
 encoding//src/main/java=UTF-8
 encoding//src/main/resources=UTF-8
-<<<<<<< HEAD
-=======
+encoding//src/main/resources/log4j.properties=UTF-8
 encoding//src/main/webapp/WEB-INF/web.xml=UTF-8
->>>>>>> branch 'master' of https://github.com/lyun-galaxy/SafeLyun.git
 encoding//src/test/java=UTF-8
 encoding/<project>=UTF-8

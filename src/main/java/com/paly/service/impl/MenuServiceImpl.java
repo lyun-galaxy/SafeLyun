@@ -67,7 +67,6 @@ public class MenuServiceImpl extends BaseServiceImpl<Menu> implements MenuServic
 		for (Role role : user.getRoles()) {
 			List<Menu> menus = getByRoleId(role.getRoleId());
 			for (Menu menu : menus) {
-				System.out.println(menu.getParentMenu()+"-----");
 				if (menu.getParentMenu() == null) {
 					// 添加顶级目录
 					list.add(menu);
