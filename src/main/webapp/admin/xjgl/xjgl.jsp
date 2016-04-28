@@ -28,6 +28,11 @@
 					width : 150,
 					align : 'center',
 				}, {
+					field : 'code',
+					title : '小节编号',
+					width : 150,
+					align : 'center',
+				}, {
 					field : 'context',
 					title : '内容',
 					width : 600,
@@ -62,6 +67,12 @@
 					handler : function() {
 						xjEditFun();
 					}
+				} , '-', {
+					text : '重置审核状态',
+					iconCls : 'icon-edit',
+					handler : function() {
+						xjPass();
+					}
 				} ]
 			});
 
@@ -87,6 +98,11 @@
 				}, {
 					field : 'name',
 					title : '小节名称',
+					width : 150,
+					align : 'center',
+				}, {
+					field : 'code',
+					title : '小节编号',
 					width : 150,
 					align : 'center',
 				}, {
@@ -305,6 +321,11 @@
 					width : 150,
 					align : 'center',
 				}, {
+					field : 'code',
+					title : '小节编号',
+					width : 150,
+					align : 'center',
+				}, {
 					field : 'context',
 					title : '内容',
 					width : 600,
@@ -400,10 +421,15 @@
     </textarea> <script type="text/javascript">
 					var ue = UE.getEditor("context");
 				</script></td>
-				</tr>
+				</tr>	
+				<tr>
+					<th>编号</th>
+					<td>第<input name="code" class="easyui-numberspinner" style="width:60px;"  data-options="min:1,max:120,editable:true">小节
+					</td>
+				</tr>			
 				<tr>
 					<th>时长</th>
-					<td><input name="minutes" class="easyui-numberspinner" style="width: 60px;" required="required" data-options="min:1,max:120,editable:true">(分钟)</td>
+					<td>共<input name="minutes" class="easyui-numberspinner" style="width: 60px;" required="required" data-options="min:1,max:120,editable:true">(分钟)</td>
 				</tr>
 			</table>
 		</form>
