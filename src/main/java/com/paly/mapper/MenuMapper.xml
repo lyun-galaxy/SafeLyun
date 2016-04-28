@@ -39,7 +39,8 @@
 
 <!--  根据MenuId获取其对应得父Menu-->
 <select id="getParentMenuById" resultType="Menu" parameterType="int">
-	select menuId,menuName,menuUrl from menu where parentMenuId=#{menuId}
+	 select menuId, menuName, menuUrl from menu
+		where menuId=(select parentMenuId from menu where menuId=#{menuId});
 </select>
 
 <!-- 查找出所有根菜单 -->

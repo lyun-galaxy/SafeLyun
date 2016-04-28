@@ -48,6 +48,7 @@ public class Menu implements Serializable {
 	public Menu(String menuName, String menuUrl, Menu parentMenu) {
 		this.menuName = menuName;
 		this.menuUrl = menuUrl;
+		this.parentMenu = parentMenu;
 	}
 
 
@@ -131,11 +132,11 @@ public class Menu implements Serializable {
 		this.roles = roles;
 	}
 
-	public Menu getMenu() {
+	public Menu getParentMenu() {
 		return parentMenu;
 	}
 
-	public void setMenu(Menu parentMenu) {
+	public void setParentMenu(Menu parentMenu) {
 		this.parentMenu = parentMenu;
 	}
 }

@@ -44,8 +44,12 @@
       	<property name="poolPreparedStatements" value="true" />
       	<property name="maxPoolPreparedStatementPerConnectionSize" value="20" />
 
-		<!-- 配置监控统计拦截的filters -->
-		<property name="filters" value="stat" />
+		<!-- 配置监控统计拦截的filters,SQL合并配置 -->
+		<property name="filters" value="stat,mergeStat" />
+		 <!-- 超过5s为慢查询 -->
+		 <property name="connectionProperties" value="druid.stat.slowSqlMillis=5000" />
+		 <!-- 合并多个DruidDataSource的监控数据 -->
+		 <property name="useGlobalDataSourceStat" value="true" />
 	</bean>
 	
 	<!-- sqlSessionFactory -->
