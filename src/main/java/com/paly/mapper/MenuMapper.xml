@@ -5,6 +5,9 @@
     <id column="menuId" property="menuId" jdbcType="INTEGER" />
     <result column="menuName" property="menuName" jdbcType="VARCHAR" />
     <result column="menuUrl" property="menuUrl" jdbcType="VARCHAR" />
+    <association property="parentMenu" column="parentMenuId"  javaType="Menu" 
+    select="getParentMenuById"></association>
+    
     <collection property="roles" ofType="Role" select="com.paly.mapper.RoleMapper.getByMenuId" column="menuId">
   	</collection> 
   </resultMap>
@@ -34,6 +37,15 @@
     from menu
   </select>
 
+<!--  根据MenuId获取其对应得父Menu-->
+<select id="getParentMenuById" resultType="Menu" parameterType="int">
+	select menuId,menuName,menuUrl from menu where parentMenuId=#{menuId}
+</select>
+
+<!-- 查找出所有根菜单 -->
+<select id="getParentMenus" resultMap="BaseResultMap">
+	select * from menu where parentMenuId is null
+</select>
   <!-- 获取某角色拥有的菜单列表 -->	
   <select id="getByRoleId" resultMap="BaseResultMap" parameterType="int">
   	select m.* from menu m, role_menu rm

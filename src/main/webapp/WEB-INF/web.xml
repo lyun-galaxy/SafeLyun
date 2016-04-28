@@ -52,7 +52,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 		<init-param>
 			<param-name>patterns</param-name>
 			<!-- 配置你需要缓存的url -->
-			<param-value>client_study,client_exam</param-value>
+			<param-value>client_study</param-value>
 		</init-param>
 	</filter>
 

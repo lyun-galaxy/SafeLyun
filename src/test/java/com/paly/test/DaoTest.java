@@ -133,8 +133,8 @@ public class DaoTest {
 		SqlSession sqlSession = MyBatisDAOUtil.getSqlSessionFactory().openSession();
 		MenuMapper menuMapper = sqlSession.getMapper(MenuMapper.class);
 		for (int i = 0; i < 3; i++) {
-			Menu m = new Menu("菜单"+i, "http://" + i);
-			menuMapper.insert(m);
+			// Menu m = new Menu("菜单"+i, "http://" + i);
+			// menuMapper.insert(m);
 		}
 		sqlSession.commit();
 	}

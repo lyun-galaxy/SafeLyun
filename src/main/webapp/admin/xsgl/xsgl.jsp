@@ -4,7 +4,7 @@
 <html>
 
 <body>
-	<script type="text/javascript" src="jslib/print.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/jslib/print.js"></script>
 	<script type="text/javascript">
 		$(function() {
 			setSwitch();

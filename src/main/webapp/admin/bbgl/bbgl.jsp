@@ -1,7 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 
 <body>
-	<script type="text/javascript" src="jslib/print.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/jslib/print.js"></script>
 	<script type="text/javascript">
 		$(function() {
 			$('#admin_bbgl_bbgl_grade').combobox({
