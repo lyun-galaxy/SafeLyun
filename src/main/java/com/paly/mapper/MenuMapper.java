@@ -11,7 +11,7 @@ public interface MenuMapper extends BaseMapper<Menu> {
 	 * @param menuId 菜单id
 	 * @return 返回指定菜单id的父菜单
 	 */
-	Menu parentMenuId(int menuId);
+	Menu getParentMenus(int menuId);
 	
 	/**
 	 *  查找出所有根菜单 
