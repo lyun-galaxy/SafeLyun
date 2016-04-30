@@ -126,6 +126,7 @@ public class Installer {
 		roleService.setRoleHasMenu(role.getRoleId(), menu3.getMenuId());
 		roleService.setRoleHasMenu(role.getRoleId(), chapter1.getMenuId());
 		roleService.setRoleHasMenu(role.getRoleId(), chapter2.getMenuId());
+		roleService.setRoleHasMenu(role.getRoleId(), questionbank.getMenuId());
 		roleService.setRoleHasMenu(role.getRoleId(), adminuser.getMenuId());
 		roleService.setRoleHasMenu(role.getRoleId(), switchController.getMenuId());
 		roleService.setRoleHasMenu(role.getRoleId(), report.getMenuId());
@@ -140,6 +141,7 @@ public class Installer {
 		roleService.setRoleHasMenu(role3.getRoleId(), chapter1.getMenuId());
 		roleService.setRoleHasMenu(role3.getRoleId(), chapter2.getMenuId());
 		roleService.setRoleHasMenu(role3.getRoleId(), adminuser.getMenuId());
+		roleService.setRoleHasMenu(role.getRoleId(), questionbank.getMenuId());
 		roleService.setRoleHasMenu(role3.getRoleId(), switchController.getMenuId());
 		roleService.setRoleHasMenu(role3.getRoleId(), report.getMenuId());
 		roleService.setRoleHasMenu(role3.getRoleId(), report2.getMenuId());
