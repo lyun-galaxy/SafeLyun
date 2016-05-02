@@ -27,7 +27,7 @@
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_7" inherit-compiler-output="false">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_5" inherit-compiler-output="false">
     <output url="file://$MODULE_DIR$/target/classes" />
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
     <content url="file://$MODULE_DIR$">
@@ -84,8 +84,7 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-tx:3.2.3.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: javax.transaction:jta:1.1" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.5" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: ch.qos.logback:logback-classic:1.0.13" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: ch.qos.logback:logback-core:1.0.13" level="project" />
+    <orderEntry type="library" name="Maven: log4j:log4j:1.2.16" level="project" />
     <orderEntry type="library" name="Maven: org.apache.shiro:shiro-spring:1.2.4" level="project" />
     <orderEntry type="library" name="Maven: org.apache.shiro:shiro-core:1.2.4" level="project" />
     <orderEntry type="library" name="Maven: commons-beanutils:commons-beanutils:1.8.3" level="project" />

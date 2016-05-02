@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="SafeLyun:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="SafeLyun-0.0.1-SNAPSHOT.war">
+      <element id="artifact" artifact-name="SafeLyun:war exploded" />
+    </root>
+  </artifact>
+</component>

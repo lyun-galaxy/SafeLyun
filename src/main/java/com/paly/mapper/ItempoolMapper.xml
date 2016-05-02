@@ -10,37 +10,39 @@
     <result column="D" property="d" jdbcType="VARCHAR" />
     <result column="itempoolCorrect" property="itempoolCorrect" jdbcType="VARCHAR" />
     <result column="itempoolChecked" property="itempoolChecked" jdbcType="BIT" />
+    <result column="uploader" property="uploader" jdbcType="VARCHAR" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from itempool
     where itempoolId = #{itempoolId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.paly.domain.Itempool" >   
-    insert into itempool (itempoolId, itempoolQuestion, `A`, 
-      B, `C`, D, itempoolCorrect, 
-      itempoolChecked)
+    insert into itempool (itempoolId, itempoolQuestion, A,
+      B, C , D, itempoolCorrect,
+      itempoolChecked, uploader)
     values (#{itempoolId,jdbcType=INTEGER}, #{itempoolQuestion,jdbcType=VARCHAR}, #{a,jdbcType=VARCHAR}, 
       #{b,jdbcType=VARCHAR}, #{c,jdbcType=VARCHAR}, #{d,jdbcType=VARCHAR}, #{itempoolCorrect,jdbcType=VARCHAR}, 
-      #{itempoolChecked,jdbcType=BIT})
+      #{itempoolChecked,jdbcType=BIT}, #{uploader,jdbcType=VARCHAR})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.paly.domain.Itempool" >   
     update itempool
     set itempoolQuestion = #{itempoolQuestion,jdbcType=VARCHAR},
-      `A` = #{a,jdbcType=VARCHAR},
+      A = #{a,jdbcType=VARCHAR},
       B = #{b,jdbcType=VARCHAR},
-      `C` = #{c,jdbcType=VARCHAR},
+      C = #{c,jdbcType=VARCHAR},
       D = #{d,jdbcType=VARCHAR},
       itempoolCorrect = #{itempoolCorrect,jdbcType=VARCHAR},
-      itempoolChecked = #{itempoolChecked,jdbcType=BIT}
+      itempoolChecked = #{itempoolChecked,jdbcType=BIT},
+      uploader = #{uploader,jdbcType=VARCHAR}
     where itempoolId = #{itempoolId,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >   
-    select itempoolId, itempoolQuestion, `A`, B, `C`, D, itempoolCorrect, itempoolChecked
+    select itempoolId, itempoolQuestion, A, B, C, D, itempoolCorrect, itempoolChecked
     from itempool
     where itempoolId = #{itempoolId,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select itempoolId, itempoolQuestion, `A`, B, `C`, D, itempoolCorrect, itempoolChecked
+    select itempoolId, itempoolQuestion, A, B, C, D, itempoolCorrect, itempoolChecked
     from itempool
   </select>
   
@@ -57,7 +59,7 @@
   </select>
   
   <!-- 模糊查找题目 -->
-  <select id="queryByVagueQuestion" resultMap="BaseResultMap" parameterType="String">
+  <select id="queryByVagueQuestion" resultMap="BaseResultMap" parameterType="string">
   	select * from itempool
   		where itempoolQuestion like concat(concat('%', #{question}, '%'))
   </select>

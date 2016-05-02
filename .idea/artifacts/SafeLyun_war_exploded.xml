@@ -33,8 +33,7 @@
           <element id="library" level="project" name="Maven: org.springframework:spring-tx:3.2.3.RELEASE" />
           <element id="library" level="project" name="Maven: javax.transaction:jta:1.1" />
           <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.5" />
-          <element id="library" level="project" name="Maven: ch.qos.logback:logback-classic:1.0.13" />
-          <element id="library" level="project" name="Maven: ch.qos.logback:logback-core:1.0.13" />
+          <element id="library" level="project" name="Maven: log4j:log4j:1.2.16" />
           <element id="library" level="project" name="Maven: org.apache.shiro:shiro-spring:1.2.4" />
           <element id="library" level="project" name="Maven: org.apache.shiro:shiro-core:1.2.4" />
           <element id="library" level="project" name="Maven: commons-beanutils:commons-beanutils:1.8.3" />
