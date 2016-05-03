@@ -71,11 +71,13 @@ public class AdminQuestionServiceImpl extends BaseServiceImpl<Itempool>
 				String c = values.get(i).get(3).toString();
 				String d = values.get(i).get(4).toString();
 				String anser = values.get(i).get(5).toString();
+				String uploader = values.get(i).get(6).toString();
 				itempool.setItempoolQuestion(title);
 				itempool.setA(a);
 				itempool.setB(b);
 				itempool.setC(c);
 				itempool.setD(d);
+				itempool.setUploader(uploader);
 				itempool.setItempoolCorrect(anser);
 				itempool.setItempoolChecked(false);
 				itempoolMapper.insert(itempool);
@@ -101,6 +103,7 @@ public class AdminQuestionServiceImpl extends BaseServiceImpl<Itempool>
 		itempool.setB(question.getB());
 		itempool.setC(question.getC());
 		itempool.setD(question.getD());
+		itempool.setUploader(question.getUploadName());
 		itempool.setItempoolCorrect(question.getAnswer());
 		itempool.setItempoolChecked(false);
 		itempoolMapper.insert(itempool);
@@ -124,6 +127,7 @@ public class AdminQuestionServiceImpl extends BaseServiceImpl<Itempool>
 			q.setB(itempools.get(i).getB());
 			q.setC(itempools.get(i).getC());
 			q.setD(itempools.get(i).getD());
+			q.setUploadName(itempools.get(i).getUploader());
 			q.setStatus(itempools.get(i).getItempoolChecked());
 			q.setTitle(itempools.get(i).getItempoolQuestion());
 			q.setAnswer(itempools.get(i).getItempoolCorrect());
@@ -154,6 +158,7 @@ public class AdminQuestionServiceImpl extends BaseServiceImpl<Itempool>
 			q.setB(itempools.get(i).getB());
 			q.setC(itempools.get(i).getC());
 			q.setD(itempools.get(i).getD());
+			q.setUploadName(itempools.get(i).getUploader());
 			q.setStatus(itempools.get(i).getItempoolChecked());
 			q.setTitle(itempools.get(i).getItempoolQuestion());
 			q.setAnswer(itempools.get(i).getItempoolCorrect());
@@ -182,6 +187,7 @@ public class AdminQuestionServiceImpl extends BaseServiceImpl<Itempool>
 			q.setB(itempools.get(i).getB());
 			q.setC(itempools.get(i).getC());
 			q.setD(itempools.get(i).getD());
+			q.setUploadName(itempools.get(i).getUploader());
 			q.setStatus(itempools.get(i).getItempoolChecked());
 			q.setTitle(itempools.get(i).getItempoolQuestion());
 			q.setAnswer(itempools.get(i).getItempoolCorrect());
@@ -219,6 +225,7 @@ public class AdminQuestionServiceImpl extends BaseServiceImpl<Itempool>
 		itempool.setB(question.getB());
 		itempool.setC(question.getC());
 		itempool.setD(question.getD());
+		itempool.setUploader(question.getUploadName());
 		itempool.setItempoolCorrect(question.getAnswer());
 		super.update(itempool);
 		return question;
@@ -238,7 +245,6 @@ public class AdminQuestionServiceImpl extends BaseServiceImpl<Itempool>
 		for (String string : nids) {
 			int id = Integer.valueOf(string);
 			Itempool itempool = super.getById(id);
-			itempool.setItempoolId(id);
 			itempool.setItempoolChecked(true);
 			super.update(itempool);
 		}

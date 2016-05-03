@@ -37,12 +37,12 @@
     where itempoolId = #{itempoolId,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >   
-    select itempoolId, itempoolQuestion, A, B, C, D, itempoolCorrect, itempoolChecked
+    select itempoolId, itempoolQuestion, A, B, C, D, itempoolCorrect, itempoolChecked,uploader
     from itempool
     where itempoolId = #{itempoolId,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select itempoolId, itempoolQuestion, A, B, C, D, itempoolCorrect, itempoolChecked
+    select itempoolId, itempoolQuestion, A, B, C, D, itempoolCorrect, itempoolChecked,uploader
     from itempool
   </select>
   

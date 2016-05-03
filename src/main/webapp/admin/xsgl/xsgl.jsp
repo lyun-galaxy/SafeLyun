@@ -270,7 +270,7 @@
 	</div>
 
 	<div id="admin_xsgl_xsgl_rollingDialog" class="easyui-dialog" data-options="closed:true,modal:true,title:'提示'" style="width: 300px; height: 70px;" align="center">
-		<img alt="上传中。。。" src="jslib/imgs/rolling.gif"><br> <a>上传中,请等候...</a>
+		<img alt="上传中。。。" src="${pageContext.request.contextPath}/jslib/imgs/rolling.gif"><br> <a>上传中,请等候...</a>
 	</div>
 </body>
 </html>

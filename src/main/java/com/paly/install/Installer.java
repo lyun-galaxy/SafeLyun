@@ -70,15 +70,15 @@ public class Installer {
 		menuService.save(menu4);
 
 		// 章节管理
-		Menu chapter1 = new Menu("chapterManager", "/chapter", menu1);
+		Menu chapter1 = new Menu("chapterManager", "/chapter", menu2);
 		chapter1.setMenuId(6);
-		Menu chapter2 = new Menu("sectionController", "/sectionController", menu1);
+		Menu chapter2 = new Menu("sectionController", "/sectionController", menu2);
 		chapter2.setMenuId(7);
 		menuService.save(chapter1);
 		menuService.save(chapter2);
 
 		// 题库管理
-		Menu questionbank = new Menu("questionbankManager", "/questionbank", menu2);
+		Menu questionbank = new Menu("questionbankManager", "/questionbank", menu1);
 		questionbank.setMenuId(8);
 		menuService.save(questionbank);
 
@@ -141,7 +141,7 @@ public class Installer {
 		roleService.setRoleHasMenu(role3.getRoleId(), chapter1.getMenuId());
 		roleService.setRoleHasMenu(role3.getRoleId(), chapter2.getMenuId());
 		roleService.setRoleHasMenu(role3.getRoleId(), adminuser.getMenuId());
-		roleService.setRoleHasMenu(role.getRoleId(), questionbank.getMenuId());
+		roleService.setRoleHasMenu(role3.getRoleId(), questionbank.getMenuId());
 		roleService.setRoleHasMenu(role3.getRoleId(), switchController.getMenuId());
 		roleService.setRoleHasMenu(role3.getRoleId(), report.getMenuId());
 		roleService.setRoleHasMenu(role3.getRoleId(), report2.getMenuId());

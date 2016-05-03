@@ -32,6 +32,11 @@
 					title : '章节编号',
 					width : 150,
 					align : 'center',
+				}, {
+					field : 'sectionUploader',
+					title : '作者',
+					width : 150,
+					align : 'center',
 				},{
 					field : 'sectionChecked',
 					title : '状态',
@@ -99,6 +104,11 @@
 				},  {
 					field : 'sectionCode',
 					title : '章节编号',
+					width : 150,
+					align : 'center',
+				}, {
+					field : 'sectionUploader',
+					title : '作者',
 					width : 150,
 					align : 'center',
 				},{
@@ -209,7 +219,7 @@
 			if (rows.length == 1) {
 				var d = $('<div/>').dialog({
 					width : 270,
-					height : 125,
+					height : 170,
 					href : '${pageContext.request.contextPath}/admin/zjgl/zjglEdit.jsp',
 					modal : true,
 					align : 'center',
@@ -328,6 +338,11 @@
 					title : '章节编号',
 					width : 150,
 					align : 'center',
+				}, {
+					field : 'sectionUploader',
+					title : '作者',
+					width : 150,
+					align : 'center',
 				},{
 					field : 'sectionChecked',
 					title : '状态',
@@ -409,12 +424,16 @@
 								});
 							}
 					});
-					}}]" style="width: 270px;height: 125px;" align="center">
+					}}]" style="width: 270px;height: 170px;" align="center">
 		<form id="admin_zjgl_zjgl_addForm" method="post">
 			<table>
 				<tr>
 					<th>章节名称</th>
 					<td><input name="name" class="easyui-validatebox" data-options="required:true" /></td>
+				</tr>
+				<tr>
+					<th>作者</th>
+					<td><input name="sectionUploader" class="easyui-validatebox" data-options="required:true" /></td>
 				</tr>
                 <tr>
 					<th>章节编码</th>

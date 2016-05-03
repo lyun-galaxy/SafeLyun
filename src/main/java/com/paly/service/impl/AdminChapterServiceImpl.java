@@ -33,6 +33,7 @@ public class AdminChapterServiceImpl extends BaseServiceImpl<Section> implements
 		Section section = new Section();
 		section.setSectionName(chapter.getName());
 		section.setSectionCode(chapter.getCode());
+		section.setSectionUploader(chapter.getSectionUploader());
 		section.setSectionChecked(false);
 		
 		super.save(section);

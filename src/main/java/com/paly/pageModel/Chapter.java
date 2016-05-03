@@ -13,6 +13,7 @@ public class Chapter extends BaseModel{
 	private int code;
 	private String sectionName;
 	private boolean status;
+	private String sectionUploader;
 
 	public Chapter() {
 		super();
@@ -62,6 +63,14 @@ public class Chapter extends BaseModel{
 
 	public void setCode(int code) {
 		this.code = code;
+	}
+
+	public String getSectionUploader() {
+		return sectionUploader;
+	}
+
+	public void setSectionUploader(String sectionUploader) {
+		this.sectionUploader = sectionUploader;
 	}
 
 

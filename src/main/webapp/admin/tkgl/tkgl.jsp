@@ -71,7 +71,7 @@
 					title : '正确选项',
 					width : 70,
 					align : 'center',
-				},  {
+				}, {
 					field : 'status',
 					title : '状态',
 					width : 50,
@@ -83,7 +83,15 @@
 							return '未审核';
 						}
 					},
-				} ] ],
+				}, {
+					field : 'uploadName',
+					title : '作者',
+					width : 200,
+					align : 'center',
+					formatter : function(value, row, index) {
+						return '<span title="'+value+'">' + value + '</span>';
+					}
+				}] ],
 				toolbar : [ {
 					text : '删除',
 					iconCls : 'icon-remove',
@@ -178,7 +186,15 @@
 							return '未审核';
 						}
 					},
-				} ] ],
+				}, {
+					field : 'uploadName',
+					title : '作者',
+					width : 200,
+					align : 'center',
+					formatter : function(value, row, index) {
+						return '<span title="'+value+'">' + value + '</span>';
+					}
+				}] ],
 				toolbar : [ {
 					text : '添加',
 					iconCls : 'icon-add',
@@ -436,6 +452,14 @@
 							return '未审核';
 						}
 					},
+				}, {
+					field : 'uploadName',
+					title : '作者',
+					width : 200,
+					align : 'center',
+					formatter : function(value, row, index) {
+						return '<span title="'+value+'">' + value + '</span>';
+					}
 				} ] ],
 				toolbar : [ {
 					text : '添加',
@@ -581,6 +605,11 @@
 					}}]" style="width: 350px;height: 300px;" title="添加题目">
 		<form id="admin_tkgl_tkgl_addForm" method="post">
 			<table>
+				<tr>
+					<th>修改人</th>
+					<td><input name="uploadName" class="easyui-validatebox" data-options="required:true" />
+					</td>
+				</tr>
 				<tr>
 					<th>题目</th>
 					<td><input name="title" class="easyui-validatebox" data-options="required:true" />

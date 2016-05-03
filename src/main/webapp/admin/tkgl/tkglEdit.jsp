@@ -5,6 +5,11 @@
 		<input name="id" hidden="true" />
 		<input name="status" hidden="true" />
 		<tr>
+			<th>修改人</th>
+			<td><input name="uploadName" class="easyui-validatebox" data-options="required:true" />
+			</td>
+		</tr>
+		<tr>
 			<th>题目</th>
 			<td><input name="title" class="easyui-validatebox" data-options="required:true" />
 			</td>
@@ -38,6 +43,6 @@
 			<td><input type="radio" name="answer" id="answer" value="c" />C</td>
 			<td><input type="radio" name="answer" id="answer" value="d" />D</td>
 		</tr>
-
+        
 	</table>
 </form>

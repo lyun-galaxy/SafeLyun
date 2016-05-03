@@ -17,6 +17,10 @@
 
 		</tr>
 		<tr>
+			  <th>作者</th>
+			  <td><input name="auth" class="easyui-validatebox" data-options="required:true" /></td>
+		</tr>
+		<tr>
 			<th>时长</th>
 			<td>共<input name="minutes" class="easyui-numberspinner" style="width: 60px;" required="required" data-options="min:1,max:120,editable:true">(分钟)
 			</td>

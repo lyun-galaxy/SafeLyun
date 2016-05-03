@@ -21,6 +21,7 @@ public class Question extends BaseModel {
     private Boolean status;
 	private File file;
 	private String name;
+	private String uploadName;
 
 	public Question() {
 		super();
@@ -124,6 +125,14 @@ public class Question extends BaseModel {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getUploadName() {
+		return uploadName;
+	}
+
+	public void setUploadName(String uploadName) {
+		this.uploadName = uploadName;
 	}
 
 }
