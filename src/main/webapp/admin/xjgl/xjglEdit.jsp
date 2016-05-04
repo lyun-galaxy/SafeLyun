@@ -18,7 +18,7 @@
 		</tr>
 		<tr>
 			  <th>作者</th>
-			  <td><input name="auth" class="easyui-validatebox" data-options="required:true" /></td>
+			  <td><input name="uploader" class="easyui-validatebox" data-options="required:true" /></td>
 		</tr>
 		<tr>
 			<th>时长</th>

@@ -1,3 +1,30 @@
+
+/**
+ * 
+ * 创建和存储 cookie
+ */
+function setCookie(name, value) {
+	document.cookie = name + "=" + escape(value);
+};
+
+/**
+ * 
+ * 得到已设置 cookie值
+ */
+function getCookie(c_name) {
+	if (document.cookie.length > 0) {
+		c_start = document.cookie.indexOf(c_name + "=")
+		if (c_start != -1) {
+			c_start = c_start + c_name.length + 1
+			c_end = document.cookie.indexOf(";", c_start)
+			if (c_end == -1)
+				c_end = document.cookie.length
+			return unescape(document.cookie.substring(c_start, c_end))
+		}
+	}
+	return ""
+};
+
 /**
  * 
  * @requires jQuery,EasyUI
@@ -28,7 +55,8 @@ $.fn.tree.defaults.loadFilter = function(data, parent) {
 			tmpMap[data[i][idFiled]] = data[i];
 		}
 		for (i = 0, l = data.length; i < l; i++) {
-			if (tmpMap[data[i][parentField]] && data[i][idFiled] != data[i][parentField]) {
+			if (tmpMap[data[i][parentField]]
+					&& data[i][idFiled] != data[i][parentField]) {
 				if (!tmpMap[data[i][parentField]]['children'])
 					tmpMap[data[i][parentField]]['children'] = [];
 				data[i]['text'] = data[i][textFiled];
@@ -99,5 +127,3 @@ serializeObject = function(form) {
 	});
 	return o;
 };
-
-

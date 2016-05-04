@@ -3,11 +3,15 @@
 	<script type="text/javascript">
 		$(function() {
 			xjInit();
+			
 		});
-
+		
 		function xjInit() {
 			$('#admin_xjgl_xjgl_datagrid').datagrid({
 				url : '${pageContext.request.contextPath}/sectionController/datagridAudit.action',
+				queryParams: {
+					zjid: getCookie("zjid")	
+				},
 				fit : true,
 				pagination : true,
 				idField : 'id',
@@ -22,6 +26,11 @@
 					align : 'center',
 					//hidden : true,
 					checkbox : true
+				}, {
+					field : 'uploader',
+					title : '作者',
+					width : 150,
+					align : 'center',
 				}, {
 					field : 'name',
 					title : '小节名称',
@@ -81,6 +90,9 @@
 		function xjUnAudit() {
 			$('#admin_xjgl_xjgl_datagrid').datagrid({
 				url : '${pageContext.request.contextPath}/sectionController/datagridUnaudit.action',
+				queryParams: {
+					zjid: getCookie("zjid")
+				},
 				fit : true,
 				pagination : true,
 				idField : 'id',
@@ -95,6 +107,11 @@
 					align : 'center',
 					//hidden : true,
 					checkbox : true
+				}, {
+					field : 'uploader',
+					title : '作者',
+					width : 150,
+					align : 'center',
 				}, {
 					field : 'name',
 					title : '小节名称',
@@ -301,6 +318,9 @@
 
 			$('#admin_xjgl_xjgl_datagrid').datagrid({
 				url : '${pageContext.request.contextPath}/sectionController/vaguedatagrid.action',
+				queryParams: {
+					zjid: getCookie("zjid")
+				},
 				fit : true,
 				pagination : true,
 				idField : 'id',
@@ -315,6 +335,11 @@
 					align : 'center',
 					//hidden : true,
 					checkbox : true
+				}, {
+					field : 'uploader',
+					title : '作者',
+					width : 150,
+					align : 'center',
 				}, {
 					field : 'name',
 					title : '小节名称',
@@ -389,8 +414,9 @@
 					text : '添加',
 					iconCls : 'icon-add',
 					handler : function() {
+                        document.getElementById('zjid').value = getCookie('zjid');
 						$('#admin_xjgl_xjgl_addForm').form('submit',{
-							url : '${pageContext.request.contextPath}/sectionController/add.action',
+							url : '${pageContext.request.contextPath}/sectionController/add.action',					
 							success : function(data) {
 								var obj = jQuery.parseJSON(data);
 								if (obj.success) {
@@ -410,7 +436,10 @@
 					});
 					}}]" style="width: 950px; height: 750px;" align="center">
 		<form id="admin_xjgl_xjgl_addForm" method="post">
-			<table>
+			<table>  
+			     <tr>
+					<td><input name="zjid" id = "zjid" type="hidden" value=""/></td>
+				</tr>
 				<tr>
 					<th>小节名称</th>
 					<td><input name="name" class="easyui-validatebox" data-options="required:true" /></td>
@@ -429,7 +458,7 @@
 				</tr>	
 				<tr>
 					<th>作者</th>
-					<td><input name="auth" class="easyui-validatebox" data-options="required:true" /></td>
+					<td><input name="uploader" class="easyui-validatebox" data-options="required:true" /></td>
 				</tr>		
 				<tr>
 					<th>时长</th>

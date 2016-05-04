@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -55,6 +56,11 @@ public class PrivilegeInterceptor implements HandlerInterceptor {
 				for(String menuUrl : urls){
 					System.out.println(menuUrl+"--------"+url);
 					if (url.contains(menuUrl)) {
+						Cookie[] cookies = request.getCookies(); 
+						for (Cookie cookie : cookies) {
+								System.out.println("cookie:" + cookie.getValue());
+						}
+						System.out.println("=------------");
 						return true;
 					}
 				}

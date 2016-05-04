@@ -12,6 +12,8 @@ public class Section extends BaseModel {
     private int code;
     private boolean status;
     private String subSectionName;
+    private int zjid;
+    private String uploader;
 	public boolean getStatus() {
 		return status;
 	}
@@ -86,6 +88,22 @@ public class Section extends BaseModel {
 
 	public void setCode(int code) {
 		this.code = code;
+	}
+
+	public int getZjid() {
+		return zjid;
+	}
+
+	public void setZjid(int zjid) {
+		this.zjid = zjid;
+	}
+
+	public String getUploader() {
+		return uploader;
+	}
+
+	public void setUploader(String uploader) {
+		this.uploader = uploader;
 	}
 
 	
