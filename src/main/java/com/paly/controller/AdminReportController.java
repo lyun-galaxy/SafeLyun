@@ -94,15 +94,15 @@ public class AdminReportController extends AdminBaseController{
     
     @RequestMapping("/report/allStudentScore.action")
     public void allStudentScore(Report report,HttpServletResponse response,HttpServletRequest request){
-    	Cookie[] cookies = request.getCookies();
-		String mygrade = null;
-		for (Cookie cookie : cookies) {			
-		  if(cookie.getName().equals("gradeId")){
-			mygrade = cookie.getValue();
-		  }
-		}
-    	logger.info(mygrade+"+++++++");
-    	Datagrid d=adminReportService.getAllStudentScore(mygrade,report);
+//    	Cookie[] cookies = request.getCookies();
+//		String mygrade = null;
+//		for (Cookie cookie : cookies) {			
+//		  if(cookie.getName().equals("gradeId")){
+//			mygrade = cookie.getValue();
+//		  }
+//		}
+//    	logger.info(mygrade+"+++++++");
+    	Datagrid d=adminReportService.getAllStudentScore(report.getGradeId(),report);
     
 		super.writeJson(d,response);
     }
@@ -110,15 +110,15 @@ public class AdminReportController extends AdminBaseController{
     @RequestMapping("/report/allNoPass.action")
     public void allNoPass(Report report,HttpServletResponse response,HttpServletRequest request){
     	
-    	Cookie[] cookies = request.getCookies();
-		String mygrade = null;
-		for (Cookie cookie : cookies) {			
-		  if(cookie.getName().equals("gradeId")){
-			mygrade = cookie.getValue();
-		  }
-		}
+//    	Cookie[] cookies = request.getCookies();
+//		String mygrade = null;
+//		for (Cookie cookie : cookies) {			
+//		  if(cookie.getName().equals("gradeId")){
+//			mygrade = cookie.getValue();
+//		  }
+//		}
     	
-    	Datagrid d=adminReportService.getAllStudentNoPass(mygrade,report);
+    	Datagrid d=adminReportService.getAllStudentNoPass(report.getGradeId(),report);
     	
 		super.writeJson(d,response);
     }

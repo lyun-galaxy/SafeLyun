@@ -203,7 +203,7 @@ public class AdminReportPrintServiceImpl implements AdminReportPrintService {
 			// 处理大标题
 			nRow = sheet.getRow(rowNo++);
 			nCell = nRow.getCell(colNo);
-			nCell.setCellValue(grade + "级安全教育学生成绩表");
+			nCell.setCellValue(grade + "级安全教育未通过学生成绩表");
 
 			rowNo++; // 跳过静态表头
 

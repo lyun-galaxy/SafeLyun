@@ -82,8 +82,8 @@
 				form.attr("action","${pageContext.request.contextPath}/reportPrint/AllStudent.action");
 				var input1=$("<input>");
 				input1.attr("type","hidden");
-				input1.attr("name","exportData");
-				input1.attr("value",(new Date()).getMilliseconds());
+				input1.attr("name","gradeId");
+				input1.attr("value",getCookie("gradeId"));
 				$("body").append(form);//将表单放置在web中
 				form.append(input1);
 
@@ -130,9 +130,12 @@
 					msg : '请选择一个年级！',
 				});
 			} else {
-				document.cookie = 'gradeId=' + $('#admin_xsgl_xsgl_grade').combobox('getText');
+				setCookie('gradeId',$('#admin_xsgl_xsgl_grade').combobox('getText'));
 				$('#admin_xsgl_xsgl_Datagrid').datagrid({
 					url : '${pageContext.request.contextPath}/report/allStudentScore.action',
+					queryParams: {
+						gradeId: getCookie("gradeId")	
+					},
 					fit : true,
 					pagination : true,
 					rownumbers : true,
@@ -193,9 +196,12 @@
 					msg : '请选择一个年级！',
 				});
 			} else {
-				document.cookie = 'gradeId=' + $('#admin_xsgl_xsgl_grade').combobox('getText');
+				setCookie('gradeId',$('#admin_xsgl_xsgl_grade').combobox('getText'));
 				$('#admin_xsgl_xsgl_Datagrid').datagrid({
 					url : '${pageContext.request.contextPath}/report/allNoPass.action',
+					queryParams: {
+						gradeId: getCookie("gradeId")	
+					},
 					fit : true,
 					pagination : true,
 					rownumbers : true,
@@ -244,8 +250,8 @@
 							form.attr("action","${pageContext.request.contextPath}/reportPrint/AllNoPassStudent.action");
 							var input1=$("<input>");
 							input1.attr("type","hidden");
-							input1.attr("name","exportData");
-							input1.attr("value",(new Date()).getMilliseconds());
+							input1.attr("name","gradeId");
+							input1.attr("value",getCookie("gradeId"));
 							$("body").append(form);//将表单放置在web中
 							form.append(input1);
 							form.submit();//表单提交 
