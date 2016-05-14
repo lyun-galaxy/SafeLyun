@@ -1,1 +1,1 @@
-java -classpath .;target/classes/ com.paly.install.Installer
+java -cp target/classes/ com.paly.install.Installer
