@@ -49,7 +49,7 @@
 		</tx:attributes>
 	</tx:advice>
 	<aop:config>
-		<aop:pointcut id="transactionPointcut" expression="execution(* paly.service..*Impl.*(..))" />
+		<aop:pointcut id="transactionPointcut" expression="execution(* com.paly.service..*.*(..))" />
 		<aop:advisor pointcut-ref="transactionPointcut" advice-ref="transactionAdvice" />
 	</aop:config>
 

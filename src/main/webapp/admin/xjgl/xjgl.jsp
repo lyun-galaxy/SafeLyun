@@ -3,14 +3,14 @@
 	<script type="text/javascript">
 		$(function() {
 			xjInit();
-			
+
 		});
-		
+
 		function xjInit() {
 			$('#admin_xjgl_xjgl_datagrid').datagrid({
 				url : '${pageContext.request.contextPath}/sectionController/datagridAudit.action',
-				queryParams: {
-					zjid: getCookie("zjid")	
+				queryParams : {
+					zjid : getCookie("zjid")
 				},
 				fit : true,
 				pagination : true,
@@ -76,7 +76,7 @@
 					handler : function() {
 						xjEditFun();
 					}
-				} , '-', {
+				}, '-', {
 					text : '重置审核状态',
 					iconCls : 'icon-edit',
 					handler : function() {
@@ -90,8 +90,8 @@
 		function xjUnAudit() {
 			$('#admin_xjgl_xjgl_datagrid').datagrid({
 				url : '${pageContext.request.contextPath}/sectionController/datagridUnaudit.action',
-				queryParams: {
-					zjid: getCookie("zjid")
+				queryParams : {
+					zjid : getCookie("zjid")
 				},
 				fit : true,
 				pagination : true,
@@ -225,7 +225,6 @@
 					width : 950,
 					height : 700,
 					href : '${pageContext.request.contextPath}/admin/xjgl/xjglEdit.jsp',
-					modal : true,
 					align : 'center',
 					title : '修改小节',
 					buttons : [ {
@@ -234,15 +233,8 @@
 							$('#admin_xjgl_xjglEdit_editForm').form('submit', {
 								url : '${pageContext.request.contextPath}/sectionController/edit.action',
 								success : function(data) {
-									var obj = jQuery.parseJSON(data);
-									if (obj.success) {
-										d.dialog('destroy');
-										$('#admin_xjgl_xjgl_datagrid').datagrid('load');
-										/*$('#admin_xjgl_xjgl_datagrid').datagrid('updateRow', {
-											index : $('#admin_xjgl_xjgl_datagrid').datagrid('getRowIndex', rows[0]),
-											row : obj.obj
-										});*/
-									}
+									d.dialog('destroy');
+									$('#admin_xjgl_xjgl_datagrid').datagrid('load');
 
 									$.messager.show({
 										title : '提示',
@@ -318,8 +310,8 @@
 
 			$('#admin_xjgl_xjgl_datagrid').datagrid({
 				url : '${pageContext.request.contextPath}/sectionController/vaguedatagrid.action',
-				queryParams: {
-					zjid: getCookie("zjid")
+				queryParams : {
+					zjid : getCookie("zjid")
 				},
 				fit : true,
 				pagination : true,
@@ -410,7 +402,7 @@
 
 	</div>
 
-	<div id="admin_xjgl_xjgl_addDialog" class="easyui-dialog" data-options="closed:true,modal:true,title:'添加章节',buttons:[{
+	<div id="admin_xjgl_xjgl_addDialog" class="easyui-dialog" data-options="closed:true,title:'添加章节',buttons:[{
 					text : '添加',
 					iconCls : 'icon-add',
 					handler : function() {
@@ -418,27 +410,20 @@
 						$('#admin_xjgl_xjgl_addForm').form('submit',{
 							url : '${pageContext.request.contextPath}/sectionController/add.action',					
 							success : function(data) {
-								var obj = jQuery.parseJSON(data);
-								if (obj.success) {
-									$('#admin_xjgl_xjgl_datagrid').datagrid('load');
-									/*$('#admin_xjgl_xjgl_datagrid').datagrid('appendRow',obj.obj);*/
-									/*$('#admin_xjgl_xjgl_datagrid').datagrid('insertRow',{
-										index: 0,
-										row:obj.obj
-									});*/
-									$('#admin_xjgl_xjgl_addDialog').dialog('close');
-								}
+								$('#admin_xjgl_xjgl_datagrid').datagrid('load');
+								$('#admin_xjgl_xjgl_addDialog').dialog('close');
+								
 								$.messager.show({
 									title : '提示',
-									msg : obj.msg,
+									msg : obj.msg+obj.success,
 								});
 							}
 					});
 					}}]" style="width: 950px; height: 750px;" align="center">
 		<form id="admin_xjgl_xjgl_addForm" method="post">
-			<table>  
-			     <tr>
-					<td><input name="zjid" id = "zjid" type="hidden" value=""/></td>
+			<table>
+				<tr>
+					<td><input name="zjid" id="zjid" type="hidden" value="" /></td>
 				</tr>
 				<tr>
 					<th>小节名称</th>
@@ -450,19 +435,20 @@
     </textarea> <script type="text/javascript">
 					var ue = UE.getEditor("context");
 				</script></td>
-				</tr>	
+				</tr>
 				<tr>
 					<th>编号</th>
-					<td>第<input name="code" class="easyui-numberspinner" style="width:60px;"  data-options="min:1,max:120,editable:true">小节
+					<td>第<input name="code" class="easyui-numberspinner" style="width: 60px;" data-options="min:1,max:120,editable:true">小节
 					</td>
-				</tr>	
+				</tr>
 				<tr>
 					<th>作者</th>
 					<td><input name="uploader" class="easyui-validatebox" data-options="required:true" /></td>
-				</tr>		
+				</tr>
 				<tr>
 					<th>时长</th>
-					<td>共<input name="minutes" class="easyui-numberspinner" style="width: 60px;" required="required" data-options="min:1,max:120,editable:true">(分钟)</td>
+					<td>共<input name="minutes" class="easyui-numberspinner" style="width: 60px;" required="required" data-options="min:1,max:120,editable:true">(分钟)
+					</td>
 				</tr>
 			</table>
 		</form>

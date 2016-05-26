@@ -46,28 +46,28 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	</filter>
 
 	<!-- 缓存、gzip压缩核心过滤器 -->
-	<filter>
+<!-- 	<filter>
 		<filter-name>PageEhCacheFilter</filter-name>
 		<filter-class>com.paly.filter.PageEhCacheFilter</filter-class>
 		<init-param>
 			<param-name>patterns</param-name>
-			<!-- 配置你需要缓存的url -->
+			配置你需要缓存的url
 			<param-value>client_study</param-value>
 		</init-param>
 	</filter>
-
+ -->
 	<filter-mapping>
 		<filter-name>CharacterEncodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	<filter-mapping>
+<!-- 	<filter-mapping>
 		<filter-name>PageEhCacheFilter</filter-name>
 		<url-pattern>*.action</url-pattern>
 	</filter-mapping>
 	<filter-mapping>
 		<filter-name>PageEhCacheFilter</filter-name>
 		<url-pattern>*.jsp</url-pattern>
-	</filter-mapping>
+	</filter-mapping> -->
 
 
 	<!-- Druid,监控数据库,以及WEB访问连接信息 -->
