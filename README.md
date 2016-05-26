@@ -45,5 +45,3 @@ jar包放在ueditor-lib目录下，找出其中的两个jar包，配置好maven�
 	assertEquals(false, page.isHasPreviousPage());
 	assertEquals(true, page.isHasNextPage());
 	
-## 初始化权限数据
-	执行install.bat或者install.sh

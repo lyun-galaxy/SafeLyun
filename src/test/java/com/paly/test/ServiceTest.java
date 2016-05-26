@@ -153,6 +153,7 @@ public class ServiceTest {
 			itempool.setD("D.都可以");
 			itempool.setItempoolCorrect("A");
 			itempool.setItempoolChecked(true);
+			itempool.setUploader("123");
 			itempoolService.save(itempool);
 		}
 	}
@@ -233,12 +234,12 @@ public class ServiceTest {
 
 	@Test
 	public void saveAdminRoleMenu() {
-		Menu menu, menu1, menu2, menu3,menu4;
+		Menu menu, menu1, menu2, menu3, menu4;
 		menu = new Menu();
 		menu.setMenuId(1);
 		menu.setMenuName("学生信息");
 		menu.setMenuUrl("/admin/xsgl/xsgl.jsp");
-		
+
 		menu1 = new Menu();
 		menu1.setMenuId(2);
 		menu1.setMenuName("章节管理");
@@ -253,55 +254,52 @@ public class ServiceTest {
 		menu3.setMenuId(4);
 		menu3.setMenuName("报表查看");
 		menu3.setMenuUrl("/admin/bbgl/bbgl.jsp");
-		
+
 		menu4 = new Menu();
 		menu4.setMenuId(5);
 		menu4.setMenuName("应用监控");
 		menu4.setMenuUrl("/admin/yyjk/yyjk.jsp");
 
-		
-		
 		menuService.save(menu);
 		menuService.save(menu1);
 		menuService.save(menu2);
 		menuService.save(menu3);
 		menuService.save(menu4);
-		
-		//章节管理
-		Menu chapter1 = new Menu("chapterManager", "/chapter", menu1);
+
+		// 章节管理
+		Menu chapter1 = new Menu("chapterManager", "/chapter", menu2);
 		chapter1.setMenuId(6);
-		Menu chapter2 = new Menu("sectionController", "/sectionController", menu1);
+		Menu chapter2 = new Menu("sectionController", "/sectionController", menu2);
 		chapter2.setMenuId(7);
 		menuService.save(chapter1);
 		menuService.save(chapter2);
-		
-		//题库管理
-		Menu questionbank = new Menu("questionbankManager", "/questionbank", menu2);
+
+		// 题库管理
+		Menu questionbank = new Menu("questionbankManager", "/questionbank", menu1);
 		questionbank.setMenuId(8);
 		menuService.save(questionbank);
-		
-		//报表查看
+
+		// 报表查看
 		Menu report = new Menu("reportManager", "/report", menu3);
 		report.setMenuId(9);
 		menuService.save(report);
 		Menu report2 = new Menu("reportPrintManager", "/reportPrint", menu3);
 		report2.setMenuId(10);
 		menuService.save(report2);
-		
-		//学生信息
+
+		// 学生信息
 		Menu adminuser = new Menu("adminuserManager", "/adminuser", menu);
 		adminuser.setMenuId(11);
 		Menu switchController = new Menu("switchController", "/switchController", menu);
 		switchController.setMenuId(12);
 		menuService.save(adminuser);
 		menuService.save(switchController);
-		
-		//应用监控
-		Menu applicationMonitoring = new Menu("applicationMonitoring","/druid",menu4);
+
+		// 应用监控
+		Menu applicationMonitoring = new Menu("applicationMonitoring", "/druid", menu4);
 		applicationMonitoring.setMenuId(13);
 		menuService.save(applicationMonitoring);
-		
-		
+
 		Role role = new Role();
 		role.setRoleName(Common.ROLE_NAME_ADMINISTRATORS);
 		role.setRoleId(1);
@@ -309,7 +307,7 @@ public class ServiceTest {
 		Role role2 = new Role();
 		role2.setRoleId(2);
 		role2.setRoleName(Common.ROLE_NAME_INSTRUCTOR);
-		
+
 		Role role3 = new Role();
 		role3.setRoleName("运维管理员");
 		role3.setRoleId(3);
@@ -317,20 +315,21 @@ public class ServiceTest {
 		roleService.save(role);
 		roleService.save(role2);
 		roleService.save(role3);
-		
-		//设置普通管理员的角色
+
+		// 设置普通管理员的角色
 		roleService.setRoleHasMenu(role.getRoleId(), menu.getMenuId());
 		roleService.setRoleHasMenu(role.getRoleId(), menu1.getMenuId());
 		roleService.setRoleHasMenu(role.getRoleId(), menu2.getMenuId());
 		roleService.setRoleHasMenu(role.getRoleId(), menu3.getMenuId());
 		roleService.setRoleHasMenu(role.getRoleId(), chapter1.getMenuId());
 		roleService.setRoleHasMenu(role.getRoleId(), chapter2.getMenuId());
+		roleService.setRoleHasMenu(role.getRoleId(), questionbank.getMenuId());
 		roleService.setRoleHasMenu(role.getRoleId(), adminuser.getMenuId());
 		roleService.setRoleHasMenu(role.getRoleId(), switchController.getMenuId());
 		roleService.setRoleHasMenu(role.getRoleId(), report.getMenuId());
 		roleService.setRoleHasMenu(role.getRoleId(), report2.getMenuId());
-		
-		//设置运维管理员
+
+		// 设置运维管理员
 		roleService.setRoleHasMenu(role3.getRoleId(), menu.getMenuId());
 		roleService.setRoleHasMenu(role3.getRoleId(), menu1.getMenuId());
 		roleService.setRoleHasMenu(role3.getRoleId(), menu2.getMenuId());
@@ -339,6 +338,7 @@ public class ServiceTest {
 		roleService.setRoleHasMenu(role3.getRoleId(), chapter1.getMenuId());
 		roleService.setRoleHasMenu(role3.getRoleId(), chapter2.getMenuId());
 		roleService.setRoleHasMenu(role3.getRoleId(), adminuser.getMenuId());
+		roleService.setRoleHasMenu(role3.getRoleId(), questionbank.getMenuId());
 		roleService.setRoleHasMenu(role3.getRoleId(), switchController.getMenuId());
 		roleService.setRoleHasMenu(role3.getRoleId(), report.getMenuId());
 		roleService.setRoleHasMenu(role3.getRoleId(), report2.getMenuId());
@@ -377,7 +377,6 @@ public class ServiceTest {
 		for (Classes c : classes) {
 			userService.setUserHasClasses(admin3.getUserId(), c.getClassesId());
 		}
-
 	}
 	
 	@Test
