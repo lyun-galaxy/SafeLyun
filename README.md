@@ -45,3 +45,5 @@ jar包放在ueditor-lib目录下，找出其中的两个jar包，配置好maven�
 	assertEquals(false, page.isHasPreviousPage());
 	assertEquals(true, page.isHasNextPage());
 	
+##数据字典和权限数据
+sqlscript下的datadic_privilege.sql

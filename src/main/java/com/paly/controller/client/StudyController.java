@@ -193,7 +193,7 @@ public class StudyController {
 	private boolean isLearningFinish(Subsection studySubsection, HttpSession session) {
 		// 当前时间
 		long currentTime = System.currentTimeMillis();
-		long startStudyTime = (long) session.getAttribute("startStudyTime");
+		long startStudyTime = (Long) session.getAttribute("startStudyTime");
 		// 计算时间差 分钟
 		long differenceTime = (currentTime - startStudyTime) / (1000 * 60);
 

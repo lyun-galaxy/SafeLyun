@@ -24,4 +24,11 @@ public interface DatadicGroupsMapper extends BaseMapper<DatadicGroups> {
 	 * @exception org.apache.ibatis.exceptions.PersistenceException
 	 */
 	void batchAddItemsOfGroup(DatadicGroups itemsOfGroup);
+	
+	/**
+	 * 通过数据字典项分组编码获取
+	 * @param groupCode 数据字典项分组编码
+	 * @return 数据字典项分组
+	 */
+	DatadicGroups selectByPrimaryKey(String groupCode);
 }

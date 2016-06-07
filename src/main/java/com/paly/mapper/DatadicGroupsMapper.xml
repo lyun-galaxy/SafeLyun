@@ -6,13 +6,17 @@
     <result column="group_name" property="groupName" jdbcType="VARCHAR" />
     <collection property="items" ofType="DatadicItems" select="com.paly.mapper.DatadicItemsMapper.getByGroupCode" column="group_code"/>
   </resultMap>
+  <parameterMap type="com.paly.domain.DatadicGroups" id="groupParameterMap">  
+        <parameter property="groupCode" />  
+        <parameter property="groupName"/>  
+    </parameterMap>  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from datadic_groups
     where group_code = #{groupCode,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.paly.domain.DatadicGroups" >
+  <insert id="insert" parameterMap="groupParameterMap" parameterType="com.paly.domain.DatadicGroups" >
     insert into datadic_groups (group_code, group_name)
-    values (#{groupCode,jdbcType=VARCHAR}, #{groupName,jdbcType=VARCHAR})
+    values (?,?)
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.paly.domain.DatadicGroups" >
     update datadic_groups
@@ -30,7 +34,7 @@
   </select>
   
   <!-- 根据数据字典项编码查找与其关联的分组信息 -->
-  <select id="getByItemCode" resultMap="BaseResultMap" parameterType="int">
+  <select id="getByItemCode" resultMap="BaseResultMap" parameterType="java.lang.String">
   	select g.* from datadic_groups g
   		left join datadic_items i on i.item_code=#{itemCode}
   </select>

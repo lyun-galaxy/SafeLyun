@@ -54,13 +54,7 @@ public class PrivilegeInterceptor implements HandlerInterceptor {
 				}
 				Set<String> urls = menuService.getMenuListByUser(user);
 				for(String menuUrl : urls){
-					System.out.println(menuUrl+"--------"+url);
 					if (url.contains(menuUrl)) {
-						Cookie[] cookies = request.getCookies(); 
-						for (Cookie cookie : cookies) {
-								System.out.println("cookie:" + cookie.getValue());
-						}
-						System.out.println("=------------");
 						return true;
 					}
 				}

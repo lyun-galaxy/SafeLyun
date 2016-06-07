@@ -1346,7 +1346,7 @@ public static String getQQString( String strvalue ) {
 	/* 返回existString中的每个字串不在allString中的 */
 	public String getNoExistString(String[] allString, String existString){
 		existString = existString + ",";
-		if(allString==null&&allString.length==0){
+		if(allString==null || allString.length==0){
 			return "";
 		}
 		StringBuffer sBuf = new StringBuffer();

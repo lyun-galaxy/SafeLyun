@@ -70,7 +70,7 @@ public class AdminQuestionServiceImpl extends BaseServiceImpl<Itempool>
 				String b = values.get(i).get(2).toString();
 				String c = values.get(i).get(3).toString();
 				String d = values.get(i).get(4).toString();
-				String anser = values.get(i).get(5).toString();
+				String anser = values.get(i).get(5).toString().trim();
 				String uploader = values.get(i).get(6).toString();
 				itempool.setItempoolQuestion(title);
 				itempool.setA(a);

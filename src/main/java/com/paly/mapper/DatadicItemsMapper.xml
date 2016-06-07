@@ -6,6 +6,10 @@
     <result column="item_name" property="itemName" jdbcType="VARCHAR" />
     <association property="datadicGroup" javaType="DatadicGroups" select="com.paly.mapper.DatadicGroupsMapper.getByItemCode" column="item_code"/>
   </resultMap>
+ <!--  <parameterMap type="com.paly.domain.DatadicItems" id="itemParameterMap">  
+        <parameter property="itemCode" />  
+        <parameter property="itemName" />  
+    </parameterMap>   -->
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from datadic_items
     where item_code = #{itemCode,jdbcType=VARCHAR}

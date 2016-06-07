@@ -35,4 +35,8 @@ public class DatadicGroupsServiceImpl extends BaseServiceImpl<DatadicGroups> imp
 		return datadicGroupsMapper;
 	}
 
+	@Override
+	public DatadicGroups selectByPrimaryKey(String groupCode) {
+		return datadicGroupsMapper.selectByPrimaryKey(groupCode);
+	}
 }
