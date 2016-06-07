@@ -62,7 +62,7 @@ public class PrivilegeInterceptor implements HandlerInterceptor {
 				return false;
 			} else {
 				// 如果该用户是学生 不能访问后台
-				if (matchesManagerUrl(url)) {
+				if (matchesManagerUrl(url) || url.matches(".*(manager_home).*")) {
 					request.getRequestDispatcher("/WEB-INF/jsp/public/noPrivilegeError.jsp").forward(request, response);
 					return false;
 				}

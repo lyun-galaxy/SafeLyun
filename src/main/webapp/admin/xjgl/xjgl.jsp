@@ -222,8 +222,8 @@
 			var rows = $('#admin_xjgl_xjgl_datagrid').datagrid('getChecked');
 			if (rows.length == 1) {
 				var d = $('<div/>').dialog({
-					width : 950,
-					height : 700,
+					width : 700,
+					height : 550,
 					href : '${pageContext.request.contextPath}/admin/xjgl/xjglEdit.jsp',
 					align : 'center',
 					title : '修改小节',
@@ -419,7 +419,7 @@
 								});
 							}
 					});
-					}}]" style="width: 950px; height: 750px;" align="center">
+					}}]" style="width: 55%; height: 80%;" align="center">
 		<form id="admin_xjgl_xjgl_addForm" method="post">
 			<table>
 				<tr>

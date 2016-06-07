@@ -34,11 +34,19 @@ $(document).ready(function(){
 		    	 $.each(data.choiceList,function(i,item){
 		    		 //choiceList.push(i+"");
 		    		  html +='<strong>[&nbsp;'+(i+1)+'&nbsp;]&nbsp;'+item.itempoolQuestion+'</strong><br/><br/>';
-		    		 html +='<label class="radio"> <input type="radio" name="choiceList['+i+'].itempoolCorrect"  value="A"/>'+item.a+'</label>';
-		    		 html +='<label class="radio"> <input type="radio" name="choiceList['+i+'].itempoolCorrect" value="B"/>'+item.b+'</label>';
-		    		 html +='<label class="radio"> <input type="radio" name="choiceList['+i+'].itempoolCorrect" value="C"/>'+item.c+'</label>';
-		    		 html +='<label class="radio"> <input type="radio" name="choiceList['+i+'].itempoolCorrect" value="D"/>'+item.d+'</label>';
-			     });
+		    		 if(item.a.length > 0){ 
+		    		 	html +='<label class="radio"> <input type="radio" name="choiceList['+i+'].itempoolCorrect"  value="A"/>'+item.a+'</label>';
+		    		 }
+		    		 if(item.b.length > 0){
+		    		 	html +='<label class="radio"> <input type="radio" name="choiceList['+i+'].itempoolCorrect" value="B"/>'+item.b+'</label>';
+		    		 }
+		    		 if(item.c.length > 0){
+		    		 	html +='<label class="radio"> <input type="radio" name="choiceList['+i+'].itempoolCorrect" value="C"/>'+item.c+'</label>';
+		    		 }
+		    		 if(item.d.length > 0){
+		    		 	html +='<label class="radio"> <input type="radio" name="choiceList['+i+'].itempoolCorrect" value="D"/>'+item.d+'</label>';
+		    		 }
+		    	});
 		    	 $("#exam").append(html);
 	    	 }else if(data.status == 0){
 	    		 html +="<div class='bg'><div class='cont'><div class='c1'><img src='/SafeLyun/images/01.png' class='img1' /></div><h2>哎呀…现在不是考试时间</h2></div></div>";
@@ -86,10 +94,10 @@ $(document).ready(function(){
 	<div class="data_list">
 		<div class="data_info">
 			<p>
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;考试时间：<strong>20分钟</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				计时：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font id="useTime"
-					style="font-weight: bold;"></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				剩余时间：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font id="remainTime"
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;考试时间：<strong>20分钟</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				计时：&nbsp;&nbsp;&nbsp;&nbsp;<font id="useTime"
+					style="font-weight: bold;"></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				剩余时间：&nbsp;&nbsp;&nbsp;&nbsp;<font id="remainTime"
 					style="font-weight: bold;"></font>
 			</p>
 			<hr />

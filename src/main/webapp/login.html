@@ -23,7 +23,7 @@
 		var password = $("#password").val();
 		$.ajax({
 			type:"post",
-			url:"client_login/login.action",
+			url:"/SafeLyun/client_login/login.action",
 			data:{userName : username,
 				userPassword : password},
 			dataType:"json",
