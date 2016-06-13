@@ -29,6 +29,13 @@ public interface SubsectionService extends BaseService<Subsection> {
 	 * @return 返回指定学习进度的子章节信息
 	 */
 	Subsection getByStudyscheduleId(int studyscheduleId);
+	
+	/**
+	 * 获取通过审核的子章节数目
+	 * 
+	 * @return 返回通过审核的子章节数目
+	 */
+	int getIsCheckedCount();
 
 	/**
 	 * 获取某个章节下面的第一个小节

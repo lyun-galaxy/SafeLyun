@@ -86,6 +86,7 @@ public class ServiceTest {
 		section.setSectionId(1);
 		section.setSectionName("aaa");
 		section.setSectionCode(1);
+		section.setSectionUploader("aaa");
 		section.setSectionChecked(true);
 
 		Section section2 = new Section();
@@ -93,13 +94,15 @@ public class ServiceTest {
 		section2.setSectionId(2);
 		section2.setSectionName("bbb");
 		section2.setSectionCode(2);
+		section2.setSectionUploader("bbb");
 		section2.setSectionChecked(true);
 
 		Section section3 = new Section();
 		section3.setSectionChecked(false);
 		section3.setSectionId(3);
+		section3.setSectionUploader("aaa");
 		section3.setSectionName("ccc");
-		section2.setSectionCode(3);
+		section3.setSectionCode(3);
 		section3.setSectionChecked(true);
 
 		sectionService.save(section);
@@ -137,6 +140,7 @@ public class ServiceTest {
 			subsection.setSubsectionName("ccc" + i);
 			subsection.setSubsectionTime(20);
 			subsection.setSubsectionCode(i);
+			subsection.setSubsectionUploader("aaa");
 			subsection.setSubsectionChecked(true);
 			subsectionService.save(subsection);
 		}

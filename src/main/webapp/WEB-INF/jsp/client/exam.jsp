@@ -3,6 +3,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<META HTTP-EQUIV="pragma" CONTENT="no-cache"> 
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate"> 
+<META HTTP-EQUIV="expires" CONTENT="0">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link
 	href="${pageContext.request.contextPath}/bootstrap-3.3.5-dist/css/bootstrap.min.css"
@@ -26,25 +29,26 @@ $(document).ready(function(){
 		type:'get',   
 		async : true, //默认为true 异步   
 		dataType:'json',
+		cache:false, 
+	     ifModified :true ,
 	     success:function(data){  
 	    	 var html = '';
 	    	 var check = data.check;
 	    	 console.info(data.status);
 	    	 if(data.status == 1){
 		    	 $.each(data.choiceList,function(i,item){
-		    		 //choiceList.push(i+"");
-		    		  html +='<strong>[&nbsp;'+(i+1)+'&nbsp;]&nbsp;'+item.itempoolQuestion+'</strong><br/><br/>';
+		    		  html +='<br/><strong>[&nbsp;'+(i+1)+'&nbsp;]&nbsp;'+item.itempoolQuestion+'</strong><br/>';
 		    		 if(item.a.length > 0){ 
-		    		 	html +='<label class="radio"> <input type="radio" name="choiceList['+i+'].itempoolCorrect"  value="A"/>'+item.a+'</label>';
+		    		 	html +='&nbsp;&nbsp;&nbsp;<label class="radio">&nbsp;&nbsp;<input type="radio" name="choiceList['+i+'].itempoolCorrect"  value="A"/>'+item.a+'</label>';
 		    		 }
 		    		 if(item.b.length > 0){
-		    		 	html +='<label class="radio"> <input type="radio" name="choiceList['+i+'].itempoolCorrect" value="B"/>'+item.b+'</label>';
+		    		 	html +='&nbsp;&nbsp;&nbsp;<label class="radio">&nbsp;&nbsp;<input type="radio" name="choiceList['+i+'].itempoolCorrect" value="B"/>'+item.b+'</label>';
 		    		 }
 		    		 if(item.c.length > 0){
-		    		 	html +='<label class="radio"> <input type="radio" name="choiceList['+i+'].itempoolCorrect" value="C"/>'+item.c+'</label>';
+		    		 	html +='&nbsp;&nbsp;&nbsp;<label class="radio">&nbsp;&nbsp;<input type="radio" name="choiceList['+i+'].itempoolCorrect" value="C"/>'+item.c+'</label>';
 		    		 }
 		    		 if(item.d.length > 0){
-		    		 	html +='<label class="radio"> <input type="radio" name="choiceList['+i+'].itempoolCorrect" value="D"/>'+item.d+'</label>';
+		    		 	html +='&nbsp;&nbsp;&nbsp;<label class="radio">&nbsp;&nbsp;<input type="radio" name="choiceList['+i+'].itempoolCorrect" value="D"/>'+item.d+'</label>';
 		    		 }
 		    	});
 		    	 $("#exam").append(html);
@@ -57,6 +61,9 @@ $(document).ready(function(){
 	    	 }else if(data.status == 3){
 	    		 html +="<div class='bg'><div class='cont'><div class='c1'><img src='/SafeLyun/images/01.png' class='img1' /></div><h2>哎呀…不好意思！没有补考次数了！！</h2></div></div>";
 	    		 $(".data_list").empty().append(html);
+	    	 }else if(data.status == 4){
+	    		 html +="<div class='bg'><div class='cont'><div class='c1'><img src='/SafeLyun/images/01.png' class='img1' /></div><h2>哎呀…不好意思！未学习完不能考试！！</h2></div></div>";
+	    		 $(".data_list").empty().append(html);
 	    	 }
 	    	 
 	     }
@@ -66,7 +73,7 @@ $(document).ready(function(){
 <title>Insert title here</title>
 
 </head>
-<body onkeydown="keydown()">
+<body onkeydown="keydown()" onbeforeunload="checkLeave()" onunload="unLeave()">
 	<nav class="navbar navbar-fixed-top navbar-inverse">
 	<div class="container">
 		<div class="navbar-header">
@@ -101,7 +108,7 @@ $(document).ready(function(){
 					style="font-weight: bold;"></font>
 			</p>
 			<hr />
-			<p class="examTitle">Java试卷一&nbsp;&nbsp;考试卷</p>
+			<p class="examTitle">龙院安全考试卷</p>
 
 		</div>
 		<div class="container">

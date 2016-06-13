@@ -150,6 +150,10 @@
 					$(".modal-body").empty().append("不好意思！没有补考次数了！！");
 					$("#mymodal").modal("show");
 				}
+				else if(data.status == 4 ) {
+					$(".modal-body").empty().append("不好意思！未学习完不能考试！！");
+					$("#mymodal").modal("show");
+				}
 			},
 			error : function() {
 				$(".modal-body").empty().append("请求超时");

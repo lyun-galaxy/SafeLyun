@@ -16,22 +16,22 @@
 		</tr>
 		<tr>
 			<th>A选项</th>
-			<td><input name="a" class="easyui-validatebox" data-options="required:true" />
+			<td><input name="a" class="easyui-validatebox" />
 			</td>
 		</tr>
 		<tr>
 			<th>B选项</th>
-			<td><input name="b" class="easyui-validatebox" data-options="required:true" />
+			<td><input name="b" class="easyui-validatebox"/>
 			</td>
 		</tr>
 		<tr>
 			<th>C选项</th>
-			<td><input name="c" class="easyui-validatebox" data-options="required:true" />
+			<td><input name="c" class="easyui-validatebox" />
 			</td>
 		</tr>
 		<tr>
 			<th>D选项</th>
-			<td><input name="d" class="easyui-validatebox" data-options="required:true" />
+			<td><input name="d" class="easyui-validatebox"/>
 			</td>
 		</tr>
 		<tr>

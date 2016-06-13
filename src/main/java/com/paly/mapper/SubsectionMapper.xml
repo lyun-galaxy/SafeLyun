@@ -1,96 +1,126 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.paly.mapper.SubsectionMapper" >
-  <resultMap id="BaseResultMap" type="com.paly.domain.Subsection" >
-    <id column="subsectionId" property="subsectionId" jdbcType="INTEGER" />
-    <result column="subsectionName" property="subsectionName" jdbcType="VARCHAR" />
-     <result column="subsectionContent" property="subsectionContent" jdbcType="LONGVARCHAR" />
-    <result column="subsectionTime" property="subsectionTime" jdbcType="INTEGER" />
-    <result column="subsectionChecked" property="subsectionChecked" jdbcType="BIT" />    
-   <result column="subsectionCode" property="subsectionCode" jdbcType="INTEGER" />
-   <result column="subsectionUploader" property="subsectionUploader" jdbcType="VARCHAR" />
-    <association property="section" javaType="Section" select="com.paly.mapper.SectionMapper.getBySubsectionId" column="subsectionId">
-    </association>
-  </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from subsection
-    where subsectionId = #{subsectionId,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.paly.domain.Subsection" >
-    insert into subsection (subsectionId, subsectionName, subsectionTime, 
-      subsectionChecked, subsectionContent,subsectionCode,subsectionUploader, section_sectionId
-      )
-    values (#{subsectionId,jdbcType=INTEGER}, #{subsectionName,jdbcType=VARCHAR}, #{subsectionTime,jdbcType=INTEGER}, 
-      #{subsectionChecked,jdbcType=BIT}, #{subsectionContent,jdbcType=LONGVARCHAR},
-      #{subsectionCode,jdbcType=INTEGER},#{subsectionUploader,jdbcType=VARCHAR}, #{section.sectionId,jdbcType=INTEGER})
-  </insert>
-  <update id="updateByPrimaryKey" parameterType="com.paly.domain.Subsection" >
-    update subsection
-    set subsectionName = #{subsectionName,jdbcType=VARCHAR},
-      subsectionTime = #{subsectionTime,jdbcType=INTEGER},
-      subsectionChecked = #{subsectionChecked,jdbcType=BIT},     
-      subsectionContent = #{subsectionContent,jdbcType=LONGVARCHAR},
-      subsectionCode =  #{subsectionCode,jdbcType=INTEGER},
-      subsectionUploader = #{subsectionUploader,jdbcType=VARCHAR},
-      section_sectionId = #{section.sectionId,jdbcType=INTEGER}
-    where subsectionId = #{subsectionId,jdbcType=INTEGER}
-  </update>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select subsectionId, subsectionName, subsectionTime, subsectionChecked, subsectionCode,
-    subsectionContent,subsectionUploader, section_sectionId
-    from subsection
-    where subsectionId = #{subsectionId,jdbcType=INTEGER}
-  </select>
-  <select id="selectAll" resultMap="BaseResultMap" >
-    select subsectionId, subsectionName, subsectionTime, subsectionChecked,  subsectionCode,
-    subsectionContent,subsectionUploader, section_sectionId
-    from subsection
-  </select>
-  
-  <!-- 根据章节Id获取其下的子章节列表 -->  
-  <select id="getBySectionId" resultMap="BaseResultMap" parameterType="int">
-  	select sub.* from subsection sub where sub.section_sectionId=#{sectionId}  order by sub.subsectionCode
-  </select>
-  
-  <!-- 根据学习进度id获取其关联的子章节 -->
-  <select id="getByStudyscheduleId" resultMap="BaseResultMap" parameterType="int">
-  	select sub.* from subsection sub
-  		join studyschedule study on sub.subsectionId=study.subsection_subsectionId and study.studyscheduleId=#{studyscheduleId}
-  </select>
-  
-  <!-- 查询经过审核的子章节 -->
-  <select id="queryIsChecked" resultMap="BaseResultMap">
-  	select sub.* from subsection sub
-  		where sub.subsectionChecked=1
-  </select>
-  
-  <!-- 查询未经过审核的子章节 -->
-  <select id="queryIsNotChecked" resultMap="BaseResultMap">
-  	select sub.* from subsection sub
-  		where sub.subsectionChecked=0
-  </select>
-  
-  <!-- 章节下未经过审核的子章节列表 -->
-  <select id="queryIsNotCheckedBySecId" resultMap="BaseResultMap" parameterType="int">
-  	select sub.* from subsection sub
-  		join section sec on sub.section_sectionId=sec.sectionId and sec.sectionId=#{sectionId} and sub.subsectionChecked=0
-  </select>
-  
-  <!-- 章节下经过审核的子章节列表 -->
-  <select id="queryIsCheckedBySecId" resultMap="BaseResultMap" parameterType="int">
-  	select sub.* from subsection sub
-  		join section sec on sub.section_sectionId=sec.sectionId and sec.sectionId=#{sectionId} and sub.subsectionChecked=1
-  </select>
-  
-  <!-- 模糊查找章节下的子章节 -->
-  <select id="fuzzySearchSubSection" resultMap="BaseResultMap">
-  		select sub.* from subsection sub
-  		join section sec on sub.section_sectionId=sec.sectionId and sec.sectionId=#{sectionId} and
-        sub.subsectionName like concat(concat('%', #{subsectionName}, '%'))
-  </select>
-  
-  <!-- 根据编号查找子章节 -->
-  <select id="querySubsectionByCode" resultType="Subsection" parameterType="int">
-  	select sub.* from subsection sub where sub.subsectionCode=#{subsectionCode}
-  </select>
+<mapper namespace="com.paly.mapper.SubsectionMapper">
+	<resultMap id="BaseResultMap" type="com.paly.domain.Subsection">
+		<id column="subsectionId" property="subsectionId" jdbcType="INTEGER" />
+		<result column="subsectionName" property="subsectionName"
+			jdbcType="VARCHAR" />
+		<result column="subsectionContent" property="subsectionContent"
+			jdbcType="LONGVARCHAR" />
+		<result column="subsectionTime" property="subsectionTime"
+			jdbcType="INTEGER" />
+		<result column="subsectionChecked" property="subsectionChecked"
+			jdbcType="BIT" />
+		<result column="subsectionCode" property="subsectionCode"
+			jdbcType="INTEGER" />
+		<result column="subsectionUploader" property="subsectionUploader"
+			jdbcType="VARCHAR" />
+		<association property="section" javaType="Section"
+			select="com.paly.mapper.SectionMapper.getBySubsectionId" column="subsectionId">
+		</association>
+	</resultMap>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from subsection
+		where subsectionId = #{subsectionId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.paly.domain.Subsection">
+		insert into subsection (subsectionId, subsectionName, subsectionTime,
+		subsectionChecked,
+		subsectionContent,subsectionCode,subsectionUploader, section_sectionId
+		)
+		values (#{subsectionId,jdbcType=INTEGER},
+		#{subsectionName,jdbcType=VARCHAR},
+		#{subsectionTime,jdbcType=INTEGER},
+		#{subsectionChecked,jdbcType=BIT}, #{subsectionContent,jdbcType=LONGVARCHAR},
+		#{subsectionCode,jdbcType=INTEGER},#{subsectionUploader,jdbcType=VARCHAR},
+		#{section.sectionId,jdbcType=INTEGER})
+	</insert>
+	<update id="updateByPrimaryKey" parameterType="com.paly.domain.Subsection">
+		update subsection
+		set subsectionName = #{subsectionName,jdbcType=VARCHAR},
+		subsectionTime = #{subsectionTime,jdbcType=INTEGER},
+		subsectionChecked = #{subsectionChecked,jdbcType=BIT},
+		subsectionContent = #{subsectionContent,jdbcType=LONGVARCHAR},
+		subsectionCode = #{subsectionCode,jdbcType=INTEGER},
+		subsectionUploader = #{subsectionUploader,jdbcType=VARCHAR},
+		section_sectionId = #{section.sectionId,jdbcType=INTEGER}
+		where subsectionId = #{subsectionId,jdbcType=INTEGER}
+	</update>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select subsectionId, subsectionName, subsectionTime, subsectionChecked,
+		subsectionCode,
+		subsectionContent,subsectionUploader, section_sectionId
+		from subsection
+		where subsectionId = #{subsectionId,jdbcType=INTEGER}
+	</select>
+	<select id="selectAll" resultMap="BaseResultMap">
+		select subsectionId, subsectionName, subsectionTime, subsectionChecked,
+		subsectionCode,
+		subsectionContent,subsectionUploader, section_sectionId
+		from subsection
+	</select>
+
+	<!-- 根据章节Id获取其下的子章节列表 -->
+	<select id="getBySectionId" resultMap="BaseResultMap"
+		parameterType="int">
+		select sub.* from subsection sub where sub.section_sectionId=#{sectionId}
+		order by sub.subsectionCode
+	</select>
+
+	<!-- 根据学习进度id获取其关联的子章节 -->
+	<select id="getByStudyscheduleId" resultMap="BaseResultMap"
+		parameterType="int">
+		select sub.* from subsection sub
+		join studyschedule study on sub.subsectionId=study.subsection_subsectionId
+		and study.studyscheduleId=#{studyscheduleId}
+	</select>
+
+	<!-- 获取通过审核的子章节数目 -->
+	<select id="getIsCheckedCount" resultType="int">
+		select count(*) from subsection sub
+		where sub.subsectionChecked=1
+	</select>
+
+	<!-- 查询经过审核的子章节 -->
+	<select id="queryIsChecked" resultMap="BaseResultMap">
+		select sub.* from subsection sub
+		where sub.subsectionChecked=1
+	</select>
+
+	<!-- 查询未经过审核的子章节 -->
+	<select id="queryIsNotChecked" resultMap="BaseResultMap">
+		select sub.* from subsection sub
+		where sub.subsectionChecked=0
+	</select>
+
+	<!-- 章节下未经过审核的子章节列表 -->
+	<select id="queryIsNotCheckedBySecId" resultMap="BaseResultMap"
+		parameterType="int">
+		select sub.* from subsection sub
+		join section sec on sub.section_sectionId=sec.sectionId and
+		sec.sectionId=#{sectionId} and sub.subsectionChecked=0
+	</select>
+
+	<!-- 章节下经过审核的子章节列表 -->
+	<select id="queryIsCheckedBySecId" resultMap="BaseResultMap"
+		parameterType="int">
+		select sub.* from subsection sub
+		join section sec on sub.section_sectionId=sec.sectionId and
+		sec.sectionId=#{sectionId} and sub.subsectionChecked=1
+	</select>
+
+	<!-- 模糊查找章节下的子章节 -->
+	<select id="fuzzySearchSubSection" resultMap="BaseResultMap">
+		select sub.* from subsection sub
+		join section sec on sub.section_sectionId=sec.sectionId and
+		sec.sectionId=#{sectionId} and
+		sub.subsectionName like concat(concat('%', #{subsectionName}, '%'))
+	</select>
+
+	<!-- 根据编号查找子章节 -->
+	<select id="querySubsectionByCode" resultType="Subsection"
+		parameterType="int">
+		select sub.* from subsection sub where sub.subsectionCode=#{subsectionCode}
+	</select>
 </mapper>

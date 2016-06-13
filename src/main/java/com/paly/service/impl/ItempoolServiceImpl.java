@@ -13,12 +13,15 @@ import com.paly.domain.Examswitch;
 import com.paly.domain.Itempool;
 import com.paly.domain.Score;
 import com.paly.domain.Student;
+import com.paly.domain.Studyschedule;
 import com.paly.domain.User;
 import com.paly.mapper.BaseMapper;
 import com.paly.mapper.ItempoolMapper;
 import com.paly.service.ExamswitchService;
 import com.paly.service.ItempoolService;
 import com.paly.service.StudentService;
+import com.paly.service.StudyscheduleService;
+import com.paly.service.SubsectionService;
 
 /**
  * 题库Service接口实现
@@ -35,6 +38,11 @@ public class ItempoolServiceImpl extends BaseServiceImpl<Itempool> implements It
 	private ExamswitchService examswitchService;
 	@Resource
 	private StudentService studentService;
+	@Resource
+	private StudyscheduleService studyscheduleService;
+	@Resource
+	private SubsectionService subsectionService;
+
 	@Override
 	public BaseMapper<Itempool> getBaseMapper() {
 		return itempoolMapper;
@@ -51,27 +59,38 @@ public class ItempoolServiceImpl extends BaseServiceImpl<Itempool> implements It
 		}
 		return result;
 	}
+
 	/**
 	 * 判断用户是否可以考试
-	 * @param user 用户
-	 * @return 状态：1 可以考试  ，0 不是考试时间 ，2考试已经通过 ，3补考次数已用完
+	 * 
+	 * @param user
+	 *            用户
+	 * @return 状态：1 可以考试 ，0 不是考试时间 ，2考试已经通过 ，3补考次数已用完,4未学习完不能考试
 	 */
-	public int isCanExamByUser(User user){
+	public int isCanExamByUser(User user) {
 		Examswitch examswitch = examswitchService.getExamswitch();
 		int status = 0;
 		if (examswitch != null && examswitch.getSwitchOnOrOff()) {
 			Student student = studentService.selectByStudentNumber(user.getUserName());
 			if (student != null) {
-				//用户为学生才能考试
+				// 用户为学生才能考试
 				Score score = student.getScore();
-				if(score.getScoreMark() >=60){
+				// 获取学生学习进度
+				Studyschedule studyschedule = studyscheduleService.getByStudentId(student.getStudentId());
+				int num = 0;
+				if (studyschedule != null)
+					num = studyschedule.getStudyscheduleHasNum();
+				int total = subsectionService.getIsCheckedCount();
+				if (num ==0 || num != total) {
+					status = 4;
+					return status;
+				}
+				if (score.getScoreMark() >= 60) {
 					status = 2;
-				}
-				else if(score.getScoreMakeupNum() >=3){
+				} else if (score.getScoreMakeupNum() >= 3) {
 					status = 3;
-				}
-				else{
-					//只有考试分数小于60，补考次数小于等于3次(index从0开始)才能考试
+				} else {
+					// 只有考试分数小于60，补考次数小于等于3次(index从0开始)才能考试
 					status = 1;
 				}
 			}

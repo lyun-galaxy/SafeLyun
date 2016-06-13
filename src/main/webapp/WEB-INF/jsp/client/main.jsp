@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="zh-CN">
 <head>
@@ -30,12 +30,14 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-2 " style="margin-top: 20px; margin-bottom: 20px">
-				<img alt="" src="${pageContext.request.contextPath}/images/123.jpg" width="64px" height="64px">
+				<img alt="" src="${pageContext.request.contextPath}/images/123.jpg"
+					width="64px" height="64px">
 			</div>
 			<div class="col-md-2 col-md-offset-8"
 				style="margin-top: 20px; margin-bottom: 20px">
 				<p>欢迎，${student.studentName }同学</p>
-				<a href="${pageContext.request.contextPath}/client_login/logout.action">注销</a>
+				<a
+					href="${pageContext.request.contextPath}/client_login/logout.action">注销</a>
 			</div>
 		</div>
 	</div>
@@ -50,11 +52,14 @@
 				</ol>
 				<div class="carousel-inner" role="listbox">
 					<div class="item active">
-						<img class="first-slide" src="${pageContext.request.contextPath}/images/1.jpg" alt="First slide">
+						<img class="first-slide"
+							src="${pageContext.request.contextPath}/images/1.jpg"
+							alt="First slide">
 						<div class="container">
 							<div class="carousel-caption">
 								<h1>
-									<img alt="" src="${pageContext.request.contextPath}/images/title.png">
+									<img alt=""
+										src="${pageContext.request.contextPath}/images/title.png">
 								</h1>
 								<p>该系统专门为学生提供在线学习，在线考试等功能。</p>
 								<p>
@@ -65,11 +70,14 @@
 						</div>
 					</div>
 					<div class="item">
-						<img class="second-slide" src="${pageContext.request.contextPath}/images/2.jpg" alt="Second slide">
+						<img class="second-slide"
+							src="${pageContext.request.contextPath}/images/2.jpg"
+							alt="Second slide">
 						<div class="container">
 							<div class="carousel-caption">
 								<h1>
-									<img alt="" src="${pageContext.request.contextPath}/images/title.png">
+									<img alt=""
+										src="${pageContext.request.contextPath}/images/title.png">
 								</h1>
 								<p>该系统专门为学生提供在线学习，在线考试等功能。</p>
 								<p>
@@ -80,11 +88,14 @@
 						</div>
 					</div>
 					<div class="item">
-						<img class="third-slide" src="${pageContext.request.contextPath}/images/3.jpg" alt="Third slide">
+						<img class="third-slide"
+							src="${pageContext.request.contextPath}/images/3.jpg"
+							alt="Third slide">
 						<div class="container">
 							<div class="carousel-caption">
 								<h1>
-									<img alt="" src="${pageContext.request.contextPath}/images/title.png">
+									<img alt=""
+										src="${pageContext.request.contextPath}/images/title.png">
 								</h1>
 								<p>该系统专门为学生提供在线学习，在线考试等功能。</p>
 								<p>
@@ -117,7 +128,12 @@
 					</button>
 					<div class="caption">
 						<h3>当前进度</h3>
-						<p>${studyschedule.subsection.subsectionName }</p>
+						<c:if test="${studyschedule == null }">
+							<p>还未开始学习</p>
+						</c:if>
+						<c:if test="${studyschedule != null }">
+							<p>${studyschedule.subsection.subsectionName }</p>
+						</c:if>
 						<p>
 							<button class="button button-3d button-primary button-pill"
 								onclick="study()">开始学习</button>
@@ -137,10 +153,10 @@
 					<div class="caption">
 						<h3>考试系统</h3>
 						<c:if test="${examswitch.switchOnOrOff}">
-						<p>考试系统已开启</p>
+							<p>考试系统已开启</p>
 						</c:if>
 						<c:if test="${!examswitch.switchOnOrOff}">
-						<p>考试系统未开启</p>
+							<p>考试系统未开启</p>
 						</c:if>
 						<p>
 							<button class="button button-3d button-royal button-pill"

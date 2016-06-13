@@ -71,7 +71,7 @@ public class SubsectionServiceImpl extends BaseServiceImpl<Subsection> implement
 			}
 		}
 		if (studyschedule == null) {
-			//获取第一小节
+			// 获取第一小节
 			Subsection subsection = subsectionMapper.querySubsectionByCode(1);
 			studyschedule = new Studyschedule(0, subsection, student);
 			studyscheduleMapper.insert(studyschedule);
@@ -105,5 +105,10 @@ public class SubsectionServiceImpl extends BaseServiceImpl<Subsection> implement
 	@Override
 	public List<Subsection> queryIsCheckedBySecId(int sectionId) {
 		return subsectionMapper.queryIsCheckedBySecId(sectionId);
+	}
+
+	@Override
+	public int getIsCheckedCount() {
+		return subsectionMapper.getIsCheckedCount();
 	}
 }

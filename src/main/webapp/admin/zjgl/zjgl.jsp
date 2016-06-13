@@ -249,7 +249,7 @@
 						}
 					} ],
 					onClose : function() {
-						$(this).dailog('destroy');
+						$(this).dialog('destroy');
 					},
 					onLoad : function() {
 						$('#admin_zjgl_zjglEdit_editForm').form('load', rows[0]);

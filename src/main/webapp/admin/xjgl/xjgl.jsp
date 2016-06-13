@@ -245,7 +245,7 @@
 						}
 					} ],
 					onClose : function() {
-						$(this).dailog('destroy');
+						$(this).dialog('destroy');
 					},
 					onLoad : function() {
 						$('#admin_xjgl_xjglEdit_editForm').form('load', rows[0]);

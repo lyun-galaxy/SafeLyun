@@ -62,3 +62,9 @@ var examTime=1*60;
 				alert("当前设置不允许使用shift+F10");
 			}
 		}
+		function checkLeave(){
+			event.returnValue = "离开界面后试卷将提交,确定离开当前页面吗？";
+			document.getElementById('myForm').submit();
+		}
+		function unLeave(){
+		}
