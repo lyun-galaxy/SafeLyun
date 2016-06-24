@@ -50,6 +50,7 @@ $(document).ready(function(){
 		    		 if(item.d.length > 0){
 		    		 	html +='&nbsp;&nbsp;&nbsp;<label class="radio">&nbsp;&nbsp;<input type="radio" name="choiceList['+i+'].itempoolCorrect" value="D"/>'+item.d+'</label>';
 		    		 }
+		    		 html +="<br/>";
 		    	});
 		    	 $("#exam").append(html);
 	    	 }else if(data.status == 0){
@@ -73,7 +74,7 @@ $(document).ready(function(){
 <title>Insert title here</title>
 
 </head>
-<body onkeydown="keydown()" onbeforeunload="checkLeave()" onunload="unLeave()">
+<body onkeydown="keydown()">
 	<nav class="navbar navbar-fixed-top navbar-inverse">
 	<div class="container">
 		<div class="navbar-header">
@@ -116,8 +117,9 @@ $(document).ready(function(){
 				<form id="myForm"
 					action="${pageContext.request.contextPath}/client_exam/submitTestPaper.action"
 					method="post">
+					<input type="hidden" name="token" value="${token}" /> 
 					<input type="hidden" name="exam.student.id" value="" /> <input
-						type="hidden" name="exam.paper.id" value="1" /> <strong><big>一，单选题</big></strong>(每题20分，答错不得分)<br />
+						type="hidden" name="exam.paper.id" value="1" /> <strong><big>一，单选题</big></strong>(每题5分，答错不得分)<br />
 					<br />
 					<div id="exam"></div>
 					<button class="btn btn-primary" type="submit">交卷</button>

@@ -12,12 +12,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.paly.controller.BaseController;
-import com.paly.domain.Examswitch;
 import com.paly.domain.Itempool;
 import com.paly.domain.Score;
 import com.paly.domain.Student;
 import com.paly.domain.User;
+import com.paly.interceptor.Token;
 import com.paly.service.ExamswitchService;
 import com.paly.service.ItempoolService;
 import com.paly.service.ScoreService;
@@ -33,7 +32,7 @@ import com.paly.vo.ItempoolCustom;
  */
 @Controller
 @RequestMapping("/client_exam")
-public class ExamController{
+public class ExamController {
 	@Resource
 	private ItempoolService itempoolService;
 	@Resource
@@ -42,6 +41,7 @@ public class ExamController{
 	private ScoreService scoreService;
 	@Resource
 	private ExamswitchService examswitchService;
+
 	/**
 	 * 跳转到考试界面
 	 * 
@@ -59,13 +59,14 @@ public class ExamController{
 	 *            请求头
 	 */
 	@RequestMapping("/getEpaper")
+	@Token(needSaveToken = true)
 	public void getEpaper(HttpServletResponse response, HttpSession session) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		// 判断是否加载试题界面
 		User user = (User) session.getAttribute("user");
-		int status =itempoolService.isCanExamByUser(user);
-		if(status == 1){
-			List<Itempool> choiceList = itempoolService.randomCreateChoiceExams(10);
+		int status = itempoolService.isCanExamByUser(user);
+		if (status == 1) {
+			List<Itempool> choiceList = itempoolService.randomCreateChoiceExams(20);
 			// 将考题存入session域中
 			session.setAttribute("correctexams", choiceList);
 			map.put("choiceList", choiceList);
@@ -73,21 +74,23 @@ public class ExamController{
 		map.put("status", status);
 		MyJSONUtils.writeJson(map, response);
 	}
-	
-	
-	
+
 	/**
 	 * 校验答案
 	 * 
 	 * @return
 	 */
 	@RequestMapping("/submitTestPaper")
+	@Token(needRemoveToken = true)
 	public ModelAndView submitTestPaper(ItempoolCustom itempoolCustom, HttpSession session) {
-		// 统计分数
-		float fration = statistics(itempoolCustom.getChoiceList(), session);
+		List<Itempool> choiceList = itempoolCustom.getChoiceList();
 		ModelAndView modelAndView = new ModelAndView();
-		// 保存学生成绩
-		saveScore(session, fration);
+		if (choiceList != null) {
+			// 统计分数
+			float fration = statistics(choiceList, session);
+			// 保存学生成绩
+			saveScore(session, fration);
+		}
 		// 重定向到成绩界面
 		modelAndView.setViewName("redirect:/client_score/toScoreUI.action");
 		return modelAndView;
@@ -110,7 +113,7 @@ public class ExamController{
 				// 保存学生成绩
 				Score score = student.getScore();
 				int scoreMakeupNum = score.getScoreMakeupNum();
-				score.setScoreMakeupNum(scoreMakeupNum+1);
+				score.setScoreMakeupNum(scoreMakeupNum + 1);
 				score.setScoreMark(fration);
 				score.setStudent(student);
 				scoreService.update(score);
@@ -137,7 +140,7 @@ public class ExamController{
 			Itempool myChoice = myChoices.get(i);
 			if (correct.getItempoolCorrect().equalsIgnoreCase(myChoice.getItempoolCorrect())) {
 				// TODO 每题的分数
-				fration += 10;
+				fration += 5;
 			}
 		}
 		return fration;

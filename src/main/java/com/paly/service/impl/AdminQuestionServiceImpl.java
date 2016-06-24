@@ -33,8 +33,7 @@ import com.paly.service.AdminQuestionService;
  *
  */
 @Service
-public class AdminQuestionServiceImpl extends BaseServiceImpl<Itempool>
-		implements AdminQuestionService {
+public class AdminQuestionServiceImpl extends BaseServiceImpl<Itempool> implements AdminQuestionService {
 
 	@Resource
 	ItempoolMapper itempoolMapper;
@@ -65,13 +64,13 @@ public class AdminQuestionServiceImpl extends BaseServiceImpl<Itempool>
 			}
 
 			for (int i = 0; i < values.size(); i++) {
-				String title = values.get(i).get(0).toString();
-				String a = values.get(i).get(1).toString();
-				String b = values.get(i).get(2).toString();
-				String c = values.get(i).get(3).toString();
-				String d = values.get(i).get(4).toString();
+				String title = values.get(i).get(0).toString().trim();
+				String a = values.get(i).get(1).toString().trim();
+				String b = values.get(i).get(2).toString().trim();
+				String c = values.get(i).get(3).toString().trim();
+				String d = values.get(i).get(4).toString().trim();
 				String anser = values.get(i).get(5).toString().trim();
-				String uploader = values.get(i).get(6).toString();
+				String uploader = values.get(i).get(6).toString().trim();
 				itempool.setItempoolQuestion(title);
 				itempool.setA(a);
 				itempool.setB(b);
@@ -218,8 +217,7 @@ public class AdminQuestionServiceImpl extends BaseServiceImpl<Itempool>
 	public Question edit(Question question) {
 		// TODO Auto-generated method stub
 
-		Itempool itempool = itempoolMapper.selectByPrimaryKey(Integer
-				.valueOf(question.getId()));
+		Itempool itempool = itempoolMapper.selectByPrimaryKey(Integer.valueOf(question.getId()));
 		itempool.setItempoolQuestion(question.getTitle());
 		itempool.setA(question.getA());
 		itempool.setB(question.getB());
