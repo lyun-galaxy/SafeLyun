@@ -38,6 +38,7 @@
 				<p>欢迎，${student.studentName }同学</p>
 				<a
 					href="${pageContext.request.contextPath}/client_login/logout.action">注销</a>
+				<a onclick="show()">修改密码</a>
 			</div>
 		</div>
 	</div>
@@ -191,9 +192,115 @@
 		<p>&copy; 龙岩学院保卫处 & GALAXY团队</p>
 		</footer>
 	</div>
+	<div class="modal fade bs-example-modal-sm" id="mymodal" tabindex="-1"
+		role="dialog" aria-labelledby="mySmallModalLabel">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="gridSystemModalLabel">修改密码</h4>
+				</div>
+				<div class="modal-body">
+					<table>
+						<tr>
+							<td>原密码</td>
+							<td><input id="oldPassword" type="password"
+								class="form-control" placeholder="Password"></td>
+						</tr>
+						<tr>
+							<td>新密码</td>
+							<td><input id="newPassword1" type="password"
+								class="form-control" placeholder="new Password"></td>
+						</tr>
+						<tr>
+							<td>确认密码</td>
+							<td><input id="newPassword2" type="password"
+								class="form-control" placeholder="confirm Password"></td>
+						</tr>
+					</table>
+					<br>
+				</div>
+				<div class="modal-footer">
 
+					<button type="button" onclick="modifyPassword()" class="btn btn-primary" data-dismiss="modal">确定</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="myModal" class="modal fade">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							<h4 class="modal-title">提示</h4>
+						</div>
+						<div class="modal-body">
+							<p id="msg" style="color: red;"></p>
+						</div>
+						<div class="modal-footer">
+							<button type="button" id="ret_hint" style="background-color: #edbc6c;" class="btn btn-default" data-dismiss="modal">Close</button>
+						</div>
+					</div>
+					<!-- /.modal-content -->
+				</div>
+				<!-- /.modal-dialog -->
+			</div>
 </body>
 <script type="text/javascript">
+	function show(){
+		$("#mymodal").modal("show");
+	}
+	function modifyPassword() {
+		$('#mymodal').modal('toggle');
+		var oldPassword = $('#oldPassword').val().replace(/\s/g, "");
+		var newPassword1 = $('#newPassword1').val().replace(/\s/g, "");
+		var newPassword2 = $('#newPassword2').val().replace(/\s/g, "");
+		var success = myAlerts(oldPassword, "请输入原始密码！");
+		if(!success)return;
+		success = myAlerts(newPassword1, "请输入新密码！");
+		if(!success)return;
+		success = myAlerts(newPassword2, "请输入确认密码！");
+		if(!success)return;
+		if(newPassword1!=newPassword2){
+			myAlerts('', "确认密码不一致！");
+			return;
+		}
+		$.ajax({
+			type : "post",
+			url : "${pageContext.request.contextPath}/client_home/modify_password.action",
+			data : {
+				oldPassword : oldPassword,
+				newPassword : newPassword1,
+				reNewPassword : newPassword2
+			},
+			dataType : "json",
+			success : function(data) {
+				myAlerts('',data.msg);
+				$('#oldPassword').val('');
+				$('#newPassword1').val('');
+				$('#newPassword2').val('');
+			},
+			error : function() {
+				myAlerts("", "请求超时!");
+			}
+
+		});
+	}
+	function myAlerts(val, msg) {
+		if(val.length==0){
+			$('#msg').text(msg);
+			$('#myModal').modal({
+				keyboard : true
+			});
+			return false;
+		}
+		return true;
+	}
 	function study() {
 		window.location = "${pageContext.request.contextPath }/client_study/studyUI.action";
 	}
