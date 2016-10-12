@@ -191,36 +191,38 @@ public class AdminReportServiceImpl implements AdminReportService {
 	}
 
 	@Override
-	public List<Score> getClassDateList(String grade, String departmentNameId,String specialtyNameId, String classesNameId) {
+	public List<StudentScore> getClassDateList(String grade, String departmentNameId,String specialtyNameId, String classesNameId) {
 		// TODO Auto-generated method stub
 		String departmentName = datadicItemsMapper.getByGroupCode("0").get(Integer.valueOf(departmentNameId)-1).getItemName();
-		String myProNo = null;
-		if(Integer.valueOf(specialtyNameId) < 100){
-			myProNo = "0" + specialtyNameId;
-		}else{
-			myProNo = specialtyNameId;
-		}
-		String specialtyName = datadicItemsMapper.selectByPrimaryKey(myProNo).getItemName();
-		
-		String myClassesNameId = null;
+		String classesId = null;
 		if(Integer.valueOf(classesNameId) < 1000){
-			myClassesNameId = "0" + classesNameId;
+			classesId = "0" + classesNameId;
 		}else{
-			myClassesNameId = classesNameId;
+			classesId = classesNameId;
 		}
-		String classesName = datadicItemsMapper.selectByPrimaryKey(myClassesNameId).getItemName();
-		
-		List<StudentVo> students = classesMapper.queryClassesReport(grade, departmentName, specialtyName, classesName);
-		StudentVo studentvo = new StudentVo();
-		List<Score> list = new ArrayList<Score>();
-		for (int i = 0; i < students.size(); i++) {
-			studentvo = students.get(i);	
-			Score s = new Score(studentvo.getStudentNumber(),studentvo.getStudentName(), studentvo.getScoreMark());	
-			list.add(s);
-		}	
-		logger.info(studentvo.getStudentNumber()+"******");
-		logger.info(studentvo.getStudentName()+"******");
-		logger.info(studentvo.getScoreMark()+"******");
+		String studentNumber = grade + classesId + "%";
+		List<StudentScore> list = studentMapper.queryScoreByLike(studentNumber);
+//		String specialtyName = datadicItemsMapper.selectByPrimaryKey(myProNo).getItemName();
+//		
+//		String myClassesNameId = null;
+//		if(Integer.valueOf(classesNameId) < 1000){
+//			myClassesNameId = "0" + classesNameId;
+//		}else{
+//			myClassesNameId = classesNameId;
+//		}
+//		String classesName = datadicItemsMapper.selectByPrimaryKey(myClassesNameId).getItemName();
+//		
+//		List<StudentVo> students = classesMapper.queryClassesReport(grade, departmentName, specialtyName, classesName);
+//		StudentVo studentvo = new StudentVo();
+//		List<Score> list = new ArrayList<Score>();
+//		for (int i = 0; i < students.size(); i++) {
+//			studentvo = students.get(i);	
+//			Score s = new Score(studentvo.getStudentNumber(),studentvo.getStudentName(), studentvo.getScoreMark());	
+//			list.add(s);
+//		}	
+//		logger.info(studentvo.getStudentNumber()+"******");
+//		logger.info(studentvo.getStudentName()+"******");
+//		logger.info(studentvo.getScoreMark()+"******");
 		return list;
 	}
 
@@ -280,4 +282,33 @@ public class AdminReportServiceImpl implements AdminReportService {
 		d.setTotal(page.getTotal());
 		return d;
 	}
+
+	@Override
+	public Datagrid getAllStudentByDepart(String grade, String departmentNameId) {
+		// TODO Auto-generated method stub
+		
+//		String studentNumber = grade + depId;
+//		List<StudentVo> students = studentMapper.queryScoreByDepart(studentNumber);
+//		Datagrid datagrid = new Datagrid();
+		
+		
+		return null;
+	}
+
+	@Override
+	public List<StudentScore> getAllSpecial(String grade,
+			String departmentId, String specialtyId, String classesId) {
+        String depId = null;
+        if(Integer.valueOf(departmentId) < 10){
+        	depId = "0" + departmentId;
+        }else{
+        	depId = departmentId;
+        }
+        String studentNumber = grade + depId + "%";
+        List<StudentScore> list = studentMapper.queryScoreByLike(studentNumber);
+		return list;
+	}
+	
+	
+	
 }

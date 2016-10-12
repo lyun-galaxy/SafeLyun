@@ -39,4 +39,6 @@ public interface StudentMapper extends BaseMapper<Student> {
 	 * @return 返回未通过学生的成绩，学号，姓名，专业，班级，院系
 	 */
 	List<StudentScore> queryFailScoreByGrade(String grade);
+	
+	List<StudentScore> queryScoreByLike(String studentNumber);
 }

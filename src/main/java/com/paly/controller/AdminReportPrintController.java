@@ -48,4 +48,16 @@ public class AdminReportPrintController extends BaseController{
 		
         adminReportPrintService.getAllStudentNoPassToPrint(report.getGradeId(), request, response);
 	}
+	
+	@RequestMapping("/reportPrint/printClassStudent.action")
+	public void departmentStudent(Report report,HttpServletResponse response,HttpServletRequest request){
+
+        adminReportPrintService.getClassStudentScoreToPrint(report, request, response);
+	}
+	
+	@RequestMapping("/reportPrint/printDepartStudent.action")
+	public void printDepartStudent(Report report,HttpServletResponse response,HttpServletRequest request){
+
+        adminReportPrintService.getDepartmentStudentScoreToPrint(report, request, response);
+	}
 }

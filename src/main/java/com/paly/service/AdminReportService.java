@@ -8,6 +8,7 @@ import com.paly.pageModel.Grade;
 import com.paly.pageModel.Pro;
 import com.paly.pageModel.Report;
 import com.paly.pageModel.Score;
+import com.paly.vo.StudentScore;
 
 public interface AdminReportService{
 	public List<Grade> getGrade();
@@ -22,9 +23,13 @@ public interface AdminReportService{
 	
 	public List<Report> getProDateList(String grade, String departmentName,String specialtyName);
 	
-	public List<Score> getClassDateList(String grade, String departmentName,String specialtyName, String classesName);
+	public List<StudentScore> getClassDateList(String grade, String departmentName,String specialtyName, String classesName);
+	
+	public List<StudentScore> getAllSpecial(String grade,String departmentId, String specialtyId, String classesId);
 	
 	public Datagrid getAllStudentScore(String grade,Report report);
 	
 	public Datagrid getAllStudentNoPass(String grade,Report report);
+	
+	public Datagrid getAllStudentByDepart(String grade,String departmentNameId);
 }

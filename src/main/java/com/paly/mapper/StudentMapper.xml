@@ -99,4 +99,14 @@
 	where student_studentId=studentId and classes_classesId=classesId and specialty_specialtyId
 	=specialtyId and department_departmentId=departmentId and <![CDATA[scoreMark<60]]> and grade=#{grade} order by studentNumber
   </select>
+  
+ 
+  
+    <select id="queryScoreByLike" resultMap="StudentScoreVO"  parameterType="string">
+  	select scoreMark,studentNumber,studentName,classesName,specialtyName,departmentName
+ 	from score,student,classes,specialty,department	
+	where student_studentId=studentId and classes_classesId=classesId and specialty_specialtyId=specialtyId
+	 and department_departmentId=departmentId and studentNumber like #{studentNumber} order by studentNumber
+  </select>
+  
 </mapper>

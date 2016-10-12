@@ -107,6 +107,84 @@
 
 			}
 		}
+		
+		function admin_bbgl_bbgl_searchAllSpecial() {
+			if ($('#admin_bbgl_bbgl_grade').combobox('getValue') == '') {
+				$.messager.show({
+					title : '提示',
+					msg : '年级不能为空！',
+				});
+			} else if ($('#admin_bbgl_bbgl_depart').combobox('getValue') == '') {
+				$.messager.show({
+					title : '提示',
+					msg : '院系不能为空！',
+				});
+			} else {
+
+				$('#admin_bbgl_bbgl_getClassForm').form('submit', {
+					url : '${pageContext.request.contextPath}/report/allSpecial.action',
+					success : function(datas) {
+						var obj = jQuery.parseJSON(datas);
+						$('#admin_bbgl_bbgl_Datagrid').datagrid({
+							data : obj.rows,
+							fit : true,
+							checkOnSelect : false,
+							selectOnCheck : false,
+							fitColumns : true,
+							rownumbers : true,
+							columns : [ [ {
+								field : 'studentNumber',
+								title : '学号',
+								width : 200,
+								align : 'center',
+							}, {
+								field : 'studentName',
+								title : '姓名',
+								width : 200,
+								align : 'center',
+							}, {
+								field : 'department',
+								title : '院系',
+								width : 200,
+								align : 'center',
+							}, {
+								field : 'specialties',
+								title : '专业',
+								width : 200,
+								align : 'center',
+							}, {
+								field : 'classes',
+								title : '班级',
+								width : 200,
+								align : 'center',
+							},{
+								field : 'score',
+								title : '成绩',
+								width : 150,
+								align : 'center',
+								formatter : function(value, row, index) {
+									if (value < 60) {
+										return '<span style="color:red;">未通过(' + value + ')</span>';
+									} else {
+										return value;
+									}
+								},
+							} ] ],
+							toolbar : [ {
+								text : '导出学生成绩',
+								iconCls : 'icon-redo',
+								handler : function() {
+									var form=$("#admin_bbgl_bbgl_getClassForm");//定义一个form表单
+									form.attr("action","${pageContext.request.contextPath}/reportPrint/printDepartStudent.action");
+									form.submit();//表单提交 
+								}
+							} ]
+						});
+					}
+				});
+
+			}
+		}
 
 		function admin_bbgl_bbgl_searchDepart() {
 			if ($('#admin_bbgl_bbgl_grade').combobox('getValue') == '') {
@@ -212,16 +290,31 @@
 							rownumbers : true,
 							fitColumns : true,
 							columns : [ [ {
-								field : 'no',
+								field : 'studentNumber',
 								title : '学号',
 								width : 200,
 								align : 'center',
 							}, {
-								field : 'name',
+								field : 'studentName',
 								title : '姓名',
 								width : 200,
 								align : 'center',
 							}, {
+								field : 'department',
+								title : '院系',
+								width : 200,
+								align : 'center',
+							}, {
+								field : 'specialties',
+								title : '专业',
+								width : 200,
+								align : 'center',
+							}, {
+								field : 'classes',
+								title : '班级',
+								width : 200,
+								align : 'center',
+							},{
 								field : 'score',
 								title : '成绩',
 								width : 150,
@@ -235,11 +328,12 @@
 								},
 							} ] ],
 							toolbar : [ {
-								text : '打印',
-								iconCls : 'icon-print',
+								text : '导出学生成绩',
+								iconCls : 'icon-redo',
 								handler : function() {
-									var str = $('#admin_bbgl_bbgl_grade').combobox('getValue') + '级' + $('#admin_bbgl_bbgl_class').combobox('getValue') + '安全教育考试报表';
-									CreateFormPage(str, $('#admin_bbgl_bbgl_Datagrid'));
+									var form=$("#admin_bbgl_bbgl_getClassForm");//定义一个form表单
+									form.attr("action","${pageContext.request.contextPath}/reportPrint/printClassStudent.action");
+									form.submit();//表单提交 
 								}
 							} ]
 						});
@@ -261,6 +355,7 @@
 					id="admin_bbgl_bbgl_class" name="classId" style="width: 12%"> <br>
 				<a id="" href="#" class="easyui-linkbutton" onclick="admin_bbgl_bbgl_searchGrade()">查询院系报表</a>
 				<a id="" href="#" class="easyui-linkbutton" onclick="admin_bbgl_bbgl_searchDepart()">查询专业报表</a>
+				<a id="" href="#" class="easyui-linkbutton" onclick="admin_bbgl_bbgl_searchAllSpecial()">查询所有专业报表</a>
 				<a id="" href="#" class="easyui-linkbutton" onclick="admin_bbgl_bbgl_searchClass()">查询班级报表</a>
 			</form>
 

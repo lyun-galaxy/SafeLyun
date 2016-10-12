@@ -23,14 +23,18 @@
 <body class="easyui-layout">
 	<div data-options="region:'north'" style="height: 100px;">
 		<div align="center">
-			<img alt="" src="${pageContext.request.contextPath}/images/admin_title.png">
+			<!--img alt="" src="${pageContext.request.contextPath}/images/admin_title.png"-->
+			<h1 style="font-size:30px">龙岩学院安全在线教育</h1>
+		</div>
+		<div>
+		   <a href="${pageContext.request.contextPath}/client_login/logout.action">退出</a>
 		</div>
 	</div>
 	<div data-options="region:'south'" style="height: 30px;">
-		<div align="center">
-
-			<p>&copy; 龙岩学院保卫处 & GALAXY团队</p>
+		<div align="center" style="padding-right: 5px;padding-bottom: 5px">
+			<p>&copy; 龙岩学院安全工作处 & GALAXY团队</p>
 		</div>
+		
 	</div>
 	<div data-options="region:'east',title:'日历'" style="width: 180px;">
 		<jsp:include page="/admin/index/east.jsp"></jsp:include>

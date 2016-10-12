@@ -67,5 +67,6 @@ function CreateFormPage(strPrintName, printDatagrid) {
 		tableString += '\n</tr>';
 	}
 	tableString += '\n</table>';
-	window.showModalDialog("admin/bbgl/print.html", tableString, "location:No;status:No;help:No;dialogWidth:800px;dialogHeight:600px;scroll:auto;");
+	//showModalDialog
+	window.showModalDialog("/SafeLyun/admin/bbgl/print.html", tableString, "location:No;status:No;help:No;dialogWidth:800px;dialogHeight:600px;scroll:auto;");
 }

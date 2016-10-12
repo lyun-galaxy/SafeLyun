@@ -19,6 +19,7 @@ import com.paly.pageModel.Pro;
 import com.paly.pageModel.Report;
 import com.paly.pageModel.Score;
 import com.paly.service.AdminReportService;
+import com.paly.vo.StudentScore;
 /**
  * 
  * @author Royal
@@ -85,7 +86,7 @@ public class AdminReportController extends AdminBaseController{
 	public void classGatagrid(Report report,HttpServletResponse response) {
 		logger.info(report.getGradeId() + "===" + report.getDepartName() + "===" + report.getProName() + "="
 				+ report.getClassName());
-		List<Score> list = adminReportService.getClassDateList(report.getGradeId(),report.getDepartId(),report.getProId(),report.getClassId());
+		List<StudentScore> list = adminReportService.getClassDateList(report.getGradeId(),report.getDepartId(),report.getProId(),report.getClassId());
 		Datagrid d = new Datagrid();
 		d.setRows(list);
 		d.setTotal((long) list.size());
@@ -122,4 +123,15 @@ public class AdminReportController extends AdminBaseController{
     	
 		super.writeJson(d,response);
     }
+    
+    
+    @RequestMapping("/report/allSpecial.action")
+	public void allSpecial(Report report,HttpServletResponse response) {
+		
+		List<StudentScore> list = adminReportService.getAllSpecial(report.getGradeId(),report.getDepartId(),report.getProId(),report.getClassId());
+		Datagrid d = new Datagrid();
+		d.setRows(list);
+		d.setTotal((long) list.size());
+		super.writeJson(d,response);
+	}
 }
