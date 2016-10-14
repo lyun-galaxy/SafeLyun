@@ -189,7 +189,7 @@
 		</div>
 		<hr>
 		<footer>
-		<p>&copy; 龙岩学院保卫处 & GALAXY团队</p>
+		<p>&copy; 龙岩学院安全工作处 & GALAXY团队</p>
 		</footer>
 	</div>
 	<div class="modal fade bs-example-modal-sm" id="mymodal" tabindex="-1"

@@ -102,7 +102,7 @@ $(document).ready(function(){
 	<div class="data_list">
 		<div class="data_info">
 			<p>
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;考试时间：<strong>20分钟</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;考试时间：<strong>40分钟</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				计时：&nbsp;&nbsp;&nbsp;&nbsp;<font id="useTime"
 					style="font-weight: bold;"></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				剩余时间：&nbsp;&nbsp;&nbsp;&nbsp;<font id="remainTime"
@@ -119,7 +119,7 @@ $(document).ready(function(){
 					method="post">
 					<input type="hidden" name="token" value="${token}" /> 
 					<input type="hidden" name="exam.student.id" value="" /> <input
-						type="hidden" name="exam.paper.id" value="1" /> <strong><big>一，单选题</big></strong>(每题5分，答错不得分)<br />
+						type="hidden" name="exam.paper.id" value="1" /> <strong><big>一，单选题</big></strong>(每题2分，答错不得分)<br />
 					<br />
 					<div id="exam"></div>
 					<button class="btn btn-primary" type="submit">交卷</button>
@@ -127,7 +127,7 @@ $(document).ready(function(){
 				<br>
 				<hr>
 				<footer>
-				<p>&copy; 龙岩学院保卫处 & GALAXY团队</p>
+				<p>&copy; 龙岩学院安全工作处 & GALAXY团队</p>
 				</footer>
 			</div>
 

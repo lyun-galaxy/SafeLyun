@@ -1,4 +1,4 @@
-var examTime=1*60;
+var examTime=40*60;
 	var useTime=0,remainTime=examTime;
 	
 	function showCount(){

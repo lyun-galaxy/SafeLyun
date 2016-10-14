@@ -66,7 +66,7 @@ public class ExamController {
 		User user = (User) session.getAttribute("user");
 		int status = itempoolService.isCanExamByUser(user);
 		if (status == 1) {
-			List<Itempool> choiceList = itempoolService.randomCreateChoiceExams(20);
+			List<Itempool> choiceList = itempoolService.randomCreateChoiceExams(50);
 			// 将考题存入session域中
 			session.setAttribute("correctexams", choiceList);
 			map.put("choiceList", choiceList);
@@ -90,6 +90,9 @@ public class ExamController {
 			float fration = statistics(choiceList, session);
 			// 保存学生成绩
 			saveScore(session, fration);
+		}else{
+			// 保存学生成绩
+			saveScore(session, 0);
 		}
 		// 重定向到成绩界面
 		modelAndView.setViewName("redirect:/client_score/toScoreUI.action");
@@ -140,7 +143,7 @@ public class ExamController {
 			Itempool myChoice = myChoices.get(i);
 			if (correct.getItempoolCorrect().equalsIgnoreCase(myChoice.getItempoolCorrect())) {
 				// TODO 每题的分数
-				fration += 5;
+				fration += 2;
 			}
 		}
 		return fration;
