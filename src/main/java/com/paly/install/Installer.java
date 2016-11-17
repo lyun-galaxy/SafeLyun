@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.paly.domain.Classes;
 import com.paly.domain.Menu;
@@ -181,12 +182,38 @@ public class Installer {
 			userService.setUserHasClasses(admin3.getUserId(), c.getClassesId());
 		}
 	}
+	
+	@Transactional
+	public  void saveTeacher(){
+		saveTeacher("wcxy",1);//文学与传媒学院
+		saveTeacher("wgy",2);//外国语学院
+		saveTeacher("xxgc",3);//信息工程学院
+		saveTeacher("jdgc",4);//机电工程学院
+		saveTeacher("jgxy",5);//经济与管理学院
+		saveTeacher("hcxy",6);//化学与材料学院
+		saveTeacher("tyx",7);//体育系
+		saveTeacher("smkx",8);//生命科学学院 
+		saveTeacher("zygc",9);//资源工程学院
+		saveTeacher("ysx",10);//艺术系 
+		saveTeacher("xykx",11);//教育科学学院 
+		saveTeacher("qmxy",12);//奇迈学院 
+	}
+
+	private  void saveTeacher(String name,Integer departmentId) {
+		User user = new User();
+		user.setUserName(name);
+		user.setUserPassword("123456");
+		user.setDepartmentId(departmentId);
+		userService.save(user);
+		user = userService.getByUsernameAndPassword(user.getUserName(), "123456");
+		userService.setUserHasRole(user.getUserId(),2);
+	}
 
 	public static void main(String[] args) {
 		System.out.println("正在执行安装...");
 		ApplicationContext ac = new ClassPathXmlApplicationContext("classpath:spring/applicationContext-*.xml");
 		Installer installer = (Installer) ac.getBean("installer");
-		installer.install();
+		installer.saveTeacher();
 		System.out.println("== 安装完毕 ==");
 	}
 }

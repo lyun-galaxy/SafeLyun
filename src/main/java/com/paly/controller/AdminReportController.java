@@ -1,24 +1,26 @@
 package com.paly.controller;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.paly.domain.User;
 import com.paly.pageModel.Clasz;
 import com.paly.pageModel.Datagrid;
 import com.paly.pageModel.Depart;
 import com.paly.pageModel.Grade;
 import com.paly.pageModel.Pro;
 import com.paly.pageModel.Report;
-import com.paly.pageModel.Score;
 import com.paly.service.AdminReportService;
+import com.paly.service.UserService;
 import com.paly.vo.StudentScore;
 /**
  * 
@@ -32,7 +34,8 @@ public class AdminReportController extends AdminBaseController{
 	
 	@Resource
 	AdminReportService adminReportService;
-	
+	@Resource
+	private UserService  userService;
 	@RequestMapping("/report/getGradeJson.action")
 	public void getGradeJson(HttpServletResponse response){		
 		List<Grade> l = adminReportService.getGrade();	
@@ -40,8 +43,21 @@ public class AdminReportController extends AdminBaseController{
 	}
 	
     @RequestMapping("/report/getDepartJson.action")
-    public void getDepartJson(HttpServletResponse response){
+    public void getDepartJson(HttpServletResponse response,HttpSession session){
     	List<Depart> lists = adminReportService.getDepart();
+    	//判断当前用户
+    	User user = (User) session.getAttribute("user");
+    	user = userService.getById(user.getUserId());
+    	if(user.getDepartmentId()!=null){
+    		List<Depart> userList = new ArrayList<Depart>();
+    		for (Depart depart : lists) {
+    			if(depart.getDepartId() == user.getDepartmentId()){
+    				userList.add(depart);
+    				break;
+    			}
+			}
+    		super.writeJson(userList,response);
+    	}
 		super.writeJson(lists,response);
     }
     

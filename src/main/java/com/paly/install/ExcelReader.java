@@ -199,7 +199,7 @@ public class ExcelReader {
 
 	@Transactional
 	public void insert() {
-		String file = "C://Users//root//Desktop//student.xls";
+		String file = "/home/user1/Documents/student.xls";
 		List<Map<String, String>> list = readExcelContent(file);
 		Map<String, String> map = null;
 		Map<String, String> department = new HashMap<String, String>();

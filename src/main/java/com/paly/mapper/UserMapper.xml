@@ -5,6 +5,7 @@
     <id column="userId" property="userId" jdbcType="INTEGER" />
     <result column="userName" property="userName" jdbcType="VARCHAR" />
     <result column="userPassword" property="userPassword" jdbcType="VARCHAR" />
+    <result column="department_departmentId" property="departmentId" jdbcType="INTEGER" />
      <!-- property: 指的是集合属性的值, ofType：指的是集合中元素的类型 -->
   	<collection property="roles" ofType="com.paly.domain.Role" select="com.paly.mapper.RoleMapper.getByUserId" column="userId">  		
   	</collection>
@@ -17,25 +18,26 @@
     where userId = #{userId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.paly.domain.User" >
-    insert into user (userId, userName, userPassword
+    insert into user (userId, userName, userPassword,department_departmentId
       )
-    values (#{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR}
+    values (#{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR}, #{departmentId,jdbcType=INTEGER}
       )
   </insert>
 
   <update id="updateByPrimaryKey" parameterType="com.paly.domain.User" >
     update user
     set userName = #{userName,jdbcType=VARCHAR},
-      userPassword = #{userPassword,jdbcType=VARCHAR}
+      userPassword = #{userPassword,jdbcType=VARCHAR},
+     department_departmentId = #{departmentId,jdbcType=INTEGER}
     where userId = #{userId,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select userId, userName, userPassword
+    select userId, userName, userPassword,department_departmentId
     from user
     where userId = #{userId,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select userId, userName, userPassword
+    select userId, userName, userPassword,department_departmentId
     from user
   </select>
 

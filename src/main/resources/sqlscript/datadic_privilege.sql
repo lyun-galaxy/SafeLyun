@@ -346,6 +346,8 @@ CREATE TABLE `user_role` (
 
 insert  into `user_role`(`user_role_id`,`user_userId`,`role_roleId`) values (1,1,3),(2,2,1),(3,3,2);
 
+ALTER TABLE `user` ADD COLUMN `department_departmentId` INT DEFAULT NULL;
+ALTER TABLE `user` ADD CONSTRAINT `fk_user_department1` FOREIGN KEY (`department_departmentId`) REFERENCES `department`(`departmentId`);
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;

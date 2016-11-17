@@ -34,6 +34,8 @@ public class User implements Serializable {
      */
     private List<Classes> classes;       
     
+    private Integer departmentId;
+    
     public User(){}  
 
     /**
@@ -134,5 +136,13 @@ public class User implements Serializable {
 
 	public void setClasses(List<Classes> classes) {
 		this.classes = classes;
+	}
+
+	public Integer getDepartmentId() {
+		return departmentId;
+	}
+
+	public void setDepartmentId(Integer departmentId) {
+		this.departmentId = departmentId;
 	}
 }
